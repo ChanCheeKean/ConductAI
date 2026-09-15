@@ -3,12 +3,12 @@
 Last updated: 2026-09-15
 Repository: `/Users/kean/Dev/ConductAI`
 Branch: `main` (remote `origin` → `github.com/ChanCheeKean/ConductAI`)
-Current phase: **Stage 1 — data foundation: COMPLETE**
-Next stage: **Stage 2 — architecture research** (`docs/prompts/02-implementation-kickoff.md` §4; checkpoint with user)
+Current phase: **Stage 2 — architecture research: COMPLETE; awaiting user checkpoint**
+Next stage: **Stage 3 — architecture design** (`docs/prompts/02-implementation-kickoff.md` §5; proceed after checkpoint)
 
 ## Current objective
 
-Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. It follows the structure, architecture and working method of the sibling project **CatcherAI** (`/Users/kean/Dev/CatcherAI`, "Dispute Observatory"): hand-built hero cases with machine-checkable ground truth inside a realistic synthetic world, a deterministic LangGraph skeleton around Deep Agents, three memory planes, a sandbox, a virtual-clock harness, governance as code instead of human review, and trajectory-first evaluation. The goal is a demo that shows **every** agent capability is load-bearing and that the solution is robust.
+Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. The Stage 2 recommendation is now ready for review: a deterministic LangGraph compliance graph around one lead Deep Agent, selective registered specialists, bounded `Send` fan-out, three governed memory planes, a sandbox and virtual-clock harness, automated governance, and an application-owned event ledger. The next action is the user checkpoint before writing the detailed Stage 3 architecture.
 
 The use case was inspired by an industry GenAI call-monitoring pilot (`docs/reference/reference-program-brief.md`); the problem set, data, cases and implementation are our own.
 
@@ -17,12 +17,12 @@ The use case was inspired by an industry GenAI call-monitoring pilot (`docs/refe
 Read, in order:
 
 1. `handoff.md` (this file).
-2. `docs/prompts/02-implementation-kickoff.md` — Stage 2 architecture-research instructions.
-3. `README.md` — the foundation document (use case, ecosystems, memory, governance rules §8, generation §9, component → scenario §10, target layout §14).
-4. `docs/design/02-case-catalog.md` — the contract for every hero case.
-5. `docs/design/03-data-dictionary.md` — implemented file/field and ground-truth schemas.
-6. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
-7. `docs/research/01-domain-research.md` (+ `docs/research/briefs/`) — what is real vs invented; unverified items.
+2. `docs/design/04-agent-architecture-research.md` — Stage 2 recommendation and decisions to make precise next.
+3. `docs/prompts/02-implementation-kickoff.md` — Stage 3 architecture-design requirements in §5.
+4. `README.md` — the foundation document (use case, ecosystems, memory, governance rules §8, generation §9, component → scenario §10, target layout §14).
+5. `docs/design/02-case-catalog.md` — the contract for every hero case.
+6. `docs/design/03-data-dictionary.md` — implemented file/field and ground-truth schemas.
+7. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
 
 ## What exists now
 
@@ -35,6 +35,7 @@ Read, in order:
 | `docs/research/briefs/ai-methods.md` | Full cited brief: τ²-bench, RIRAG, judge reliability, calibration/abstention, citation grounding, ASR/diarization, vendors, memory, injection, PII, fairness, low-prevalence eval | complete (Sonnet research subagent, reviewed) |
 | `docs/design/02-case-catalog.md` | 23 hero reviews + Q01 sweep; taxonomy; three-outcome model; coverage matrices; failure modes; effective dates; SLA dates; background population | complete (design) |
 | `docs/design/03-data-dictionary.md` | Target data specification | complete (design) |
+| `docs/design/04-agent-architecture-research.md` | Four candidate architectures, current API verification, recommended hybrid/12-role roster, case fit, memory, safety and transparency design | complete; awaiting checkpoint |
 | `docs/prompts/01-data-foundation-kickoff.md` | Stage 1 session prompt | complete |
 | `docs/prompts/02-implementation-kickoff.md` | Stages 2–5 session prompt | complete |
 | `pyproject.toml`, `tests/test_derived.py` | Python 3.11+ stdlib project scaffold and derived-helper tests | complete |
@@ -85,8 +86,8 @@ Prompt: `docs/prompts/01-data-foundation-kickoff.md`.
 Deliverables: `pyproject.toml` (uv), `data/corpus/` via `author_corpus.py` (regulation abridgements, SOPs, glossary v6/v7/v8, scripts, product disclosures, incentive plan, skills), `data/generator/` (world, 23 hero builders, background with transcripts + ASR/diarization noise, planted structures, derived arithmetic, capabilities, memory seed, precedents, on-request artifacts, personas, graph, manifest), `validate.py` (schemas, joins, arithmetic, capability coverage ≥ 3 primary cases each, discoverability, reviewer-baseline calibration, fairness hygiene), `load_sqlite.py` → `data/generated/conduct.sqlite`.
 Acceptance met: `python3 data/generator/gen.py && python3 data/generator/validate.py` passes 377,519 checks; `load_sqlite.py` builds an integrity-clean SQLite database with 55 tables/virtual tables and three FTS5 indexes. Two clean regenerations are byte-identical (digest recorded in Stage history). Catalog facts were preserved; the dictionary and README carry actual counts.
 
-### Stage 2 — Architecture research (implementation phase 1)
-Prompt: `docs/prompts/02-implementation-kickoff.md` §4. Deliverable `docs/design/04-agent-architecture-research.md`; start from CatcherAI's research doc, re-verify framework APIs. **Checkpoint with user.**
+### Stage 2 — Architecture research (implementation phase 1): COMPLETE
+Prompt: `docs/prompts/02-implementation-kickoff.md` §4. Deliverable `docs/design/04-agent-architecture-research.md`: four candidates compared against ConductAI's cases; current OpenAI, Deep Agents, LangGraph, memory, graph/vector, observability, contact-center and safety interfaces re-verified; recommended hybrid and 12-role selective roster documented. **At user checkpoint.**
 
 ### Stage 3 — Architecture design (implementation phase 2)
 Deliverable `docs/design/05-agent-architecture.md` (graph, roster, routes, tools, skills, memory flows, harness, gateway/runtime boundaries, event catalog, governance as code, termination, eval plan, extension guide). **Checkpoint with user.**
@@ -145,3 +146,12 @@ Update: header (date, phase, next stage), "What exists now", any new or changed 
 - Two clean regenerations were byte-identical across every generated non-SQLite file: aggregate SHA-256 `ab157236ad0ae2ffab339ea6ac3d0f59fd02ac4b9e8e015957fc60f02f656bcf`.
 - `load_sqlite.py` built `data/generated/conduct.sqlite` (28,962,816 bytes), SQLite `integrity_check` returned `ok`, and FTS5 indexes cover transcript turns, corpus chunks and documents. The DB is reproducible and git-ignored.
 - Deliberate scope choice: background event/document density is 41,873/6,369 rather than the design's early ~180k/~9k target; this retains the required modalities and discoverability while keeping the POC repository compact. Hero facts and planted population counts did not change.
+
+### 2026-09-15 — Stage 2 architecture research complete
+- Re-read the implementation prompt, foundation, case/data contracts, generated manifest, domain research, and CatcherAI's research/design/evaluation/handoff; evaluator-only and harness-gated data stayed unread.
+- Re-verified current official interfaces for the exact `gpt-5.6-luna` model and Responses API, the stable Python Codex SDK, Deep Agents 0.7.x, LangGraph typed streaming/checkpoints/`Send`/resume semantics, AG-UI, LangSmith, OpenTelemetry, LadybugDB, sqlite-vec, Graphiti and LangMem.
+- Compared four candidate architectures and selected a deterministic LangGraph compliance graph around one lead Deep Agent, with 11 additional registered roles invoked selectively, bounded `Send` fan-out for C11/C12/Q01, and deterministic reducers/gates. Deep Agents async subagents were rejected for the initial POC because their Agent Protocol server control plane conflicts with the local-only requirement.
+- Specified what transfers unchanged from CatcherAI: provider/runtime seams, event envelope, transactional emitter/blob store/hash chain, replay adapters/CLI pattern, instrumentation choke points, resolved configuration, governance-as-code structure and trajectory completeness tests. Dispute logic and outcome semantics do not transfer.
+- Documented the transparency design: application-owned SQLite ledger as source of truth, framework streams/checkpoints as inputs, AG-UI/OTel as outward projections, and conduct-specific transcript, said-vs-did, memory, panel, provenance and Q01 views.
+- Acceptance check: `python3 data/generator/validate.py` remained green at **377,519 checks**; `git diff --check` passed.
+- Corrected the stale README status left from Stage 0. No catalog fact, generated datum, or ground-truth contract changed.

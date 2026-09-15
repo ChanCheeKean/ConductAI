@@ -4,7 +4,7 @@ ConductAI is a proof-of-concept **fully automated agent system that reviews cred
 
 It follows the architecture and working method of its sibling project CatcherAI (Dispute Observatory): a synthetic world with hand-built hero cases and machine-checkable ground truth, a deterministic LangGraph skeleton around adaptive Deep Agents, three memory planes, a sandbox, a virtual-clock harness, automated governance instead of human review, and trajectory-first evaluation.
 
-> **Status: design foundation.** This README, the research and the design documents exist. The data generator, corpus, ground truth and agent runtime do **not** exist yet. See [`handoff.md`](handoff.md) for what to do next.
+> **Status: Stage 2 architecture research complete.** The deterministic data foundation, corpus, ground truth, and architecture recommendation exist; the runtime has not yet been implemented. See [`handoff.md`](handoff.md) for the current checkpoint and next stage.
 
 ## Documents
 
@@ -16,6 +16,7 @@ It follows the architecture and working method of its sibling project CatcherAI 
 | [`docs/research/briefs/`](docs/research/briefs/) | Full cited research briefs behind 01 |
 | [`docs/design/02-case-catalog.md`](docs/design/02-case-catalog.md) | 23 hero reviews + Q01 sweep: what each proves, expected path, ground truth, traps, capability coverage |
 | [`docs/design/03-data-dictionary.md`](docs/design/03-data-dictionary.md) | Every file and field, joins, timestamps, output and ground-truth schemas, deliberate data-quality issues |
+| [`docs/design/04-agent-architecture-research.md`](docs/design/04-agent-architecture-research.md) | Current framework/API research, candidate architectures, recommended hybrid and transparency design |
 | [`docs/prompts/01-data-foundation-kickoff.md`](docs/prompts/01-data-foundation-kickoff.md) | Session prompt: build the corpus, generator, validator and ground truth |
 | [`docs/prompts/02-implementation-kickoff.md`](docs/prompts/02-implementation-kickoff.md) | Session prompt: research, design and implement the agent system |
 
