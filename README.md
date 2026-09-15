@@ -4,7 +4,7 @@ ConductAI is a proof-of-concept **fully automated agent system that reviews cred
 
 It follows the architecture and working method of its sibling project CatcherAI (Dispute Observatory): a synthetic world with hand-built hero cases and machine-checkable ground truth, a deterministic LangGraph skeleton around adaptive Deep Agents, three memory planes, a sandbox, a virtual-clock harness, automated governance instead of human review, and trajectory-first evaluation.
 
-> **Status: Stage 2 architecture research complete.** The deterministic data foundation, corpus, ground truth, and architecture recommendation exist; the runtime has not yet been implemented. See [`handoff.md`](handoff.md) for the current checkpoint and next stage.
+> **Status: Stage 3 architecture design complete.** The deterministic data foundation, corpus, ground truth, research recommendation, and implementation blueprint exist; the runtime has not yet been implemented. See [`handoff.md`](handoff.md) for the current checkpoint and next stage.
 
 ## Documents
 
@@ -17,6 +17,7 @@ It follows the architecture and working method of its sibling project CatcherAI 
 | [`docs/design/02-case-catalog.md`](docs/design/02-case-catalog.md) | 23 hero reviews + Q01 sweep: what each proves, expected path, ground truth, traps, capability coverage |
 | [`docs/design/03-data-dictionary.md`](docs/design/03-data-dictionary.md) | Every file and field, joins, timestamps, output and ground-truth schemas, deliberate data-quality issues |
 | [`docs/design/04-agent-architecture-research.md`](docs/design/04-agent-architecture-research.md) | Current framework/API research, candidate architectures, recommended hybrid and transparency design |
+| [`docs/design/05-agent-architecture.md`](docs/design/05-agent-architecture.md) | Implementation blueprint: graph, roles, routes, tools, memory, harness, governance, event catalog, evaluation and extension contracts |
 | [`docs/prompts/01-data-foundation-kickoff.md`](docs/prompts/01-data-foundation-kickoff.md) | Session prompt: build the corpus, generator, validator and ground truth |
 | [`docs/prompts/02-implementation-kickoff.md`](docs/prompts/02-implementation-kickoff.md) | Session prompt: research, design and implement the agent system |
 

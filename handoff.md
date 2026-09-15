@@ -3,12 +3,12 @@
 Last updated: 2026-09-15
 Repository: `/Users/kean/Dev/ConductAI`
 Branch: `main` (remote `origin` → `github.com/ChanCheeKean/ConductAI`)
-Current phase: **Stage 2 — architecture research: COMPLETE; awaiting user checkpoint**
-Next stage: **Stage 3 — architecture design** (`docs/prompts/02-implementation-kickoff.md` §5; proceed after checkpoint)
+Current phase: **Stage 3 — architecture design: COMPLETE; awaiting user checkpoint**
+Next stage: **Stage 4 — implementation increment 1** (C03/C01 vertical slice; proceed after checkpoint)
 
 ## Current objective
 
-Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. The Stage 2 recommendation is now ready for review: a deterministic LangGraph compliance graph around one lead Deep Agent, selective registered specialists, bounded `Send` fan-out, three governed memory planes, a sandbox and virtual-clock harness, automated governance, and an application-owned event ledger. The next action is the user checkpoint before writing the detailed Stage 3 architecture.
+Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. The Stage 3 blueprint is now ready for review: a deterministic, event-sourced LangGraph compliance workflow around a bounded Deep Agents investigation loop, 12 selectively invoked roles, typed/instrumented tools, three governed memory planes, a restricted compute harness, automated governance, and a complete frontend-ready trajectory contract. The next action is the user checkpoint before implementing the C03/C01 vertical slice.
 
 The use case was inspired by an industry GenAI call-monitoring pilot (`docs/reference/reference-program-brief.md`); the problem set, data, cases and implementation are our own.
 
@@ -17,12 +17,13 @@ The use case was inspired by an industry GenAI call-monitoring pilot (`docs/refe
 Read, in order:
 
 1. `handoff.md` (this file).
-2. `docs/design/04-agent-architecture-research.md` — Stage 2 recommendation and decisions to make precise next.
-3. `docs/prompts/02-implementation-kickoff.md` — Stage 3 architecture-design requirements in §5.
-4. `README.md` — the foundation document (use case, ecosystems, memory, governance rules §8, generation §9, component → scenario §10, target layout §14).
-5. `docs/design/02-case-catalog.md` — the contract for every hero case.
-6. `docs/design/03-data-dictionary.md` — implemented file/field and ground-truth schemas.
-7. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
+2. `docs/design/05-agent-architecture.md` — Stage 3 implementation blueprint and acceptance gates.
+3. `docs/design/04-agent-architecture-research.md` — Stage 2 recommendation and evidence basis.
+4. `docs/prompts/02-implementation-kickoff.md` — Stage 4 incremental implementation requirements in §7.
+5. `README.md` — the foundation document (use case, ecosystems, memory, governance rules §8, generation §9, component → scenario §10, target layout §14).
+6. `docs/design/02-case-catalog.md` — the contract for every hero case.
+7. `docs/design/03-data-dictionary.md` — implemented file/field and ground-truth schemas.
+8. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
 
 ## What exists now
 
@@ -35,7 +36,8 @@ Read, in order:
 | `docs/research/briefs/ai-methods.md` | Full cited brief: τ²-bench, RIRAG, judge reliability, calibration/abstention, citation grounding, ASR/diarization, vendors, memory, injection, PII, fairness, low-prevalence eval | complete (Sonnet research subagent, reviewed) |
 | `docs/design/02-case-catalog.md` | 23 hero reviews + Q01 sweep; taxonomy; three-outcome model; coverage matrices; failure modes; effective dates; SLA dates; background population | complete (design) |
 | `docs/design/03-data-dictionary.md` | Target data specification | complete (design) |
-| `docs/design/04-agent-architecture-research.md` | Four candidate architectures, current API verification, recommended hybrid/12-role roster, case fit, memory, safety and transparency design | complete; awaiting checkpoint |
+| `docs/design/04-agent-architecture-research.md` | Four candidate architectures, current API verification, recommended hybrid/12-role roster, case fit, memory, safety and transparency design | complete |
+| `docs/design/05-agent-architecture.md` | 963-line implementation blueprint: system/dependency boundaries, typed state, Mermaid graph, route/role/skill registries, tools, three memory planes, harness, 79-event v1 trajectory catalog, governance, termination, evaluation and extension guide | complete; awaiting checkpoint |
 | `docs/prompts/01-data-foundation-kickoff.md` | Stage 1 session prompt | complete |
 | `docs/prompts/02-implementation-kickoff.md` | Stages 2–5 session prompt | complete |
 | `pyproject.toml`, `tests/test_derived.py` | Python 3.11+ stdlib project scaffold and derived-helper tests | complete |
@@ -63,6 +65,10 @@ Read, in order:
 | Prevalence and baseline | 3.6% gold misconduct; three legacy reviewers with noise calibrated to the reference program's human numbers; scanner as rules baseline | reference program |
 | Panel trigger rule | (A) severity high + any of {remediation > $250, vulnerability/hardship, rights misinformation, colleague pattern, systemic ≥ 10} **or** (B) computed confidence of an adverse finding in [0.60, 0.85) | design (README §8); C05/C07/C16/C20 intentionally decided without a panel |
 | Target layout | Mirror CatcherAI (`data/corpus`, `data/generator`, `src/{domain,data,tools,memory,runtime,adapters,harness,observability,evaluation,api}`, `config/`, `skills/`) | README §14 |
+| Architecture control split | LangGraph/code owns obligations and deterministic gates; Deep Agents roles own bounded inquiry; domain records cross adapter boundaries; the application ledger is canonical | Stage 3 design |
+| Role policy | 12 registered roles, selectively invoked by route/depth; L1 normally 0–1 role, L4 permits bounded fan-out and independent panel roles | Stage 3 design |
+| Confidence formula | Provisional verifier-based weighted formula (25/20/25/20/10); non-applicable components renormalize; Stage 5 must calibrate it without changing CRM-003's 0.75 policy threshold silently | Stage 3 design |
+| Runtime isolation | Agent/harness/evaluator views are separate; raw SQL/Cypher/filesystem and restricted datasets are inaccessible; local sandbox is POC containment, not a production security boundary | Stage 3 design |
 
 ## Non-negotiable constraints (carry into every stage)
 
@@ -87,10 +93,10 @@ Deliverables: `pyproject.toml` (uv), `data/corpus/` via `author_corpus.py` (regu
 Acceptance met: `python3 data/generator/gen.py && python3 data/generator/validate.py` passes 377,519 checks; `load_sqlite.py` builds an integrity-clean SQLite database with 55 tables/virtual tables and three FTS5 indexes. Two clean regenerations are byte-identical (digest recorded in Stage history). Catalog facts were preserved; the dictionary and README carry actual counts.
 
 ### Stage 2 — Architecture research (implementation phase 1): COMPLETE
-Prompt: `docs/prompts/02-implementation-kickoff.md` §4. Deliverable `docs/design/04-agent-architecture-research.md`: four candidates compared against ConductAI's cases; current OpenAI, Deep Agents, LangGraph, memory, graph/vector, observability, contact-center and safety interfaces re-verified; recommended hybrid and 12-role selective roster documented. **At user checkpoint.**
+Prompt: `docs/prompts/02-implementation-kickoff.md` §4. Deliverable `docs/design/04-agent-architecture-research.md`: four candidates compared against ConductAI's cases; current OpenAI, Deep Agents, LangGraph, memory, graph/vector, observability, contact-center and safety interfaces re-verified; recommended hybrid and 12-role selective roster documented. Checkpoint passed when the user asked to continue on 2026-09-15.
 
-### Stage 3 — Architecture design (implementation phase 2)
-Deliverable `docs/design/05-agent-architecture.md` (graph, roster, routes, tools, skills, memory flows, harness, gateway/runtime boundaries, event catalog, governance as code, termination, eval plan, extension guide). **Checkpoint with user.**
+### Stage 3 — Architecture design (implementation phase 2): COMPLETE
+Deliverable `docs/design/05-agent-architecture.md`: exact system/runtime boundaries, typed state and review file, Mermaid graph, route and 12-role registries, tool schemas, skills, three-plane memory flows, harness/isolation, gateway/runtime protocols, complete v1 event catalog, governance as code, termination, evaluation, contract tests and extension guide. **At user checkpoint.**
 
 ### Stage 4 — Implementation increments (implementation phase 3)
 1. Vertical slice + full trajectory capture: C03, C01.
@@ -120,6 +126,8 @@ Mirror CatcherAI's Dispute Observatory (`docs/prompts/03-…`, `docs/design/07-�
 - **Discoverability vs leakage**: planted patterns must be findable by the intended queries without IDs, naming or `is_hero` giving them away.
 - **Catalog drift**: any fact changed during implementation must be changed in catalog, data dictionary, ground truth and README together.
 - Unverified research items (research §10) must stay out of load-bearing ground truth or be marked.
+- The Stage 3 computed-confidence weights and route budgets are explicit POC starting values, not calibrated production thresholds; Stage 5 must report calibration and threshold sensitivity.
+- The restricted local subprocess is a POC containment control, not a hostile-code boundary; a production deployment needs a container or microVM with the same contract.
 
 ## Mandatory handoff maintenance after every stage
 
@@ -155,3 +163,12 @@ Update: header (date, phase, next stage), "What exists now", any new or changed 
 - Documented the transparency design: application-owned SQLite ledger as source of truth, framework streams/checkpoints as inputs, AG-UI/OTel as outward projections, and conduct-specific transcript, said-vs-did, memory, panel, provenance and Q01 views.
 - Acceptance check: `python3 data/generator/validate.py` remained green at **377,519 checks**; `git diff --check` passed.
 - Corrected the stale README status left from Stage 0. No catalog fact, generated datum, or ground-truth contract changed.
+
+### 2026-09-15 — Stage 3 architecture design complete
+- Converted the recommended hybrid into a 963-line implementation blueprint with a deterministic outer graph, explicit back-edges and waits, bounded C11/C12/Q01 fan-out, typed checkpoint state and a source-cited review-file blackboard.
+- Specified deterministic-first routes, the 12-role selective registry, all 11 authored skills, depth budgets, typed/instrumented read, external-event, computation, action and memory tools, and the model-gateway/agent-runtime replacement seams.
+- Defined persistent, semantic/vector and graph memory interfaces; selective read, write, consolidation and forgetting; bitemporal lifecycle semantics; colleague-only pattern scope; and explicit NetworkX fallback behavior.
+- Defined harness isolation with physically/logically separate agent, simulation and evaluator views; virtual-clock artifact/persona scheduling; latest-safe-time behavior; and denied access to ground truth, `is_hero`, simulation and unreleased artifacts.
+- Enumerated the complete 79-event v1 trajectory union with an example payload, mandatory emitter and frontend consumer for every event; specified hash-chained SQLite persistence, content-addressed blobs, redaction, replay, AG-UI/SSE projection and transparency reconciliation tests.
+- Coded the exact panel predicate, provisional verifier-based confidence formula, independent advocates, conservative defaults, allowed/forbidden action controls, closed termination enum, corrupt-success evaluation rules, capability mapping, extension paths and implementation gates.
+- Acceptance checks: `python3 data/generator/validate.py` remained green at **377,519 checks**; all 3 derived-helper unit tests passed; an architecture-contract check found all required sections, exactly 79 cataloged event types and balanced code fences; `git diff --check` passed. No case fact, generated datum, corpus contract or ground-truth contract changed.
