@@ -48,6 +48,12 @@ def main():
     create_load(conn,"transcript_turns",list(turns[0]),turns); create_load(conn,"transcript_words",list(words[0]),words)
     memories=[json.loads(x) for x in (OUT/"memory_seed"/"agent_memory_notes.jsonl").read_text().splitlines() if x.strip()]
     create_load(conn,"memory_notes",list(memories[0]),memories)
+    precedents=[]
+    for p in sorted((OUT/"precedents").glob("*.md")):
+        meta,body=front(p); precedents.append({**meta,"body":body})
+    create_load(conn,"precedents",list(precedents[0]),precedents)
+    for p in sorted((OUT/"reference").glob("*.csv")):
+        with p.open() as f: r=csv.DictReader(f); create_load(conn,p.stem,r.fieldnames,list(r))
     docs=[]; chunks=[]
     for item in json.load((ROOT/"corpus"/"index.json").open()):
         meta,body=front(ROOT/"corpus"/item["path"]); docs.append({**meta,"path":item["path"],"body":body})
@@ -67,6 +73,8 @@ def main():
       INSERT INTO documents_fts SELECT 'crm_note',note_id,text FROM crm_notes;
       INSERT INTO documents_fts SELECT 'internal_comm',message_id,text FROM internal_comms;
       INSERT INTO documents_fts SELECT 'complaint',complaint_id,text FROM complaint_narratives;
+      CREATE VIRTUAL TABLE precedents_fts USING fts5(precedent_id UNINDEXED, categories UNINDEXED, text);
+      INSERT INTO precedents_fts SELECT precedent_id,categories,body FROM precedents;
     """)
     conn.commit(); conn.execute("PRAGMA wal_checkpoint(TRUNCATE)"); conn.close()
     print(f"Built {DB} ({DB.stat().st_size:,} bytes)")

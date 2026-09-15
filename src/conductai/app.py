@@ -13,6 +13,10 @@ from conductai.harness import ArtifactHarness
 from conductai.observability import EventLedger
 from conductai.runtime.c01_workflow import C01Workflow
 from conductai.runtime.c03_workflow import C03Workflow
+from conductai.runtime.c04_workflow import C04Workflow
+from conductai.runtime.c05_workflow import C05Workflow
+from conductai.runtime.c07b_workflow import C07bWorkflow
+from conductai.runtime.c19_workflow import C19Workflow
 from conductai.runtime.workflow import WorkflowDispatcher
 from conductai.tools import ToolExecutor
 
@@ -37,9 +41,13 @@ def build_runtime(root: Path, run_database: Path) -> tuple[LangGraphRuntime, Eve
     repository = OperationalRepository(root / "data" / "generated" / "conduct.sqlite", ledger)
     tools = ToolExecutor(repository, ledger, harness.request_artifact)
     lead = DeepAgentsLeadAdapter(ledger)
-    workflow = WorkflowDispatcher(
-        C01Workflow(root, config, tools, ledger, lead),
-        C03Workflow(root, config, tools, ledger),
-    )
+    workflow = WorkflowDispatcher({
+        "C01": C01Workflow(root, config, tools, ledger, lead),
+        "C03": C03Workflow(root, config, tools, ledger),
+        "C04": C04Workflow(root, config, tools, ledger),
+        "C05": C05Workflow(root, config, tools, ledger),
+        "C07b": C07bWorkflow(root, config, tools, ledger),
+        "C19": C19Workflow(root, config, tools, ledger),
+    })
     runtime = LangGraphRuntime(root, config, ledger, workflow, run_database, harness)
     return runtime, ledger

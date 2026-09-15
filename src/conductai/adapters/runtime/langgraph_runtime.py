@@ -38,6 +38,8 @@ class GraphState(TypedDict, total=False):
     plan_event_seq: int
     hypothesis_event_seqs: list[int]
     integrity_event_seqs: list[int]
+    gather_event_seqs: list[int]
+    reroute_reason: str
     evidence: dict[str, Any]
     artifact_needed: bool
     artifact_request: dict[str, Any]
@@ -52,12 +54,32 @@ class GraphState(TypedDict, total=False):
     computation_seq: int
     reconcile_event_seq: int
     desktop_offset_s: float
+    waiver_true_utc: str
+    seconds_before_mention: int
+    seconds_before_pitch: int
+    root_cause_changed: bool
+    reroute_event_seqs: list[int]
+    reconcile_event_seqs: list[int]
+    population_count: int
+    excluded_count: int
+    population_colleagues: list[str]
+    population_seqs: list[int]
+    memory_reject_seq: int
+    memory_ops_event_seqs: list[int]
+    memory_read_seq: int
+    firm_offer_displayed: bool
+    firm_offer_valid: bool
+    retrieval_decision_seq: int
+    fee_at_submitted_rate: str
+    fee_at_stated_rate: str
+    remediation_amount: str
     verifier_checks: dict[str, bool]
     verification_seqs: list[int]
     computed_confidence: float
     recovered_transcript_quality: float
     panel_used: bool
     panel_reason: str
+    panel_event_seqs: list[int]
     finding_event_seq: int
     authorized_actions: list[dict[str, Any]]
     memory_event_seq: int
@@ -96,6 +118,7 @@ class LangGraphRuntime:
             "ingest_artifact": self._workflow.ingest_artifact,
             "gather": self._workflow.gather,
             "reconcile": self._workflow.reconcile,
+            "reroute": self._workflow.reroute,
             "preverify": self._workflow.preverify,
             "panel_gate": self._workflow.panel_gate,
             "decide": self._workflow.decide,
@@ -116,7 +139,8 @@ class LangGraphRuntime:
         builder.add_conditional_edges("wait_external", self._fixed_edge("wait_external", "ingest_artifact"))
         builder.add_conditional_edges("ingest_artifact", self._fixed_edge("ingest_artifact", "integrity", back_edge=True))
         builder.add_conditional_edges("gather", self._fixed_edge("gather", "reconcile"))
-        builder.add_conditional_edges("reconcile", self._fixed_edge("reconcile", "preverify"))
+        builder.add_conditional_edges("reconcile", self._reconcile_edge)
+        builder.add_conditional_edges("reroute", self._fixed_edge("reroute", "integrity", back_edge=True))
         builder.add_conditional_edges("preverify", self._fixed_edge("preverify", "panel_gate"))
         builder.add_conditional_edges("panel_gate", self._fixed_edge("panel_gate", "decide"))
         builder.add_conditional_edges("decide", self._fixed_edge("decide", "action"))
@@ -185,6 +209,11 @@ class LangGraphRuntime:
     def _integrity_edge(self, state: GraphState) -> str:
         target = "request_artifact" if state.get("artifact_needed") else "gather"
         self._emit_edge(state, "integrity", target, "artifact_needed", bool(state.get("artifact_needed")), False)
+        return target
+
+    def _reconcile_edge(self, state: GraphState) -> str:
+        target = "reroute" if state.get("root_cause_changed") else "preverify"
+        self._emit_edge(state, "reconcile", target, "root_cause_changed", bool(state.get("root_cause_changed")), False)
         return target
 
     def _emit_edge(

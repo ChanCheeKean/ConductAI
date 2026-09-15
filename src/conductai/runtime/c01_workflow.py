@@ -14,6 +14,7 @@ from conductai.observability.ledger import EventLedger
 from conductai.router import choose_route
 from conductai.runtime.contracts import LeadReviewer, LeadReviewRequest
 from conductai.runtime.deadlines import latest_safe_decision
+from conductai.runtime.support import leaf_paths, node_context
 from conductai.skills import load_skill
 from conductai.tools.executor import ToolExecutor
 
@@ -33,7 +34,7 @@ class C01Workflow:
         facts, used = self.tools.execute(
             "get_route_facts", {"interaction_id": state["interaction_ids"][0]},
             rationale="Build the permitted routing projection from visible operational records",
-            used=state["tool_calls_used"], limit=20, **self._context(state),
+            used=state["tool_calls_used"], limit=20, **node_context(state),
         )
         return {"route_facts": facts, "tool_calls_used": used}
 
@@ -42,7 +43,7 @@ class C01Workflow:
         if route.route_id != "addon_consent_integrity":
             raise RuntimeError("C01 requires the addon_consent_integrity route")
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="router", name="deterministic_first"),
+            **node_context(state), actor=Actor(kind="router", name="deterministic_first"),
             type=EventType.ROUTE_DECISION, summary="Selected add-on consent L2 integrity path",
             payload={"candidates": evaluated, "matched_rule": route.route_id, "method": route.method,
                      **route.model_dump(), "features_used": {
@@ -54,7 +55,7 @@ class C01Workflow:
         for skill in route.skills:
             metadata, digest, path = load_skill(self.root, skill)
             self.ledger.emit(
-                **self._context(state), actor=Actor(kind="agent", name="skill_backend"),
+                **node_context(state), actor=Actor(kind="agent", name="skill_backend"),
                 type=EventType.SKILL_LOADED, summary=f"Loaded {skill} for the selected route",
                 payload={"skill": skill, "version": metadata["version"], "hash": digest,
                          "path": path, "reason": "route"}, refs=[path],
@@ -69,22 +70,22 @@ class C01Workflow:
         transcript, used = self.tools.execute(
             "get_transcript", {"interaction_id": interaction_id},
             rationale="Inspect the decisive consent span with word and channel metadata",
-            used=used, limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=used, limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         enrollments, used = self.tools.execute(
             "get_enrollments", {"interaction_id": interaction_id},
             rationale="Confirm the add-on enrollment that makes the consent span decision-changing",
-            used=used, limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=used, limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         desktop, used = self.tools.execute(
             "get_desktop_events", {"interaction_id": interaction_id},
             rationale="Align the enrollment submission with the spoken consent sequence",
-            used=used, limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=used, limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         decisive = next(turn for turn in transcript if turn["turn_id"] == "t03")
         word_quality = {word["w"]: float(word["conf"]) for word in decisive["words"]}
         assessed = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="subagent", name="transcript_integrity_analyst"),
+            **node_context(state), actor=Actor(kind="subagent", name="transcript_integrity_analyst"),
             type=EventType.TRANSCRIPT_ASSESSED, summary="Found low-confidence polarity words in decisive consent span",
             payload={"interaction_id": interaction_id, "turn_id": "t03", "source": "asr",
                      "word_confidence": word_quality, "minimum_decisive_quality": min(word_quality.values()),
@@ -101,25 +102,25 @@ class C01Workflow:
                 open_question="Did the customer affirmatively consent, or did ASR invert the decisive span?",
                 evidence={"decisive_text": decisive["text"], "word confidence": word_quality,
                           "enrollment": enrollments[0], "desktop_event": desktop[0]},
-            ), **self._lead_context(state),
+            ), run_id=state["run_id"], review_id=state["review_id"], virtual_now=state["virtual_now"],
         )
         if lead_decision.next_action != "request_retranscription":
             raise RuntimeError("C01 lead failed to request decision-changing evidence")
         plan = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
+            **node_context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
             type=EventType.PLAN_CREATED, summary="Created bounded C01 integrity plan",
             payload={**lead_decision.model_dump(mode="json"), "max_replans": state["route"]["budget"]["replans"]},
             refs=[interaction_id, enrollments[0]["enrollment_id"]],
         )
         hypotheses = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
+            **node_context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
             type=EventType.HYPOTHESIS_UPDATED, summary="Opened unauthorized-enrollment and ASR-error hypotheses",
             payload={"hypotheses": lead_decision.hypotheses, "reason": "decisive low-confidence polarity"},
             refs=[f"{interaction_id}:t03", enrollments[0]["enrollment_id"]],
         )
         blob = self.ledger.put_blob(evidence)
         self.ledger.emit(
-            **self._context(state), actor=Actor(kind="graph_node", name="review_file"),
+            **node_context(state), actor=Actor(kind="graph_node", name="review_file"),
             type=EventType.REVIEW_FILE_UPDATED, summary="Added C01 said/did evidence and open hypotheses",
             payload={"path": "evidence_matrix.json", "patch_blob": blob,
                      "columns": ["said", "did", "recorded"]},
@@ -136,7 +137,7 @@ class C01Workflow:
         latest_date = latest_safe_decision(interaction["started_at_utc"], trigger_at)
         respond_by = f"{latest_date}T23:59:59Z"
         computation = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="sandbox", name="latest_safe_decision"),
+            **node_context(state), actor=Actor(kind="sandbox", name="latest_safe_decision"),
             type=EventType.COMPUTATION, summary=f"Computed monitoring deadline {latest_date}",
             payload={"helper": "latest_safe_decision", "inputs": {
                 "interaction_date": interaction["started_at_utc"][:10], "trigger_date": trigger_at[:10],
@@ -150,7 +151,7 @@ class C01Workflow:
                 "kind": "retranscription", "respond_by": respond_by,
                 "idempotency_key": f"{state['review_id']}:RTX-9000101",
             }, rationale="Resolve the outcome-changing low-confidence consent span before the SLA",
-            used=state["tool_calls_used"], limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=state["tool_calls_used"], limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         return {"artifact_request": request, "tool_calls_used": used,
                 "latest_safe_decision": respond_by, "deadline_event_seq": computation.seq}
@@ -158,14 +159,14 @@ class C01Workflow:
     def prepare_wait(self, state: dict[str, Any]) -> dict[str, Any]:
         request = state["artifact_request"]
         update = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="graph_node", name="review_file"),
+            **node_context(state), actor=Actor(kind="graph_node", name="review_file"),
             type=EventType.REVIEW_FILE_UPDATED, summary="Recorded external wait and latest safe decision",
             payload={"path": "deadlines.json", "expected_at": request["expected_at"],
                      "latest_safe_decision": state["latest_safe_decision"],
                      "artifact_id": request["artifact_id"]}, refs=[request["artifact_id"]],
         )
         wait = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="harness", name="virtual_clock"),
+            **node_context(state), actor=Actor(kind="harness", name="virtual_clock"),
             type=EventType.WAIT_SUSPENDED, summary="Suspended only for the requested re-transcription",
             payload={"artifact_id": request["artifact_id"], "until": request["expected_at"],
                      "latest_safe_decision": state["latest_safe_decision"],
@@ -204,7 +205,7 @@ class C01Workflow:
         recovered = state["artifact"]["turns"][0]
         recovered_quality = min(float(word["conf"]) for word in recovered["words"])
         assessed = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="subagent", name="transcript_integrity_analyst"),
+            **node_context(state), actor=Actor(kind="subagent", name="transcript_integrity_analyst"),
             type=EventType.TRANSCRIPT_ASSESSED, summary="Higher-fidelity channel-separated span resolved consent",
             payload={"interaction_id": interaction_id, "turn_id": recovered["turn_id"],
                      "source": "retranscription", "method": state["artifact"]["method"],
@@ -213,14 +214,14 @@ class C01Workflow:
             refs=["RTX-9000101", f"{interaction_id}:{recovered['turn_id']}"],
         )
         contradiction = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
+            **node_context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
             type=EventType.CONTRADICTION_DETECTED, summary="Re-transcription reversed the ASR consent polarity",
             payload={"claim_a": state["evidence"]["asr_decisive_turn"]["text"],
                      "claim_b": recovered["text"], "resolution": "prefer channel-separated human-verified artifact"},
             refs=[f"{interaction_id}:t03", "RTX-9000101"],
         )
         hypothesis = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
+            **node_context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
             type=EventType.HYPOTHESIS_UPDATED, summary="Supported ASR-error hypothesis and rejected unauthorized enrollment",
             payload={"hypotheses": [
                 {"id": "H1", "status": "rejected", "reason": "recovered affirmative consent"},
@@ -238,11 +239,11 @@ class C01Workflow:
         policy, used = self.tools.execute(
             "retrieve_corpus_as_of", {"doc_id": "CLB-SOP-SAL-001", "governing_date": governing_date},
             rationale="Resolve affirmative-consent and disclosure-order rules as of the interaction date",
-            used=state["tool_calls_used"], limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=state["tool_calls_used"], limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         evidence = {**state["evidence"], "policy": policy}
         self.ledger.emit(
-            **self._context(state), actor=Actor(kind="graph_node", name="review_file"),
+            **node_context(state), actor=Actor(kind="graph_node", name="review_file"),
             type=EventType.REVIEW_FILE_UPDATED, summary="Completed C01 said/did/recorded/policy matrix",
             payload={"path": "evidence_matrix.json", "columns": ["said", "did", "recorded", "policy"]},
             refs=["RTX-9000101", state["evidence"]["enrollments"][0]["enrollment_id"], policy["source_id"]],
@@ -259,7 +260,7 @@ class C01Workflow:
         started = datetime.fromisoformat(interaction["started_at_utc"].replace("Z", "+00:00"))
         desktop_offset_s = (desktop_utc - started).total_seconds()
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="graph_node", name="records_reconciler"),
+            **node_context(state), actor=Actor(kind="graph_node", name="records_reconciler"),
             type=EventType.FINDING_UPDATED, summary="Reconciled affirmative consent, prior price disclosure, and in-call enrollment",
             payload={"finding_id": "F1", "status": "no_error_candidate",
                      "consent_before_enrollment": True, "price_before_consent": True,
@@ -283,14 +284,14 @@ class C01Workflow:
             "policy_as_of": policy["version"] == "v4",
         }
         span = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
+            **node_context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
             type=EventType.EVIDENCE_SPAN_VERIFIED, summary="Verified recovered affirmative-consent span",
             payload={"interaction_id": state["interaction_ids"][0], "turn_id": recovered["turn_id"],
                      "quote": recovered["text"], "artifact_id": "RTX-9000101", "valid": checks["retranscription_affirmative"]},
             refs=["RTX-9000101", f"{state['interaction_ids'][0]}:t03"],
         )
         citation = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
+            **node_context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
             type=EventType.CITATION_VERIFIED, summary="Verified SAL-001 v4 governed consent and disclosure order",
             payload={"doc": policy["source_id"], "clauses": ["3.1", "3.2", "4.1"],
                      "governing_date": state["route_facts"]["interaction"]["started_at_utc"][:10],
@@ -299,7 +300,7 @@ class C01Workflow:
         check_seqs = []
         for check_id, passed in checks.items():
             event = self.ledger.emit(
-                **self._context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
+                **node_context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
                 type=EventType.VERIFIER_CHECK, summary=f"{check_id}: {'pass' if passed else 'fail'}",
                 payload={"check_id": check_id, "kind": "C01_L2", "result": "pass" if passed else "fail"},
                 refs=["RTX-9000101", policy["source_id"]],
@@ -309,7 +310,7 @@ class C01Workflow:
             raise RuntimeError("C01 deterministic verifier failed")
         computed_confidence = round(0.25 + 0.20 + 0.25 + 0.20 * state["recovered_transcript_quality"] + 0.10, 4)
         confidence = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="confidence_gate"),
+            **node_context(state), actor=Actor(kind="governance", name="confidence_gate"),
             type=EventType.CONFIDENCE_COMPUTED, summary="Computed confidence after decisive-span recovery",
             payload={"verifier_pass_rate": 1.0, "citation_verification": 1.0,
                      "evidence_coverage": 1.0, "transcript_quality": state["recovered_transcript_quality"],
@@ -329,7 +330,7 @@ class C01Workflow:
 
     def decide(self, state: dict[str, Any]) -> dict[str, Any]:
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="outcome_gate"),
+            **node_context(state), actor=Actor(kind="governance", name="outcome_gate"),
             type=EventType.FINDING_PROPOSED, summary="Proposed no error after recovered affirmative consent",
             payload={"finding_id": "F1", "category": "none", "status": "no_error",
                      "attributable_to": "none"},
@@ -343,7 +344,7 @@ class C01Workflow:
 
     def memory(self, state: dict[str, Any]) -> dict[str, Any]:
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="memory", name="memory_write_gate"),
+            **node_context(state), actor=Actor(kind="memory", name="memory_write_gate"),
             type=EventType.MEMORY_WRITE_SKIPPED,
             summary="Skipped colleague memory because the scanner alert was a cleared ASR error",
             payload={"subject": state["route_facts"]["interaction"]["interaction_id"],
@@ -408,14 +409,14 @@ class C01Workflow:
             "summary_for_record": "No error. Higher-fidelity re-transcription confirms affirmative consent after price disclosure and before enrollment.",
             "customer_letter": None,
         }
-        paths = _leaf_paths(base)
+        paths = leaf_paths(base)
         base["field_provenance"] = {
             path: Provenance(event_seqs=seqs, source_refs=source_refs).model_dump() for path in paths
         }
         assessment = AssessmentRecord.model_validate(base)
         blob = self.ledger.put_blob(assessment.model_dump(mode="json"))
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="graph_node", name="assessment_repository"),
+            **node_context(state), actor=Actor(kind="graph_node", name="assessment_repository"),
             type=EventType.ASSESSMENT_RECORDED, summary="Recorded provenance-complete C01 assessment",
             payload={"assessment_blob": blob, "field_provenance": assessment.field_provenance}, refs=source_refs,
         )
@@ -424,27 +425,3 @@ class C01Workflow:
 
     def termination(self, state: dict[str, Any]) -> dict[str, Any]:
         return {"termination": "assessment_complete", "status": "complete"}
-
-    @staticmethod
-    def _context(state: dict[str, Any]) -> dict[str, Any]:
-        return {"run_id": state["run_id"], "review_id": state["review_id"],
-                "virtual_now": datetime.fromisoformat(state["virtual_now"].replace("Z", "+00:00")).astimezone(UTC)}
-
-    @staticmethod
-    def _lead_context(state: dict[str, Any]) -> dict[str, str]:
-        return {"run_id": state["run_id"], "review_id": state["review_id"],
-                "virtual_now": state["virtual_now"]}
-
-
-def _leaf_paths(value: Any, prefix: str = "") -> list[str]:
-    if isinstance(value, dict):
-        paths: list[str] = []
-        for key, item in value.items():
-            paths.extend(_leaf_paths(item, f"{prefix}.{key}" if prefix else key))
-        return paths
-    if isinstance(value, list):
-        paths = []
-        for index, item in enumerate(value):
-            paths.extend(_leaf_paths(item, f"{prefix}[{index}]"))
-        return paths or [prefix]
-    return [prefix]

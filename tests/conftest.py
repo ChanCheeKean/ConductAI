@@ -31,3 +31,32 @@ def c01_suspended(project_root: Path, tmp_path: Path):
     handle = runtime.start(request)
     list(runtime.run_or_stream(handle))
     return runtime, ledger, handle, path
+
+
+def _run_scenario(project_root: Path, tmp_path: Path, scenario: str):
+    raw = yaml.safe_load((project_root / f"config/scenarios/{scenario}.yaml").read_text())
+    runtime, ledger = build_runtime(project_root, tmp_path / "run.sqlite")
+    request = RunRequest(**{key: raw[key] for key in RunRequest.model_fields})
+    handle = runtime.start(request)
+    list(runtime.run_or_stream(handle))
+    return runtime.result(handle.run_id), ledger, tmp_path / "run.sqlite"
+
+
+@pytest.fixture
+def c07b_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c07b")
+
+
+@pytest.fixture
+def c19_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c19")
+
+
+@pytest.fixture
+def c05_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c05")
+
+
+@pytest.fixture
+def c04_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c04")

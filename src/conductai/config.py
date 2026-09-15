@@ -57,6 +57,7 @@ class RouteOutput(FrozenModel):
     budget: Budget
     roles: tuple[str, ...]
     skills: tuple[str, ...]
+    rationale: str
     action_profile: str | None = None
 
 

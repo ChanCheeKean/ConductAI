@@ -17,6 +17,7 @@ routes:
       budget: {tool_calls: 8, model_input_tokens: 30000, wall_seconds: 90, replans: 0}
       roles: [lead_conduct_reviewer]
       skills: [credit-line-increase]
+      rationale: "Actual SOFT inquiry and request facts make the scanner assurance a deterministic L1 check."
   - id: addon_consent_integrity
     priority: 20
     match:
@@ -31,6 +32,65 @@ routes:
       budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 1}
       roles: [lead_conduct_reviewer, transcript_integrity_analyst]
       skills: [add-on-consent]
+      rationale: "An add-on enrollment and consent-negative scanner span require an L2 integrity review."
+  - id: conditioned_servicing_event_time
+    priority: 30
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: fee_reversal_event_present, op: eq, value: true}
+        - {fact: addon_enrollment_present, op: eq, value: true}
+    output:
+      track: servicing
+      depth: L2
+      path: integrity_direct
+      budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 1}
+      roles: [lead_conduct_reviewer, desktop_records_reconciler]
+      skills: []
+      rationale: "A fee waiver near an add-on offer requires event-time reconciliation across desktop and transcript clocks."
+  - id: balance_transfer_disclosure
+    priority: 40
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: balance_transfer_offer_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L3
+      path: integrity_direct
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 2}
+      roles: [lead_conduct_reviewer, policy_analyst, verifier]
+      skills: [balance-transfer-disclosure]
+      rationale: "A balance-transfer submission requires reconciling what was said, offered, and billed against the disclosure rule and a candidate precedent."
+  - id: cli_prescreened_assurance
+    priority: 50
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: prescreened_cli_offer_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L2
+      path: integrity_direct
+      budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 1}
+      roles: [lead_conduct_reviewer, policy_analyst]
+      skills: [memory-hygiene]
+      rationale: "A pre-approved assurance on a firm offer requires checking consolidated memory against the glossary in force."
+  - id: cli_script_root_cause
+    priority: 60
+    match:
+      all:
+        - {field: trigger.type, op: eq, value: complaint}
+        - {fact: inquiry_type, op: eq, value: HARD}
+        - {fact: script_credit_score_assurance_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L4
+      path: integrity_direct
+      budget: {tool_calls: 100, model_input_tokens: 450000, wall_seconds: 900, replans: 3}
+      roles: [lead_conduct_reviewer, policy_analyst, population_pattern_analyst, customer_advocate, colleague_advocate, adjudicator, verifier]
+      skills: [credit-line-increase, memory-hygiene]
+      rationale: "A credit-score complaint against a script sentence that contradicts the current CLI policy requires root-cause attribution and a systemic population check."
   - id: mixed_ambiguous_l4
     priority: 10000
     match: {fallback: true}
@@ -42,3 +102,4 @@ routes:
       action_profile: restricted_ambiguous
       roles: [lead_conduct_reviewer, policy_analyst, verifier]
       skills: []
+      rationale: "No complete deterministic rule matched; falling back to the restricted, fully verified mixed-ambiguous path."

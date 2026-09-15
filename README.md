@@ -4,7 +4,7 @@ ConductAI is a proof-of-concept **fully automated agent system that reviews cred
 
 It follows the architecture and working method of its sibling project CatcherAI (Dispute Observatory): a synthetic world with hand-built hero cases and machine-checkable ground truth, a deterministic LangGraph skeleton around adaptive Deep Agents, three memory planes, a sandbox, a virtual-clock harness, automated governance instead of human review, and trajectory-first evaluation.
 
-> **Status: Stage 4B C01 wait/resume complete.** C03 still proves the deterministic L1 path. C01 now runs a bounded Deep Agents lead, detects an outcome-changing low-confidence consent span, requests a private re-transcription, durably suspends in LangGraph, advances the harness clock by four hours, resumes from SQLite after a process rebuild, verifies the recovered consent, and clears the false positive with complete trajectory and field provenance. Stage 4C temporal evidence is next. See [`handoff.md`](handoff.md) for the current checkpoint.
+> **Status: Stage 4C temporal evidence, reconciliation, and re-plan complete.** C03 proves the deterministic L1 path and C01 proves Deep Agents wait/resume. C05 reconciles what was said against what was actually submitted and billed for a balance transfer, computes the fee difference deterministically, and distinguishes a look-alike precedent. C07b reconciles a workstation's skewed clock against the transcript to clear a waiver that preceded the pitch it was accused of buying. C19 verifies a heavily accessed consolidated memory note against the glossary version in force and supersedes it. C04 discovers mid-investigation that a colleague's script assurance — not the colleague — contradicts the current CLI policy, takes a real graph re-plan back-edge to expand scope to a systemic population, and reaches a panel-adjudicated control-gap finding. Stage 4D graph memory and cross-channel specialists is next. See [`handoff.md`](handoff.md) for the current checkpoint.
 
 ## Run the implemented slice
 
@@ -12,12 +12,16 @@ It follows the architecture and working method of its sibling project CatcherAI 
 uv sync
 uv run conductai run C03
 uv run conductai run C01
+uv run conductai run C05
+uv run conductai run C07b
+uv run conductai run C19
+uv run conductai run C04
 uv run conductai replay <run-id>
 uv run conductai replay <run-id> --assessment
 uv run pytest -q
 ```
 
-The default run ledger is `data/generated/runs.sqlite` and is git-ignored. C03 is deliberately deterministic and makes no model call. C01 invokes a real Deep Agents graph with a deterministic offline lead model so its wait/resume acceptance trajectory is reproducible and credential-free. `config/models.yaml` still resolves OpenAI `gpt-5.6-luna` through the provider-neutral Responses adapter, which has offline contract coverage; a real API smoke test has not yet been run and requires `OPENAI_API_KEY` from the environment.
+The default run ledger is `data/generated/runs.sqlite` and is git-ignored. C03 is deliberately deterministic and makes no model call. C01 invokes a real Deep Agents graph with a deterministic offline lead model so its wait/resume acceptance trajectory is reproducible and credential-free. C05, C07b, C19 and C04 are deterministic like C03: no model call, no external wait. `config/models.yaml` still resolves OpenAI `gpt-5.6-luna` through the provider-neutral Responses adapter, which has offline contract coverage; a real API smoke test has not yet been run and requires `OPENAI_API_KEY` from the environment.
 
 ## Documents
 
@@ -234,7 +238,7 @@ Customer ─HOLDS→ Account
 | **Retract** | a background note derived from a precedent later marked wrong | retract with correction note |
 | **Consolidate** | MEM-0341–0343 + C11 findings → one colleague pattern note; five T-SAT-2 observations → one material note (C12); MEM-0351–0356 re-consolidated under v7 (C19) | one validity-bounded note with sources; archive raw notes |
 | **Purge** | MEM-0396 age-based upgrade rule (C14) | purge content, keep tombstone |
-| **Skip (deliberate non-write)** | C01, C03, C10, C11b | `memory_write_skipped` with reason |
+| **Skip (deliberate non-write)** | C01, C03, C05, C07b, C10, C11b | `memory_write_skipped` with reason |
 | **Expire / dedupe** | tool-timeout noise and duplicate notes in the seed | TTL removal; archive duplicate |
 | **Graph write** | colleague pattern (C11); material usage (C12) | hypothesis nodes/edges with evidence and `status=active`; bounded actions only |
 
@@ -485,7 +489,7 @@ Where behavior **emerges** rather than being scripted: the order of evidence gat
 
 ## 14. Target repository layout
 
-Mirrors CatcherAI so patterns, tests and tooling transfer. Stages 4A–4B implement the runtime/config/data/tool/observability foundation, the C03 deterministic path, and C01's Deep Agents + harness wait/resume path; later entries remain target structure.
+Mirrors CatcherAI so patterns, tests and tooling transfer. Stages 4A–4C implement the runtime/config/data/tool/observability foundation, the C03 deterministic path, C01's Deep Agents + harness wait/resume path, and C05/C07b/C19/C04's as-of retrieval, reconciliation, sandbox arithmetic, verifier and re-plan/panel paths; later entries remain target structure.
 
 ```
 ConductAI/

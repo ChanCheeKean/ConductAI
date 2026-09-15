@@ -32,6 +32,52 @@ class CorpusArgs(ToolArgs):
     governing_date: str
 
 
+class AccountArgs(ToolArgs):
+    account_id: str
+
+
+class ComplaintArgs(ToolArgs):
+    complaint_id: str
+
+
+class MemoryNoteArgs(ToolArgs):
+    note_id: str
+
+
+class ScannerRuleArgs(ToolArgs):
+    rule_id: str
+
+
+class WorkstationClockOffsetArgs(ToolArgs):
+    workstation_id: str
+
+
+class PrecedentArgs(ToolArgs):
+    precedent_id: str
+
+
+class SearchPrecedentsArgs(ToolArgs):
+    query: str
+    as_of: str
+    category: str | None = None
+    top_k: int = 20
+
+
+class SearchTranscriptsArgs(ToolArgs):
+    query: str
+    speaker: Literal["customer", "colleague"] | None = None
+    from_at: str | None = None
+    to_at: str | None = None
+    top_k: int = 40
+
+
+class RunRegisteredQueryArgs(ToolArgs):
+    query_id: str
+    parameters: dict[str, Any] = {}
+    as_of: str
+    row_limit: int = 1000
+
+
 class RequestArtifactArgs(ToolArgs):
     artifact_id: str
     interaction_id: str
@@ -57,6 +103,16 @@ class ToolExecutor:
             "get_credit_line_request": (InteractionArgs, repository.credit_request),
             "get_bureau_inquiry": (InquiryArgs, repository.bureau_inquiry),
             "retrieve_corpus_as_of": (CorpusArgs, repository.corpus_as_of),
+            "get_offers": (InteractionArgs, repository.offers),
+            "get_fee_ledger": (AccountArgs, repository.fee_ledger_for_account),
+            "get_complaint": (ComplaintArgs, repository.complaint),
+            "get_memory_note": (MemoryNoteArgs, repository.memory_note),
+            "get_scanner_rule": (ScannerRuleArgs, repository.scanner_rule),
+            "get_workstation_clock_offset": (WorkstationClockOffsetArgs, repository.workstation_clock_offset),
+            "get_precedent": (PrecedentArgs, repository.precedent),
+            "search_precedents": (SearchPrecedentsArgs, repository.search_precedents),
+            "search_transcripts": (SearchTranscriptsArgs, repository.search_transcripts),
+            "run_registered_query": (RunRegisteredQueryArgs, repository.run_registered_query),
         }
         if request_artifact is not None:
             self._tools["request_artifact"] = (RequestArtifactArgs, request_artifact)
@@ -134,7 +190,8 @@ def _source_refs(value: Any) -> list[str]:
             continue
         for key in (
             "interaction_id", "turn_id", "credit_request_id", "inquiry_id", "doc_id",
-            "enrollment_id", "event_id", "artifact_id",
+            "enrollment_id", "event_id", "artifact_id", "offer_instance_id", "ledger_id",
+            "complaint_id", "note_id", "rule_id", "precedent_id", "workstation_id",
         ):
             if key in row and row[key] not in refs:
                 refs.append(str(row[key]))

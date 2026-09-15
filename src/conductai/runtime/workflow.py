@@ -4,13 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from conductai.runtime.c01_workflow import C01Workflow
-from conductai.runtime.c03_workflow import C03Workflow
-
 
 class WorkflowDispatcher:
-    def __init__(self, c01: C01Workflow, c03: C03Workflow) -> None:
-        self._workflows = {"C01": c01, "C03": c03}
+    def __init__(self, workflows: dict[str, Any]) -> None:
+        self._workflows = workflows
 
     def _workflow(self, state: dict[str, Any]) -> Any:
         try:

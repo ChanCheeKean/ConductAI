@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +10,7 @@ from conductai.domain.models import Actor, AssessmentRecord, Finding, Provenance
 from conductai.observability.events import EventType
 from conductai.observability.ledger import EventLedger
 from conductai.router import choose_route
+from conductai.runtime.support import leaf_paths, node_context
 from conductai.skills import load_skill
 from conductai.tools.executor import ToolExecutor
 
@@ -28,14 +28,14 @@ class C03Workflow:
         facts, used = self.tools.execute(
             "get_route_facts", {"interaction_id": state["interaction_ids"][0]},
             rationale="Build the permitted routing projection from visible operational records",
-            used=state["tool_calls_used"], limit=8, **self._context(state),
+            used=state["tool_calls_used"], limit=8, **node_context(state),
         )
         return {"route_facts": facts, "tool_calls_used": used}
 
     def route(self, state: dict[str, Any]) -> dict[str, Any]:
         route, evaluated = choose_route(self.config.routes, state["trigger"], state["route_facts"])
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="router", name="deterministic_first"),
+            **node_context(state), actor=Actor(kind="router", name="deterministic_first"),
             type=EventType.ROUTE_DECISION, summary=f"Selected {route.route_id} at {route.depth}",
             payload={"candidates": evaluated, "matched_rule": route.route_id, "method": route.method,
                      **route.model_dump(), "features_used": {
@@ -49,7 +49,7 @@ class C03Workflow:
         for skill in route.skills:
             metadata, digest, path = load_skill(self.root, skill)
             self.ledger.emit(
-                **self._context(state), actor=Actor(kind="agent", name="skill_backend"),
+                **node_context(state), actor=Actor(kind="agent", name="skill_backend"),
                 type=EventType.SKILL_LOADED, summary=f"Loaded {skill} for the selected route",
                 payload={"skill": skill, "version": metadata["version"], "hash": digest,
                          "path": path, "reason": "route"}, refs=[path],
@@ -61,7 +61,7 @@ class C03Workflow:
             "stop if all decisive facts agree",
         ]
         self.ledger.emit(
-            **self._context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
+            **node_context(state), actor=Actor(kind="agent", name="lead_conduct_reviewer"),
             type=EventType.PLAN_CREATED, summary="Created the bounded L1 verification plan",
             payload={"steps": plan, "max_replans": route.budget.replans}, refs=[state["interaction_ids"][0]],
         )
@@ -73,23 +73,23 @@ class C03Workflow:
         transcript, used = self.tools.execute(
             "get_transcript", {"interaction_id": interaction_id},
             rationale="Verify the scanner-matched assurance against the source turn",
-            used=used, limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=used, limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         request, used = self.tools.execute(
             "get_credit_line_request", {"interaction_id": interaction_id},
             rationale="Read the request amount, tenure, and applied policy",
-            used=used, limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=used, limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         inquiry, used = self.tools.execute(
             "get_bureau_inquiry", {"credit_request_id": request["credit_request_id"]},
             rationale="Confirm the inquiry that actually occurred",
-            used=used, limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=used, limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         governing_date = state["route_facts"]["interaction"]["started_at_utc"][:10]
         policy, used = self.tools.execute(
             "retrieve_corpus_as_of", {"doc_id": "CLB-POL-CLI", "governing_date": governing_date},
             rationale="Resolve the CLI inquiry rule as of the interaction date",
-            used=used, limit=state["route"]["budget"]["tool_calls"], **self._context(state),
+            used=used, limit=state["route"]["budget"]["tool_calls"], **node_context(state),
         )
         decisive = next(turn for turn in transcript if "affect your credit score" in turn["text"])
         evidence = {
@@ -98,7 +98,7 @@ class C03Workflow:
         }
         blob = self.ledger.put_blob(evidence)
         self.ledger.emit(
-            **self._context(state), actor=Actor(kind="graph_node", name="review_file"),
+            **node_context(state), actor=Actor(kind="graph_node", name="review_file"),
             type=EventType.REVIEW_FILE_UPDATED, summary="Added decisive C03 evidence to the review file",
             payload={"path": "evidence_matrix.json", "patch_blob": blob,
                      "columns": ["said", "recorded", "policy"]},
@@ -112,7 +112,7 @@ class C03Workflow:
         request = evidence["credit_request"]
         expected = "HARD" if int(request["tenure_months_at_request"]) < 12 or int(request["requested_increase"]) > 5000 else "SOFT"
         computation = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="sandbox", name="cli_inquiry_rule"),
+            **node_context(state), actor=Actor(kind="sandbox", name="cli_inquiry_rule"),
             type=EventType.COMPUTATION, summary=f"CLI rule computed expected inquiry type {expected}",
             payload={"helper": "cli_inquiry_type", "inputs": {
                 "tenure_months": int(request["tenure_months_at_request"]),
@@ -130,7 +130,7 @@ class C03Workflow:
         quote = "Requesting an increase won't affect your credit score."
         quote_ok = quote in turn["text"]
         span_event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
+            **node_context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
             type=EventType.EVIDENCE_SPAN_VERIFIED, summary="Verified the exact assurance in the source turn",
             payload={"interaction_id": turn["interaction_id"], "turn_id": turn["turn_id"],
                      "quote": quote, "substring_match": quote_ok},
@@ -139,7 +139,7 @@ class C03Workflow:
         policy = evidence["policy"]
         policy_ok = policy["version"] == "v6" and policy["effective_from"] <= "2026-11-10"
         citation_event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
+            **node_context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
             type=EventType.CITATION_VERIFIED, summary="Verified CLI v6 governed the interaction",
             payload={"doc": policy["source_id"], "clause": "2.1", "governing_date": "2026-11-10",
                      "valid": policy_ok}, refs=[policy["source_id"]],
@@ -153,7 +153,7 @@ class C03Workflow:
         check_events: list[int] = []
         for check_id, passed in checks.items():
             event = self.ledger.emit(
-                **self._context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
+                **node_context(state), actor=Actor(kind="governance", name="deterministic_verifier"),
                 type=EventType.VERIFIER_CHECK, summary=f"{check_id}: {'pass' if passed else 'fail'}",
                 payload={"check_id": check_id, "kind": "C03_L1", "result": "pass" if passed else "fail"},
                 refs=[turn["interaction_id"], policy["source_id"], evidence["inquiry"]["inquiry_id"]],
@@ -162,7 +162,7 @@ class C03Workflow:
         if not all(checks.values()):
             raise RuntimeError("C03 deterministic verifier failed")
         confidence = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="confidence_gate"),
+            **node_context(state), actor=Actor(kind="governance", name="confidence_gate"),
             type=EventType.CONFIDENCE_COMPUTED, summary="Computed confidence from passed deterministic checks",
             payload={"verifier_pass_rate": 1.0, "citation_verification": 1.0,
                      "evidence_coverage": 1.0, "transcript_quality": 1.0,
@@ -177,7 +177,7 @@ class C03Workflow:
     def decide(self, state: dict[str, Any]) -> dict[str, Any]:
         evidence = state["evidence"]
         finding_event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="governance", name="outcome_gate"),
+            **node_context(state), actor=Actor(kind="governance", name="outcome_gate"),
             type=EventType.FINDING_PROPOSED, summary="Proposed no error because the assurance was accurate",
             payload={"finding_id": "F1", "category": "none", "status": "no_error",
                      "attributable_to": "none"},
@@ -191,7 +191,7 @@ class C03Workflow:
 
     def memory(self, state: dict[str, Any]) -> dict[str, Any]:
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="memory", name="memory_write_gate"),
+            **node_context(state), actor=Actor(kind="memory", name="memory_write_gate"),
             type=EventType.MEMORY_WRITE_SKIPPED,
             summary="Skipped memory write for an accurate case-local statement",
             payload={"subject": state["route_facts"]["interaction"]["interaction_id"],
@@ -243,13 +243,13 @@ class C03Workflow:
             "summary_for_record": "No error. The request qualified for a soft inquiry and the bureau record confirms one occurred.",
             "customer_letter": None,
         }
-        paths = _leaf_paths(base)
+        paths = leaf_paths(base)
         base["field_provenance"] = {path: Provenance(event_seqs=seqs, source_refs=source_refs).model_dump()
                                     for path in paths}
         assessment = AssessmentRecord.model_validate(base)
         blob = self.ledger.put_blob(assessment.model_dump(mode="json"))
         event = self.ledger.emit(
-            **self._context(state), actor=Actor(kind="graph_node", name="assessment_repository"),
+            **node_context(state), actor=Actor(kind="graph_node", name="assessment_repository"),
             type=EventType.ASSESSMENT_RECORDED, summary="Recorded provenance-complete C03 assessment",
             payload={"assessment_blob": blob, "field_provenance": assessment.field_provenance}, refs=source_refs,
         )
@@ -258,22 +258,3 @@ class C03Workflow:
 
     def termination(self, state: dict[str, Any]) -> dict[str, Any]:
         return {"termination": "assessment_complete", "status": "complete"}
-
-    @staticmethod
-    def _context(state: dict[str, Any]) -> dict[str, Any]:
-        return {"run_id": state["run_id"], "review_id": state["review_id"],
-                "virtual_now": datetime.fromisoformat(state["virtual_now"].replace("Z", "+00:00")).astimezone(UTC)}
-
-
-def _leaf_paths(value: Any, prefix: str = "") -> list[str]:
-    if isinstance(value, dict):
-        paths: list[str] = []
-        for key, item in value.items():
-            paths.extend(_leaf_paths(item, f"{prefix}.{key}" if prefix else key))
-        return paths
-    if isinstance(value, list):
-        paths = []
-        for index, item in enumerate(value):
-            paths.extend(_leaf_paths(item, f"{prefix}[{index}]"))
-        return paths or [prefix]
-    return [prefix]

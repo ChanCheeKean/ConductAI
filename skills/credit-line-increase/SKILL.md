@@ -1,7 +1,7 @@
 ---
 name: "credit-line-increase"
 description: "Review CLI inquiry disclosure and ability to pay"
-routes: ["cli_soft_pull_clean", "cli_assurance"]
+routes: ["cli_soft_pull_clean", "cli_assurance", "cli_script_root_cause"]
 version: "1.0"
 ---
 # Review CLI inquiry disclosure and ability to pay
