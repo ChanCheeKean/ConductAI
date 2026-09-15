@@ -5,7 +5,7 @@ from __future__ import annotations
 import time
 import uuid
 from datetime import datetime
-from typing import Any, Callable
+from typing import Any, Callable, Literal
 
 from pydantic import BaseModel, ConfigDict
 
@@ -32,19 +32,34 @@ class CorpusArgs(ToolArgs):
     governing_date: str
 
 
+class RequestArtifactArgs(ToolArgs):
+    artifact_id: str
+    interaction_id: str
+    kind: Literal["retranscription", "audio_recovery", "colleague_statement"]
+    respond_by: str
+    idempotency_key: str
+
+
 class ToolExecutor:
     """No repository operation is reachable as an agent tool without paired events."""
 
-    def __init__(self, repository: OperationalRepository, ledger: EventLedger) -> None:
+    def __init__(
+        self, repository: OperationalRepository, ledger: EventLedger,
+        request_artifact: Callable[..., Any] | None = None,
+    ) -> None:
         self._repository = repository
         self._ledger = ledger
         self._tools: dict[str, tuple[type[ToolArgs], Callable[..., Any]]] = {
             "get_route_facts": (InteractionArgs, repository.route_facts),
             "get_transcript": (InteractionArgs, repository.transcript),
+            "get_enrollments": (InteractionArgs, repository.enrollments),
+            "get_desktop_events": (InteractionArgs, repository.desktop_events),
             "get_credit_line_request": (InteractionArgs, repository.credit_request),
             "get_bureau_inquiry": (InquiryArgs, repository.bureau_inquiry),
             "retrieve_corpus_as_of": (CorpusArgs, repository.corpus_as_of),
         }
+        if request_artifact is not None:
+            self._tools["request_artifact"] = (RequestArtifactArgs, request_artifact)
 
     @property
     def schemas(self) -> dict[str, dict[str, Any]]:
@@ -117,7 +132,10 @@ def _source_refs(value: Any) -> list[str]:
         if "source_id" in row:
             refs.append(str(row["source_id"]))
             continue
-        for key in ("interaction_id", "turn_id", "credit_request_id", "inquiry_id", "doc_id"):
+        for key in (
+            "interaction_id", "turn_id", "credit_request_id", "inquiry_id", "doc_id",
+            "enrollment_id", "event_id", "artifact_id",
+        ):
             if key in row and row[key] not in refs:
                 refs.append(str(row[key]))
         for nested in row.values():

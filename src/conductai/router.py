@@ -13,6 +13,8 @@ def choose_route(config: RoutesConfig, trigger: dict[str, Any], facts: dict[str,
         "trigger.type": trigger.get("type"),
         "credit_line_request_present": facts.get("credit_line_request_present"),
         "inquiry_type": facts.get("inquiry_type"),
+        "addon_enrollment_present": facts.get("addon_enrollment_present"),
+        "transcript_integrity_review_needed": facts.get("transcript_integrity_review_needed"),
     }
     evaluated: list[dict[str, Any]] = []
     chosen = None
@@ -36,8 +38,13 @@ def choose_route(config: RoutesConfig, trigger: dict[str, Any], facts: dict[str,
         track=chosen.output.track, channel=interaction["channel"], language=language,
         depth=chosen.output.depth, path=chosen.output.path, budget=chosen.output.budget,
         roles=chosen.output.roles, skills=chosen.output.skills,
-        rationale="Actual SOFT inquiry and request facts make the scanner assurance a deterministic L1 check."
-        if chosen.id == "cli_soft_pull_clean" else "No complete deterministic rule matched.",
+        rationale=(
+            "Actual SOFT inquiry and request facts make the scanner assurance a deterministic L1 check."
+            if chosen.id == "cli_soft_pull_clean"
+            else "An add-on enrollment and consent-negative scanner span require an L2 integrity review."
+            if chosen.id == "addon_consent_integrity"
+            else "No complete deterministic rule matched."
+        ),
     )
     return decision, evaluated
 

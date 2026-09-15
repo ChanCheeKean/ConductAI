@@ -44,6 +44,8 @@ def main() -> None:
         runtime, _ = build_runtime(root, ledger_path)
         handle = runtime.start(request)
         list(runtime.run_or_stream(handle))
+        while runtime.result(handle.run_id).status == "suspended":
+            list(runtime.resume(handle.run_id))
         print(runtime.result(handle.run_id).model_dump_json(indent=2))
         return
     if args.assessment:

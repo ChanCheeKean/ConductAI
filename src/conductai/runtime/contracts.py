@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import AsyncIterator, Iterator
-from typing import Any, Protocol
+from typing import Any, Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -28,6 +28,29 @@ class ModelRequest(RuntimeModel):
 class ModelStreamEvent(RuntimeModel):
     kind: str
     payload: dict[str, Any]
+
+
+class LeadReviewRequest(RuntimeModel):
+    review_id: str
+    interaction_id: str
+    route_id: str
+    open_question: str
+    evidence: dict[str, Any]
+
+
+class LeadReviewDecision(RuntimeModel):
+    plan: list[str]
+    hypotheses: list[dict[str, Any]]
+    next_action: Literal["request_retranscription", "continue", "stop"]
+    rationale: str
+    expected_outcome_impact: str
+    stop_condition: str
+
+
+class LeadReviewer(Protocol):
+    def investigate(
+        self, request: LeadReviewRequest, *, run_id: str, review_id: str, virtual_now: str,
+    ) -> LeadReviewDecision: ...
 
 
 class ModelGateway(Protocol):
@@ -58,5 +81,6 @@ class RuntimeEvent(RuntimeModel):
 class AgentRuntime(Protocol):
     def start(self, request: RunRequest) -> RunHandle: ...
     def run_or_stream(self, handle: RunHandle) -> Iterator[RuntimeEvent]: ...
+    def resume(self, run_id: str) -> Iterator[RuntimeEvent]: ...
     def result(self, run_id: str) -> RunResult: ...
     def cancel(self, run_id: str, reason: str) -> None: ...

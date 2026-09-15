@@ -4,19 +4,20 @@ ConductAI is a proof-of-concept **fully automated agent system that reviews cred
 
 It follows the architecture and working method of its sibling project CatcherAI (Dispute Observatory): a synthetic world with hand-built hero cases and machine-checkable ground truth, a deterministic LangGraph skeleton around adaptive Deep Agents, three memory planes, a sandbox, a virtual-clock harness, automated governance instead of human review, and trajectory-first evaluation.
 
-> **Status: Stage 4A runtime foundation complete.** The C03 L1 vertical slice runs end to end through a real LangGraph workflow with guarded operational data, typed tools, deterministic routing, as-of policy retrieval, verification, a hash-chained event ledger, field-level provenance, SQLite checkpoints and replay. C01 durable wait/resume is next. See [`handoff.md`](handoff.md) for the current checkpoint.
+> **Status: Stage 4B C01 wait/resume complete.** C03 still proves the deterministic L1 path. C01 now runs a bounded Deep Agents lead, detects an outcome-changing low-confidence consent span, requests a private re-transcription, durably suspends in LangGraph, advances the harness clock by four hours, resumes from SQLite after a process rebuild, verifies the recovered consent, and clears the false positive with complete trajectory and field provenance. Stage 4C temporal evidence is next. See [`handoff.md`](handoff.md) for the current checkpoint.
 
 ## Run the implemented slice
 
 ```bash
 uv sync
 uv run conductai run C03
+uv run conductai run C01
 uv run conductai replay <run-id>
 uv run conductai replay <run-id> --assessment
 uv run pytest -q
 ```
 
-The default run ledger is `data/generated/runs.sqlite` and is git-ignored. `config/models.yaml` resolves OpenAI `gpt-5.6-luna` through the Responses adapter, but C03 is deliberately deterministic and makes no model call. The fake gateway provides offline contract tests; a real API smoke test is opt-in and requires `OPENAI_API_KEY` from the environment.
+The default run ledger is `data/generated/runs.sqlite` and is git-ignored. C03 is deliberately deterministic and makes no model call. C01 invokes a real Deep Agents graph with a deterministic offline lead model so its wait/resume acceptance trajectory is reproducible and credential-free. `config/models.yaml` still resolves OpenAI `gpt-5.6-luna` through the provider-neutral Responses adapter, which has offline contract coverage; a real API smoke test has not yet been run and requires `OPENAI_API_KEY` from the environment.
 
 ## Documents
 
@@ -484,7 +485,7 @@ Where behavior **emerges** rather than being scripted: the order of evidence gat
 
 ## 14. Target repository layout
 
-Mirrors CatcherAI so patterns, tests and tooling transfer. Stage 4A implements the runtime/config/data/tool/observability portions needed by C03; later entries remain target structure.
+Mirrors CatcherAI so patterns, tests and tooling transfer. Stages 4A–4B implement the runtime/config/data/tool/observability foundation, the C03 deterministic path, and C01's Deep Agents + harness wait/resume path; later entries remain target structure.
 
 ```
 ConductAI/

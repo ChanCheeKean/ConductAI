@@ -3,12 +3,12 @@
 Last updated: 2026-09-15
 Repository: `/Users/kean/Dev/ConductAI`
 Branch: `main` (remote `origin` → `github.com/ChanCheeKean/ConductAI`)
-Current phase: **Stage 4A — runtime foundation + C03 L1: COMPLETE; awaiting user checkpoint**
-Next stage: **Stage 4B — C01 transcript-integrity wait/resume**
+Current phase: **Stage 4B — C01 transcript-integrity wait/resume: COMPLETE; awaiting user checkpoint**
+Next stage: **Stage 4C — temporal evidence, reconciliation, sandbox, verifier/re-plan**
 
 ## Current objective
 
-Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. Stage 4 was split into smaller checkpointed substages because the implementation phase is large. Stage 4A now proves the deterministic C03 L1 path through a real LangGraph runtime with immutable configuration, provider/runtime seams, guarded data, typed tools, as-of retrieval, verification, a hash-chained application ledger, field-level provenance, SQLite checkpoints and CLI replay. The next action is the user checkpoint before Stage 4B adds C01's Deep Agents investigation and durable external-artifact wait/resume.
+Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. Stage 4 was split into smaller checkpointed substages because the implementation phase is large. Stages 4A–4B now prove both ends of the first vertical slice: C03's deterministic L1 early path and C01's bounded Deep Agents L2 investigation with private artifact scheduling, durable LangGraph suspension, process-independent resume, virtual time, transcript recovery and provenance-complete clearance. The next action is the user checkpoint before Stage 4C adds the temporal-evidence cases C05, C07b, C04 and C19.
 
 The use case was inspired by an industry GenAI call-monitoring pilot (`docs/reference/reference-program-brief.md`); the problem set, data, cases and implementation are our own.
 
@@ -23,8 +23,8 @@ Read, in order:
 5. `README.md` — the foundation document (use case, ecosystems, memory, governance rules §8, generation §9, component → scenario §10, target layout §14).
 6. `docs/design/02-case-catalog.md` — the contract for every hero case.
 7. `docs/design/03-data-dictionary.md` — implemented file/field and ground-truth schemas.
-8. `config/models.yaml`, `config/routes.yaml`, `config/scenarios/c03.yaml` — implemented registries.
-9. `src/conductai/adapters/runtime/langgraph_runtime.py` and `src/conductai/runtime/c03_workflow.py` — current vertical slice.
+8. `config/models.yaml`, `config/routes.yaml`, `config/scenarios/{c01,c03}.yaml` — implemented registries.
+9. `src/conductai/adapters/runtime/langgraph_runtime.py`, `src/conductai/runtime/{c01,c03}_workflow.py`, and `src/conductai/harness/artifacts.py` — current vertical slices.
 10. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
 
 ## What exists now
@@ -47,10 +47,10 @@ Read, in order:
 | `data/generator/` | World, people, all hero builders, background/ASR, oversight, precedents, memory, sweep, graph, validation and loader | complete |
 | `data/generated/` | 6,527 interactions/transcripts, structured/event/document ecosystems, 23 case truths + Q01, graph and manifest | complete; SQLite reproducible and git-ignored |
 | `data/generated/conduct.sqlite` | Agent-visible tables plus FTS5 indexes (no evaluator/simulation data) | built locally by loader |
-| `config/`, `skills/credit-line-increase/` | Validated model/route/scenario registries and first Deep Agents-format skill | Stage 4A complete |
-| `src/conductai/` | Domain models, config, guarded data, typed tools, router, runtime protocols, LangGraph adapter, fake/OpenAI gateways, C03 workflow, event ledger/blobs/schema/replay and CLI | Stage 4A complete |
+| `config/`, `skills/{credit-line-increase,add-on-consent}/` | Validated model/route/scenario registries and two Deep Agents-format skills | Stage 4B complete |
+| `src/conductai/` | Domain models, config, guarded data, typed tools, router, runtime protocols, conditional LangGraph adapter, bounded Deep Agents lead, private artifact harness, C01/C03 workflows, event ledger/blobs/schema/replay and CLI | Stage 4B complete |
 | `docs/schemas/` | JSON Schema exports for the 79-type v1 event envelope and assessment record | Stage 4A complete |
-| `tests/{architecture,contract,unit,integration}/` | Import boundaries, gateway/config/access/ledger contracts and C03 trajectory/replay/checkpoint acceptance | Stage 4A complete |
+| `tests/{architecture,contract,unit,integration}/` | Import boundaries, gateway/config/access/ledger contracts plus C03 and C01 trajectory/replay/checkpoint acceptance | Stage 4B complete |
 
 ## Decisions made (and why)
 
@@ -78,6 +78,8 @@ Read, in order:
 | Implementation staging | Split former Stage 4 increment 1 into **4A C03 foundation** and **4B C01 wait/resume**, then preserve the remaining increments as 4C–4F | user requested smaller stages; keeps each checkpoint independently testable |
 | C03 model use | No LLM call: the complete rule match and decisive records make C03 deterministic; the role stays registered for nontrivial paths | architecture permits zero or one L1 role; avoids decorative model use |
 | Dependency baseline | Python 3.12; Deep Agents 0.7.14, LangGraph 1.2.11, OpenAI 2.54.0, Pydantic 2.13.5, locked in `uv.lock` | Stage 4A resolution |
+| C01 model mode | The C01 lead runs through a real Deep Agents graph with a deterministic offline model for repeatable credential-free acceptance; policy gates, tools, waits and the final decision remain code-owned | Stage 4B; live provider smoke remains separate from deterministic CI |
+| Wait durability | Artifact request/outbox state and LangGraph checkpoints share the run SQLite file; the harness releases content only after request and virtual availability, and resume works in a newly constructed runtime | Stage 4B acceptance requirement |
 
 ## Non-negotiable constraints (carry into every stage)
 
@@ -109,8 +111,8 @@ Deliverable `docs/design/05-agent-architecture.md`: exact system/runtime boundar
 
 ### Stage 4 — Implementation substages (implementation phase 3)
 1. **Stage 4A COMPLETE:** runtime/config/data/tool/ledger/replay foundation + C03 L1.
-2. **Stage 4B NEXT:** C01 transcript integrity, Deep Agents lead, artifact request, durable suspend/resume and virtual clock.
-3. **Stage 4C:** as-of retrieval, reconciliation, sandbox, verifier and re-plan: C05, C07b, C04, C19.
+2. **Stage 4B COMPLETE:** C01 transcript integrity, Deep Agents lead, artifact request, durable suspend/resume and virtual clock.
+3. **Stage 4C NEXT:** as-of retrieval, reconciliation, sandbox, verifier and re-plan: C05, C07b, C04, C19.
 4. **Stage 4D:** graph memory, cross-channel and specialists: C02/C02b, C08, C15, C16.
 5. **Stage 4E:** panel, outreach, colleague statements, conservative default and memory curator: C06, C14, C18, C17.
 6. **Stage 4F:** fan-out/populations, language/fairness, injection, servicing track and Q01: C11/C11b, C12, C10, C20, C09, C13, C07, Q01.
@@ -138,8 +140,8 @@ Mirror CatcherAI's Dispute Observatory (`docs/prompts/03-…`, `docs/design/07-�
 - Unverified research items (research §10) must stay out of load-bearing ground truth or be marked.
 - The Stage 3 computed-confidence weights and route budgets are explicit POC starting values, not calibrated production thresholds; Stage 5 must report calibration and threshold sensitivity.
 - The restricted local subprocess is a POC containment control, not a hostile-code boundary; a production deployment needs a container or microVM with the same contract.
-- Stage 4A deliberately implements only C03's graph path. The fallback route fails closed; it must not be treated as a general reviewer until later substages land.
-- The OpenAI Responses adapter is contract-tested offline but the real API smoke test was not run because Stage 4A's deterministic C03 path does not require credentials or a model call.
+- Stages 4A–4B deliberately implement only C03 and C01 graph paths. The fallback route fails closed; it must not be treated as a general reviewer until later substages land.
+- The OpenAI Responses adapter is contract-tested offline, while C01's Deep Agents acceptance run deliberately uses a deterministic offline model. The real API smoke test and live Deep Agents/provider bridge have not been exercised yet.
 
 ## Mandatory handoff maintenance after every stage
 
@@ -195,3 +197,13 @@ Update: header (date, phase, next stage), "What exists now", any new or changed 
 - Implemented the complete 79-name v1 event union, transactional per-run sequencing, SHA-256 hash chaining, content-addressed/redacted blobs, assessment persistence, complete leaf-level provenance, JSON Schema exports, replay to any sequence and CLI run/replay commands.
 - C03 acceptance trajectory: **84 events**, **5 tool calls**, **0 model calls**, **11 node enter/exit pairs**, **11 ledger checkpoint events**, **at least 11 LangGraph persisted checkpoints**, final event `termination{reason=assessment_complete}`; hash chain and final assessment replay both reconcile.
 - Acceptance checks: `uv run pytest -q` passed **19 tests**; `python3 data/generator/validate.py` remained green at **377,519 checks**; JSON schemas regenerated; `python3 -m compileall -q src tests` and `git diff --check` passed. No case fact, generated datum, corpus contract or ground-truth contract changed. Real OpenAI smoke test intentionally not run because C03 makes no model call.
+
+### 2026-09-15 — Stage 4B C01 transcript-integrity wait/resume complete
+- Added the data-driven `addon_consent_integrity` L2 route, the Deep Agents-format `add-on-consent` skill and the C01 scenario registry. C03 remains on its unchanged deterministic L1 route.
+- Implemented a bounded lead behind the runtime-neutral `LeadReviewer` contract. Its Deep Agents graph makes one deterministically recorded offline model call, opens unauthorized-enrollment vs ASR-error hypotheses, and selects re-transcription because the low-confidence polarity words can flip every outcome. Mandatory integrity, evidence, verifier, decision and memory gates remain code-owned.
+- Expanded guarded operational reads for word-level transcript quality, add-on enrollments and desktop events. C01 reads six typed tools total; every call/result remains paired with registered SQL, source refs and budget events.
+- Added the harness-private artifact scheduler and durable request/outbox table. The agent cannot read `on_request/**`; only the harness reads the registered artifact after an idempotent request and its virtual release time. A failed resume can safely retry because release is acknowledged only after the graph advances successfully.
+- Refactored the outer LangGraph into explicit conditional paths. C01 checkpoints the artifact request, suspends at a pure LangGraph `interrupt`, advances virtual time from **15:00Z to 19:00Z**, restores from SQLite in a newly constructed runtime, ingests `RTX-9000101`, and takes the logged `ingest_artifact → integrity` back-edge. The CLI automatically drives allowed external waits to completion without a human gate.
+- Recovered evidence says **“Oh — I do need that. Go ahead.”** The verifier confirms the exact span, `CLB-SOP-SAL-001@v4` §§3.1/3.2/4.1, price-before-consent and enrollment-after-consent/during-call; all three outcomes are no error/none, and `memory_write_skipped` prevents a false colleague lesson.
+- C01 acceptance trajectory: **58 events at suspension; 128 after resume; 6 tool calls; 1 Deep Agents/model call; 2 transcript assessments; 1 artifact request/arrival; 1 clock advance; 1 checkpoint restore; 17 graph edges including the required back-edge; 16 application checkpoint events and 23 persisted LangGraph checkpoints**. Final event is `termination{reason=assessment_complete}`; event virtual times are monotonic, the hash chain verifies, and assessment replay/provenance reconcile.
+- Acceptance checks: `uv run pytest -q` passed **24 tests** including restart-safe resume, future-artifact invisibility, request/release idempotency and conflict rejection; `python3 data/generator/validate.py` remained green at **377,519 checks**; `python3 -m compileall -q src tests` and `git diff --check` passed. No catalog fact, generated datum, corpus contract or ground-truth contract changed. Real OpenAI smoke remains intentionally unrun; deterministic C01 CI uses the offline Deep Agents model.

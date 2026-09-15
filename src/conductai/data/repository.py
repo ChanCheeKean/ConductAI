@@ -57,7 +57,8 @@ class OperationalRepository:
     def route_facts(self, interaction_id: str, **context: Any) -> dict[str, Any]:
         interaction = self._query(
             query_id="interaction_route_projection",
-            sql="SELECT interaction_id,channel,colleague_id,detected_language,started_at_utc FROM interactions WHERE interaction_id=? AND available_at<=?",
+            sql=("SELECT interaction_id,channel,colleague_id,detected_language,started_at_utc,ended_at_utc "
+                 "FROM interactions WHERE interaction_id=? AND available_at<=?"),
             parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
             filters={"interaction_id": interaction_id, "available_at_lte": context["virtual_now"].isoformat()},
             id_column="interaction_id", **context,
@@ -78,18 +79,67 @@ class OperationalRepository:
                 parameters=(credit[0]["credit_request_id"], context["virtual_now"].isoformat().replace("+00:00", "Z")),
                 filters={"credit_request_id": credit[0]["credit_request_id"]}, id_column="inquiry_id", **context,
             )
+        enrollments = self._query(
+            query_id="enrollment_route_projection",
+            sql=("SELECT enrollment_id,product,available_at FROM enrollments "
+                 "WHERE source_interaction_id=? AND available_at<=?"),
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="enrollment_id", **context,
+        )
+        scanner_flags = self._query(
+            query_id="scanner_flag_route_projection",
+            sql=("SELECT flag_id,rule_id,flagged_at,matched_turn_id FROM scanner_flags "
+                 "WHERE interaction_id=? AND available_at<=? ORDER BY flagged_at"),
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="flag_id", **context,
+        )
         return {
             "interaction": interaction[0],
             "credit_line_request_present": bool(credit),
             "inquiry_type": inquiry[0]["inquiry_type"] if inquiry else None,
+            "addon_enrollment_present": any(row["product"] in {"CARDSHIELD", "CREDITWATCH"} for row in enrollments),
+            "transcript_integrity_review_needed": any(
+                row["rule_id"] == "SCN-CONSENT-NEG-ENROLL" for row in scanner_flags
+            ),
+            "scanner_flags": scanner_flags,
         }
 
     def transcript(self, interaction_id: str, **context: Any) -> list[dict[str, Any]]:
-        return self._query(
+        turns = self._query(
             query_id="transcript_for_interaction",
             sql="SELECT interaction_id,turn_id,speaker,speaker_confidence,speaker_channel,start_s,end_s,text,source,language,asr_model FROM transcript_turns WHERE interaction_id=? ORDER BY start_s",
             parameters=(interaction_id,), filters={"interaction_id": interaction_id},
             id_column="turn_id", **context,
+        )
+        words = self._query(
+            query_id="transcript_words_for_interaction",
+            sql=("SELECT interaction_id,turn_id,word_index,w,start_s,end_s,conf FROM transcript_words "
+                 "WHERE interaction_id=? ORDER BY turn_id,CAST(word_index AS INTEGER)"),
+            parameters=(interaction_id,), filters={"interaction_id": interaction_id},
+            id_column="turn_id", **context,
+        )
+        by_turn: dict[str, list[dict[str, Any]]] = {}
+        for word in words:
+            by_turn.setdefault(word["turn_id"], []).append(word)
+        for turn in turns:
+            turn["words"] = by_turn.get(turn["turn_id"], [])
+        return turns
+
+    def enrollments(self, interaction_id: str, **context: Any) -> list[dict[str, Any]]:
+        return self._query(
+            query_id="enrollments_for_interaction",
+            sql="SELECT * FROM enrollments WHERE source_interaction_id=? AND available_at<=? ORDER BY enrollment_id",
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="enrollment_id", **context,
+        )
+
+    def desktop_events(self, interaction_id: str, **context: Any) -> list[dict[str, Any]]:
+        return self._query(
+            query_id="desktop_events_for_interaction",
+            sql=("SELECT event_id,interaction_id,colleague_id,workstation_id,ts_local,tz,type,payload,available_at "
+                 "FROM desktop_events WHERE interaction_id=? AND available_at<=? ORDER BY ts_local,event_id"),
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="event_id", **context,
         )
 
     def credit_request(self, interaction_id: str, **context: Any) -> dict[str, Any]:

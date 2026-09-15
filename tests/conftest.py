@@ -20,3 +20,14 @@ def c03_run(project_root: Path, tmp_path: Path):
     handle = runtime.start(request)
     list(runtime.run_or_stream(handle))
     return runtime.result(handle.run_id), ledger, tmp_path / "run.sqlite"
+
+
+@pytest.fixture
+def c01_suspended(project_root: Path, tmp_path: Path):
+    raw = yaml.safe_load((project_root / "config/scenarios/c01.yaml").read_text())
+    path = tmp_path / "run.sqlite"
+    runtime, ledger = build_runtime(project_root, path)
+    request = RunRequest(**{key: raw[key] for key in RunRequest.model_fields})
+    handle = runtime.start(request)
+    list(runtime.run_or_stream(handle))
+    return runtime, ledger, handle, path

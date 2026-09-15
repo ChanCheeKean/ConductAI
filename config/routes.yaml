@@ -17,6 +17,20 @@ routes:
       budget: {tool_calls: 8, model_input_tokens: 30000, wall_seconds: 90, replans: 0}
       roles: [lead_conduct_reviewer]
       skills: [credit-line-increase]
+  - id: addon_consent_integrity
+    priority: 20
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: addon_enrollment_present, op: eq, value: true}
+        - {fact: transcript_integrity_review_needed, op: eq, value: true}
+    output:
+      track: sales
+      depth: L2
+      path: integrity_wait
+      budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 1}
+      roles: [lead_conduct_reviewer, transcript_integrity_analyst]
+      skills: [add-on-consent]
   - id: mixed_ambiguous_l4
     priority: 10000
     match: {fallback: true}
