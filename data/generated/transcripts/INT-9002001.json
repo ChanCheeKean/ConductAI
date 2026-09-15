@@ -1,0 +1,342 @@
+{
+  "interaction_id": "INT-9002001",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.96,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.6,
+      "text": "I want to close the card.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 2.2,
+          "end_s": 2.41,
+          "conf": 0.87
+        },
+        {
+          "w": "want",
+          "start_s": 2.41,
+          "end_s": 2.89,
+          "conf": 0.9
+        },
+        {
+          "w": "to",
+          "start_s": 2.89,
+          "end_s": 3.19,
+          "conf": 0.91
+        },
+        {
+          "w": "close",
+          "start_s": 3.19,
+          "end_s": 3.74,
+          "conf": 0.85
+        },
+        {
+          "w": "the",
+          "start_s": 3.74,
+          "end_s": 4.13,
+          "conf": 0.92
+        },
+        {
+          "w": "card",
+          "start_s": 4.13,
+          "end_s": 4.6,
+          "conf": 0.95
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "colleague",
+      "start_s": 5.3,
+      "end_s": 13.55,
+      "text": "If you close this, your credit score will drop like a hundred points. Let me put a 200 dollar credit on instead.",
+      "words": [
+        {
+          "w": "If",
+          "start_s": 5.3,
+          "end_s": 5.54,
+          "conf": 0.88
+        },
+        {
+          "w": "you",
+          "start_s": 5.54,
+          "end_s": 5.85,
+          "conf": 0.85
+        },
+        {
+          "w": "close",
+          "start_s": 5.85,
+          "end_s": 6.29,
+          "conf": 0.9
+        },
+        {
+          "w": "this",
+          "start_s": 6.29,
+          "end_s": 6.66,
+          "conf": 0.91
+        },
+        {
+          "w": "your",
+          "start_s": 6.66,
+          "end_s": 7.04,
+          "conf": 0.97
+        },
+        {
+          "w": "credit",
+          "start_s": 7.04,
+          "end_s": 7.55,
+          "conf": 0.87
+        },
+        {
+          "w": "score",
+          "start_s": 7.55,
+          "end_s": 7.99,
+          "conf": 0.88
+        },
+        {
+          "w": "will",
+          "start_s": 7.99,
+          "end_s": 8.37,
+          "conf": 0.93
+        },
+        {
+          "w": "drop",
+          "start_s": 8.37,
+          "end_s": 8.74,
+          "conf": 0.89
+        },
+        {
+          "w": "like",
+          "start_s": 8.74,
+          "end_s": 9.12,
+          "conf": 0.85
+        },
+        {
+          "w": "a",
+          "start_s": 9.12,
+          "end_s": 9.29,
+          "conf": 0.84
+        },
+        {
+          "w": "hundred",
+          "start_s": 9.29,
+          "end_s": 9.87,
+          "conf": 0.88
+        },
+        {
+          "w": "points",
+          "start_s": 9.87,
+          "end_s": 10.38,
+          "conf": 0.87
+        },
+        {
+          "w": "Let",
+          "start_s": 10.38,
+          "end_s": 10.69,
+          "conf": 0.92
+        },
+        {
+          "w": "me",
+          "start_s": 10.69,
+          "end_s": 10.92,
+          "conf": 0.93
+        },
+        {
+          "w": "put",
+          "start_s": 10.92,
+          "end_s": 11.23,
+          "conf": 0.88
+        },
+        {
+          "w": "a",
+          "start_s": 11.23,
+          "end_s": 11.4,
+          "conf": 0.99
+        },
+        {
+          "w": "200",
+          "start_s": 11.4,
+          "end_s": 11.71,
+          "conf": 0.96
+        },
+        {
+          "w": "dollar",
+          "start_s": 11.71,
+          "end_s": 12.22,
+          "conf": 0.93
+        },
+        {
+          "w": "credit",
+          "start_s": 12.22,
+          "end_s": 12.73,
+          "conf": 0.96
+        },
+        {
+          "w": "on",
+          "start_s": 12.73,
+          "end_s": 12.97,
+          "conf": 0.94
+        },
+        {
+          "w": "instead",
+          "start_s": 12.97,
+          "end_s": 13.55,
+          "conf": 0.99
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "customer",
+      "start_s": 14.25,
+      "end_s": 16.65,
+      "text": "I still want to close it.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 14.25,
+          "end_s": 14.46,
+          "conf": 0.95
+        },
+        {
+          "w": "still",
+          "start_s": 14.46,
+          "end_s": 15.02,
+          "conf": 0.92
+        },
+        {
+          "w": "want",
+          "start_s": 15.02,
+          "end_s": 15.49,
+          "conf": 0.9
+        },
+        {
+          "w": "to",
+          "start_s": 15.49,
+          "end_s": 15.79,
+          "conf": 0.86
+        },
+        {
+          "w": "close",
+          "start_s": 15.79,
+          "end_s": 16.35,
+          "conf": 0.86
+        },
+        {
+          "w": "it",
+          "start_s": 16.35,
+          "end_s": 16.65,
+          "conf": 0.87
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "colleague",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "colleague",
+      "start_s": 17.35,
+      "end_s": 22.6,
+      "text": "I'll apply the credit and you can think about it — call us back.",
+      "words": [
+        {
+          "w": "I'll",
+          "start_s": 17.35,
+          "end_s": 17.76,
+          "conf": 0.9
+        },
+        {
+          "w": "apply",
+          "start_s": 17.76,
+          "end_s": 18.24,
+          "conf": 0.84
+        },
+        {
+          "w": "the",
+          "start_s": 18.24,
+          "end_s": 18.57,
+          "conf": 0.98
+        },
+        {
+          "w": "credit",
+          "start_s": 18.57,
+          "end_s": 19.12,
+          "conf": 0.88
+        },
+        {
+          "w": "and",
+          "start_s": 19.12,
+          "end_s": 19.46,
+          "conf": 0.85
+        },
+        {
+          "w": "you",
+          "start_s": 19.46,
+          "end_s": 19.79,
+          "conf": 0.91
+        },
+        {
+          "w": "can",
+          "start_s": 19.79,
+          "end_s": 20.12,
+          "conf": 0.99
+        },
+        {
+          "w": "think",
+          "start_s": 20.12,
+          "end_s": 20.6,
+          "conf": 0.86
+        },
+        {
+          "w": "about",
+          "start_s": 20.6,
+          "end_s": 21.08,
+          "conf": 0.89
+        },
+        {
+          "w": "it",
+          "start_s": 21.08,
+          "end_s": 21.34,
+          "conf": 0.86
+        },
+        {
+          "w": "—",
+          "start_s": 21.34,
+          "end_s": 21.53,
+          "conf": 0.92
+        },
+        {
+          "w": "call",
+          "start_s": 21.53,
+          "end_s": 21.93,
+          "conf": 0.91
+        },
+        {
+          "w": "us",
+          "start_s": 21.93,
+          "end_s": 22.19,
+          "conf": 0.86
+        },
+        {
+          "w": "back",
+          "start_s": 22.19,
+          "end_s": 22.6,
+          "conf": 0.98
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

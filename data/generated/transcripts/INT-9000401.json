@@ -1,0 +1,128 @@
+{
+  "interaction_id": "INT-9000401",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.86,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 5.4,
+      "text": "Could I raise my limit by fifteen hundred?",
+      "words": [
+        {
+          "w": "Could",
+          "start_s": 2.2,
+          "end_s": 2.65,
+          "conf": 0.9
+        },
+        {
+          "w": "I",
+          "start_s": 2.65,
+          "end_s": 2.83,
+          "conf": 0.98
+        },
+        {
+          "w": "raise",
+          "start_s": 2.83,
+          "end_s": 3.28,
+          "conf": 0.84
+        },
+        {
+          "w": "my",
+          "start_s": 3.28,
+          "end_s": 3.52,
+          "conf": 0.89
+        },
+        {
+          "w": "limit",
+          "start_s": 3.52,
+          "end_s": 3.97,
+          "conf": 0.98
+        },
+        {
+          "w": "by",
+          "start_s": 3.97,
+          "end_s": 4.22,
+          "conf": 0.76
+        },
+        {
+          "w": "fifteen",
+          "start_s": 4.22,
+          "end_s": 4.81,
+          "conf": 0.88
+        },
+        {
+          "w": "hundred",
+          "start_s": 4.81,
+          "end_s": 5.4,
+          "conf": 0.83
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "colleague",
+      "start_s": 6.1,
+      "end_s": 9.1,
+      "text": "Requesting an increase won't affect your credit score.",
+      "words": [
+        {
+          "w": "Requesting",
+          "start_s": 6.1,
+          "end_s": 6.69,
+          "conf": 0.95
+        },
+        {
+          "w": "an",
+          "start_s": 6.69,
+          "end_s": 6.88,
+          "conf": 0.9
+        },
+        {
+          "w": "increase",
+          "start_s": 6.88,
+          "end_s": 7.37,
+          "conf": 0.81
+        },
+        {
+          "w": "won't",
+          "start_s": 7.37,
+          "end_s": 7.7,
+          "conf": 0.84
+        },
+        {
+          "w": "affect",
+          "start_s": 7.7,
+          "end_s": 8.09,
+          "conf": 0.91
+        },
+        {
+          "w": "your",
+          "start_s": 8.09,
+          "end_s": 8.38,
+          "conf": 0.88
+        },
+        {
+          "w": "credit",
+          "start_s": 8.38,
+          "end_s": 8.76,
+          "conf": 0.89
+        },
+        {
+          "w": "score",
+          "start_s": 8.76,
+          "end_s": 9.1,
+          "conf": 0.88
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

@@ -1,0 +1,145 @@
+{
+  "interaction_id": "INT-9000501",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.2,
+      "text": "I need a three-thousand-dollar increase.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 2.2,
+          "end_s": 2.32,
+          "conf": 0.91
+        },
+        {
+          "w": "need",
+          "start_s": 2.32,
+          "end_s": 2.58,
+          "conf": 0.85
+        },
+        {
+          "w": "a",
+          "start_s": 2.58,
+          "end_s": 2.69,
+          "conf": 0.92
+        },
+        {
+          "w": "three-thousand-dollar",
+          "start_s": 2.69,
+          "end_s": 3.75,
+          "conf": 0.87
+        },
+        {
+          "w": "increase",
+          "start_s": 3.75,
+          "end_s": 4.2,
+          "conf": 0.84
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "colleague",
+      "start_s": 4.9,
+      "end_s": 7.9,
+      "text": "This request will not impact your credit score.",
+      "words": [
+        {
+          "w": "This",
+          "start_s": 4.9,
+          "end_s": 5.22,
+          "conf": 0.88
+        },
+        {
+          "w": "request",
+          "start_s": 5.22,
+          "end_s": 5.72,
+          "conf": 0.85
+        },
+        {
+          "w": "will",
+          "start_s": 5.72,
+          "end_s": 6.05,
+          "conf": 0.95
+        },
+        {
+          "w": "not",
+          "start_s": 6.05,
+          "end_s": 6.31,
+          "conf": 0.79
+        },
+        {
+          "w": "impact",
+          "start_s": 6.31,
+          "end_s": 6.75,
+          "conf": 0.9
+        },
+        {
+          "w": "your",
+          "start_s": 6.75,
+          "end_s": 7.08,
+          "conf": 0.99
+        },
+        {
+          "w": "credit",
+          "start_s": 7.08,
+          "end_s": 7.52,
+          "conf": 0.89
+        },
+        {
+          "w": "score",
+          "start_s": 7.52,
+          "end_s": 7.9,
+          "conf": 0.86
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "customer",
+      "start_s": 8.6,
+      "end_s": 10.2,
+      "text": "All right, submit it.",
+      "words": [
+        {
+          "w": "All",
+          "start_s": 8.6,
+          "end_s": 8.93,
+          "conf": 0.92
+        },
+        {
+          "w": "right",
+          "start_s": 8.93,
+          "end_s": 9.4,
+          "conf": 0.88
+        },
+        {
+          "w": "submit",
+          "start_s": 9.4,
+          "end_s": 9.95,
+          "conf": 0.93
+        },
+        {
+          "w": "it",
+          "start_s": 9.95,
+          "end_s": 10.2,
+          "conf": 0.9
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

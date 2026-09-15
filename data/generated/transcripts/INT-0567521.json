@@ -1,0 +1,269 @@
+{
+  "interaction_id": "INT-0567521",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 6.33,
+      "text": "Thank you for calling Copperlake. I need to verify your account.",
+      "words": [
+        {
+          "w": "Thank",
+          "start_s": 2.2,
+          "end_s": 2.59,
+          "conf": 0.92
+        },
+        {
+          "w": "you",
+          "start_s": 2.59,
+          "end_s": 2.86,
+          "conf": 0.72
+        },
+        {
+          "w": "for",
+          "start_s": 2.86,
+          "end_s": 3.13,
+          "conf": 0.87
+        },
+        {
+          "w": "calling",
+          "start_s": 3.13,
+          "end_s": 3.65,
+          "conf": 0.8
+        },
+        {
+          "w": "Copperlake",
+          "start_s": 3.65,
+          "end_s": 4.34,
+          "conf": 0.9
+        },
+        {
+          "w": "I",
+          "start_s": 4.34,
+          "end_s": 4.49,
+          "conf": 0.88
+        },
+        {
+          "w": "need",
+          "start_s": 4.49,
+          "end_s": 4.82,
+          "conf": 0.8
+        },
+        {
+          "w": "to",
+          "start_s": 4.82,
+          "end_s": 5.03,
+          "conf": 0.83
+        },
+        {
+          "w": "verify",
+          "start_s": 5.03,
+          "end_s": 5.48,
+          "conf": 0.75
+        },
+        {
+          "w": "your",
+          "start_s": 5.48,
+          "end_s": 5.81,
+          "conf": 0.98
+        },
+        {
+          "w": "account",
+          "start_s": 5.81,
+          "end_s": 6.33,
+          "conf": 0.89
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.96,
+      "speaker_channel": "customer",
+      "start_s": 7.03,
+      "end_s": 9.66,
+      "text": "I am thinking about closing the account.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 7.03,
+          "end_s": 7.18,
+          "conf": 0.89
+        },
+        {
+          "w": "am",
+          "start_s": 7.18,
+          "end_s": 7.39,
+          "conf": 0.88
+        },
+        {
+          "w": "thinking",
+          "start_s": 7.39,
+          "end_s": 7.97,
+          "conf": 0.72
+        },
+        {
+          "w": "about",
+          "start_s": 7.97,
+          "end_s": 8.36,
+          "conf": 0.86
+        },
+        {
+          "w": "closing",
+          "start_s": 8.36,
+          "end_s": 8.87,
+          "conf": 0.83
+        },
+        {
+          "w": "the",
+          "start_s": 8.87,
+          "end_s": 9.14,
+          "conf": 0.88
+        },
+        {
+          "w": "account",
+          "start_s": 9.14,
+          "end_s": 9.66,
+          "conf": 0.79
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "colleague",
+      "start_s": 10.36,
+      "end_s": 12.98,
+      "text": "I'm adding CardShield for you now, okay?",
+      "words": [
+        {
+          "w": "I'm",
+          "start_s": 10.36,
+          "end_s": 10.64,
+          "conf": 0.89
+        },
+        {
+          "w": "adding",
+          "start_s": 10.64,
+          "end_s": 11.1,
+          "conf": 0.89
+        },
+        {
+          "w": "CardShield",
+          "start_s": 11.1,
+          "end_s": 11.81,
+          "conf": 0.95
+        },
+        {
+          "w": "for",
+          "start_s": 11.81,
+          "end_s": 12.09,
+          "conf": 0.84
+        },
+        {
+          "w": "you",
+          "start_s": 12.09,
+          "end_s": 12.37,
+          "conf": 0.81
+        },
+        {
+          "w": "now",
+          "start_s": 12.37,
+          "end_s": 12.65,
+          "conf": 0.85
+        },
+        {
+          "w": "okay",
+          "start_s": 12.65,
+          "end_s": 12.98,
+          "conf": 0.79
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 0.89,
+      "speaker_channel": "customer",
+      "start_s": 13.68,
+      "end_s": 14.05,
+      "text": "Okay.",
+      "words": [
+        {
+          "w": "Okay",
+          "start_s": 13.68,
+          "end_s": 14.05,
+          "conf": 0.82
+        }
+      ]
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "colleague",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "colleague",
+      "start_s": 14.75,
+      "end_s": 17.75,
+      "text": "there anything else I can help with today?",
+      "words": [
+        {
+          "w": "there",
+          "start_s": 14.75,
+          "end_s": 15.17,
+          "conf": 0.9
+        },
+        {
+          "w": "anything",
+          "start_s": 15.17,
+          "end_s": 15.79,
+          "conf": 0.88
+        },
+        {
+          "w": "else",
+          "start_s": 15.79,
+          "end_s": 16.15,
+          "conf": 0.81
+        },
+        {
+          "w": "I",
+          "start_s": 16.15,
+          "end_s": 16.32,
+          "conf": 0.99
+        },
+        {
+          "w": "can",
+          "start_s": 16.32,
+          "end_s": 16.61,
+          "conf": 0.85
+        },
+        {
+          "w": "help",
+          "start_s": 16.61,
+          "end_s": 16.97,
+          "conf": 0.88
+        },
+        {
+          "w": "with",
+          "start_s": 16.97,
+          "end_s": 17.33,
+          "conf": 0.91
+        },
+        {
+          "w": "today",
+          "start_s": 17.33,
+          "end_s": 17.75,
+          "conf": 0.8
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

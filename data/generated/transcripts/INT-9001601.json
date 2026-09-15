@@ -1,0 +1,230 @@
+{
+  "interaction_id": "INT-9001601",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 9.8,
+      "text": "I want to make a complaint. This is the third returned-payment fee when my bank says it went through.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 2.2,
+          "end_s": 2.37,
+          "conf": 0.87
+        },
+        {
+          "w": "want",
+          "start_s": 2.37,
+          "end_s": 2.76,
+          "conf": 0.85
+        },
+        {
+          "w": "to",
+          "start_s": 2.76,
+          "end_s": 3.0,
+          "conf": 0.82
+        },
+        {
+          "w": "make",
+          "start_s": 3.0,
+          "end_s": 3.38,
+          "conf": 0.89
+        },
+        {
+          "w": "a",
+          "start_s": 3.38,
+          "end_s": 3.55,
+          "conf": 0.89
+        },
+        {
+          "w": "complaint",
+          "start_s": 3.55,
+          "end_s": 4.28,
+          "conf": 0.91
+        },
+        {
+          "w": "This",
+          "start_s": 4.28,
+          "end_s": 4.66,
+          "conf": 0.9
+        },
+        {
+          "w": "is",
+          "start_s": 4.66,
+          "end_s": 4.91,
+          "conf": 0.85
+        },
+        {
+          "w": "the",
+          "start_s": 4.91,
+          "end_s": 5.22,
+          "conf": 0.79
+        },
+        {
+          "w": "third",
+          "start_s": 5.22,
+          "end_s": 5.67,
+          "conf": 0.85
+        },
+        {
+          "w": "returned-payment",
+          "start_s": 5.67,
+          "end_s": 6.88,
+          "conf": 0.93
+        },
+        {
+          "w": "fee",
+          "start_s": 6.88,
+          "end_s": 7.2,
+          "conf": 0.83
+        },
+        {
+          "w": "when",
+          "start_s": 7.2,
+          "end_s": 7.58,
+          "conf": 0.88
+        },
+        {
+          "w": "my",
+          "start_s": 7.58,
+          "end_s": 7.82,
+          "conf": 0.88
+        },
+        {
+          "w": "bank",
+          "start_s": 7.82,
+          "end_s": 8.2,
+          "conf": 0.88
+        },
+        {
+          "w": "says",
+          "start_s": 8.2,
+          "end_s": 8.59,
+          "conf": 0.9
+        },
+        {
+          "w": "it",
+          "start_s": 8.59,
+          "end_s": 8.83,
+          "conf": 0.95
+        },
+        {
+          "w": "went",
+          "start_s": 8.83,
+          "end_s": 9.21,
+          "conf": 0.87
+        },
+        {
+          "w": "through",
+          "start_s": 9.21,
+          "end_s": 9.8,
+          "conf": 0.93
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "colleague",
+      "start_s": 10.5,
+      "end_s": 15.75,
+      "text": "There's nothing to complain about, ma'am, the fee is valid. I'll make a note.",
+      "words": [
+        {
+          "w": "There's",
+          "start_s": 10.5,
+          "end_s": 11.05,
+          "conf": 0.92
+        },
+        {
+          "w": "nothing",
+          "start_s": 11.05,
+          "end_s": 11.6,
+          "conf": 0.92
+        },
+        {
+          "w": "to",
+          "start_s": 11.6,
+          "end_s": 11.83,
+          "conf": 0.92
+        },
+        {
+          "w": "complain",
+          "start_s": 11.83,
+          "end_s": 12.44,
+          "conf": 0.94
+        },
+        {
+          "w": "about",
+          "start_s": 12.44,
+          "end_s": 12.87,
+          "conf": 0.91
+        },
+        {
+          "w": "ma'am",
+          "start_s": 12.87,
+          "end_s": 13.29,
+          "conf": 0.89
+        },
+        {
+          "w": "the",
+          "start_s": 13.29,
+          "end_s": 13.58,
+          "conf": 0.84
+        },
+        {
+          "w": "fee",
+          "start_s": 13.58,
+          "end_s": 13.87,
+          "conf": 0.84
+        },
+        {
+          "w": "is",
+          "start_s": 13.87,
+          "end_s": 14.1,
+          "conf": 0.9
+        },
+        {
+          "w": "valid",
+          "start_s": 14.1,
+          "end_s": 14.52,
+          "conf": 0.88
+        },
+        {
+          "w": "I'll",
+          "start_s": 14.52,
+          "end_s": 14.87,
+          "conf": 0.86
+        },
+        {
+          "w": "make",
+          "start_s": 14.87,
+          "end_s": 15.23,
+          "conf": 0.84
+        },
+        {
+          "w": "a",
+          "start_s": 15.23,
+          "end_s": 15.39,
+          "conf": 0.81
+        },
+        {
+          "w": "note",
+          "start_s": 15.39,
+          "end_s": 15.75,
+          "conf": 0.87
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

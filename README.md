@@ -119,20 +119,20 @@ A customer who doesn't know who they are talking to, thinks the call is about th
 
 ## 4. The data ecosystem
 
-### Inventory (target)
+### Inventory (generated Stage 1 dataset)
 
 | Kind | Content | Volume |
 |---|---|---|
-| Structured | customers, accounts, flags, preferences, colleagues, teams, interactions, callback requests, offers, enrollments, product changes, credit-line requests, bureau inquiries, installment plans, fee/rewards ledgers, statements, payments, complaints, coaching records, legacy QA reviews, scanner rules/flags, incidents, config changes | ~1,200 customers, 64 colleagues, ~6,500 interactions |
-| Events | desktop events (screen substitute), interaction events (hold, overtalk, drops), account events | ~180k |
-| Transcripts | turn-level JSON with word timings, ASR and speaker confidence, channel metadata | ~6,500 |
-| Documents | CRM notes, internal comms, complaint narratives | ~9k |
-| Corpus | regulation excerpts, SOPs, glossary v6/v7/v8, scripts, product disclosures, incentive plan, skills | ~60 versioned documents |
+| Structured | customers, accounts, flags, preferences, colleagues, teams, interactions, callback requests, offers, enrollments, product changes, credit-line requests, bureau inquiries, installment plans, fee/rewards ledgers, statements, payments, complaints, coaching records, legacy QA reviews, scanner rules/flags, incidents, config changes | 1,173 customers/accounts, 64 colleagues, 6,527 interactions (6,500 non-hero), 1,041 legacy QA reviews |
+| Events | desktop events (screen substitute), interaction events (hold, overtalk, gaps), account events | 41,873 |
+| Transcripts | turn-level JSON with word timings, ASR and speaker confidence, channel metadata | 6,527 files; 32,032 turns; 169,479 timed words |
+| Documents | CRM notes, internal comms, complaint narratives | 6,369 |
+| Corpus | regulation excerpts, SOPs, glossary v6/v7/v8, scripts, product disclosures, incentive plan, skills | 53 versioned documents + 11 skills; 273 SQLite chunks |
 | Precedents | adjudicated prior findings | ~40 |
-| Memory seed | agent memory notes (valid, stale, over-generalized, raw, duplicate, prohibited), two legacy run traces | ~80 notes |
-| On-request | re-transcriptions, audio recovery results, colleague statements | per hero need + background |
-| Simulation | customer personas for outreach replies | per hero need |
-| Graph | projection of the above | ~40k nodes |
+| Memory seed | agent memory notes (valid, stale, over-generalized, raw, duplicate, prohibited), two legacy run traces | 58 notes + 2 traces |
+| On-request | re-transcriptions, audio recovery results, colleague statements | 4 artifacts |
+| Simulation | customer personas for outreach replies | 4 personas |
+| Graph | projection of the above | 10,023 nodes, 27,259 edges |
 | Ground truth | 23 hero case files, background gold labels, reviewer baseline, Q01 sweep, capability coverage | evaluator only |
 
 Field-level detail: [`docs/design/03-data-dictionary.md`](docs/design/03-data-dictionary.md).
@@ -330,7 +330,7 @@ Every document carries front matter: `doc_id, version, effective_from, effective
 - **Background:** a template grammar per interaction intent (greeting, authentication, need, offer, consent, close) with colleague style variation, customer persona variation and deterministic misconduct insertions for gold positives; then an **ASR noise model** (substitutions from a confusion list weighted toward consent- and fee-critical words, deletions, insertions), **diarization noise** (~2% of phone turns misattributed in overlap, with channel metadata kept correct), word timings from speaking-rate distributions, and Spanish/code-switched segments on the bilingual queue.
 - **Heroes:** hand-written turn by turn; the ASR and re-transcription versions are both authored so the difference is exact.
 
-### Background distributions (initial settings — POC assumptions, not calibrated)
+### Background distributions (deterministic Stage 1 settings — POC assumptions, not production-calibrated)
 
 | Dimension | Setting |
 |---|---|

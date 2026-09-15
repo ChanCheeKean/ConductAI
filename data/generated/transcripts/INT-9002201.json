@@ -1,0 +1,116 @@
+{
+  "interaction_id": "INT-9002201",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.96,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 6.7,
+      "text": "Good news — you're pre-approved for a credit line increase to $9,000.",
+      "words": [
+        {
+          "w": "Good",
+          "start_s": 2.2,
+          "end_s": 2.53,
+          "conf": 0.9
+        },
+        {
+          "w": "news",
+          "start_s": 2.53,
+          "end_s": 2.86,
+          "conf": 0.92
+        },
+        {
+          "w": "—",
+          "start_s": 2.86,
+          "end_s": 3.01,
+          "conf": 0.85
+        },
+        {
+          "w": "you're",
+          "start_s": 3.01,
+          "end_s": 3.46,
+          "conf": 0.95
+        },
+        {
+          "w": "pre-approved",
+          "start_s": 3.46,
+          "end_s": 4.27,
+          "conf": 0.84
+        },
+        {
+          "w": "for",
+          "start_s": 4.27,
+          "end_s": 4.54,
+          "conf": 0.91
+        },
+        {
+          "w": "a",
+          "start_s": 4.54,
+          "end_s": 4.69,
+          "conf": 0.98
+        },
+        {
+          "w": "credit",
+          "start_s": 4.69,
+          "end_s": 5.14,
+          "conf": 0.9
+        },
+        {
+          "w": "line",
+          "start_s": 5.14,
+          "end_s": 5.47,
+          "conf": 0.78
+        },
+        {
+          "w": "increase",
+          "start_s": 5.47,
+          "end_s": 6.04,
+          "conf": 0.77
+        },
+        {
+          "w": "to",
+          "start_s": 6.04,
+          "end_s": 6.25,
+          "conf": 0.91
+        },
+        {
+          "w": "$9,000",
+          "start_s": 6.25,
+          "end_s": 6.7,
+          "conf": 0.85
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.96,
+      "speaker_channel": "customer",
+      "start_s": 7.4,
+      "end_s": 8.2,
+      "text": "All right.",
+      "words": [
+        {
+          "w": "All",
+          "start_s": 7.4,
+          "end_s": 7.73,
+          "conf": 0.98
+        },
+        {
+          "w": "right",
+          "start_s": 7.73,
+          "end_s": 8.2,
+          "conf": 0.99
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

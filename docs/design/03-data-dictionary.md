@@ -1,7 +1,9 @@
 # 03 — Data Dictionary
 
-> Every file the generator must produce, what each field means, how records join, which timestamps matter, and where the data is deliberately messy. This is the **target specification** for `data/generator/`; nothing here exists yet (see `handoff.md`).
+> Every file the generator produces, what each field means, how records join, which timestamps matter, and where the data is deliberately messy. Stage 1 implements this specification in `data/generator/` (see `handoff.md`).
 > Once built: regenerate with `python3 data/generator/gen.py`; validate with `python3 data/generator/validate.py`; load with `python3 data/generator/load_sqlite.py`.
+
+Stage 1 implementation note (2026-09-15): generation produces 6,500 non-hero interactions plus 27 hero/contact-path interactions, 53 corpus versions, 11 skills, 41,873 event rows, 6,369 document rows, 40 precedents, 58 memory notes, four harness-gated artifacts and a 10,023-node/27,259-edge graph. `load_sqlite.py` loads only agent-visible files and builds FTS5 indexes for transcript turns, corpus chunks and documents; evaluator-only `ground_truth/`, `simulation/`, `is_hero` and unreleased harness state are not loaded.
 
 ## 0. Layout and modality
 

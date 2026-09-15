@@ -1,0 +1,253 @@
+{
+  "interaction_id": "INT-9000202",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.97,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 5.58,
+      "text": "You asked us to call about the transfer offer.",
+      "words": [
+        {
+          "w": "You",
+          "start_s": 2.2,
+          "end_s": 2.5,
+          "conf": 0.89
+        },
+        {
+          "w": "asked",
+          "start_s": 2.5,
+          "end_s": 2.94,
+          "conf": 0.88
+        },
+        {
+          "w": "us",
+          "start_s": 2.94,
+          "end_s": 3.17,
+          "conf": 0.86
+        },
+        {
+          "w": "to",
+          "start_s": 3.17,
+          "end_s": 3.4,
+          "conf": 0.95
+        },
+        {
+          "w": "call",
+          "start_s": 3.4,
+          "end_s": 3.77,
+          "conf": 0.99
+        },
+        {
+          "w": "about",
+          "start_s": 3.77,
+          "end_s": 4.2,
+          "conf": 0.87
+        },
+        {
+          "w": "the",
+          "start_s": 4.2,
+          "end_s": 4.51,
+          "conf": 0.91
+        },
+        {
+          "w": "transfer",
+          "start_s": 4.51,
+          "end_s": 5.14,
+          "conf": 0.97
+        },
+        {
+          "w": "offer",
+          "start_s": 5.14,
+          "end_s": 5.58,
+          "conf": 0.87
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "colleague",
+      "start_s": 6.28,
+      "end_s": 13.03,
+      "text": "It is zero percent for twelve months, then 24.49 percent, with a three percent fee, or 120 dollars.",
+      "words": [
+        {
+          "w": "It",
+          "start_s": 6.28,
+          "end_s": 6.5,
+          "conf": 0.87
+        },
+        {
+          "w": "is",
+          "start_s": 6.5,
+          "end_s": 6.73,
+          "conf": 0.91
+        },
+        {
+          "w": "zero",
+          "start_s": 6.73,
+          "end_s": 7.08,
+          "conf": 0.95
+        },
+        {
+          "w": "percent",
+          "start_s": 7.08,
+          "end_s": 7.63,
+          "conf": 0.84
+        },
+        {
+          "w": "for",
+          "start_s": 7.63,
+          "end_s": 7.92,
+          "conf": 0.89
+        },
+        {
+          "w": "twelve",
+          "start_s": 7.92,
+          "end_s": 8.4,
+          "conf": 0.93
+        },
+        {
+          "w": "months",
+          "start_s": 8.4,
+          "end_s": 8.88,
+          "conf": 0.86
+        },
+        {
+          "w": "then",
+          "start_s": 8.88,
+          "end_s": 9.24,
+          "conf": 0.87
+        },
+        {
+          "w": "24.49",
+          "start_s": 9.24,
+          "end_s": 9.65,
+          "conf": 0.94
+        },
+        {
+          "w": "percent",
+          "start_s": 9.65,
+          "end_s": 10.2,
+          "conf": 0.92
+        },
+        {
+          "w": "with",
+          "start_s": 10.2,
+          "end_s": 10.55,
+          "conf": 0.92
+        },
+        {
+          "w": "a",
+          "start_s": 10.55,
+          "end_s": 10.72,
+          "conf": 0.98
+        },
+        {
+          "w": "three",
+          "start_s": 10.72,
+          "end_s": 11.13,
+          "conf": 0.85
+        },
+        {
+          "w": "percent",
+          "start_s": 11.13,
+          "end_s": 11.68,
+          "conf": 0.96
+        },
+        {
+          "w": "fee",
+          "start_s": 11.68,
+          "end_s": 11.97,
+          "conf": 0.87
+        },
+        {
+          "w": "or",
+          "start_s": 11.97,
+          "end_s": 12.19,
+          "conf": 0.92
+        },
+        {
+          "w": "120",
+          "start_s": 12.19,
+          "end_s": 12.48,
+          "conf": 0.87
+        },
+        {
+          "w": "dollars",
+          "start_s": 12.48,
+          "end_s": 13.03,
+          "conf": 0.96
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "customer",
+      "start_s": 13.73,
+      "end_s": 16.93,
+      "text": "Yes, please do the four thousand dollar transfer.",
+      "words": [
+        {
+          "w": "Yes",
+          "start_s": 13.73,
+          "end_s": 14.01,
+          "conf": 0.82
+        },
+        {
+          "w": "please",
+          "start_s": 14.01,
+          "end_s": 14.47,
+          "conf": 0.87
+        },
+        {
+          "w": "do",
+          "start_s": 14.47,
+          "end_s": 14.68,
+          "conf": 0.86
+        },
+        {
+          "w": "the",
+          "start_s": 14.68,
+          "end_s": 14.96,
+          "conf": 0.86
+        },
+        {
+          "w": "four",
+          "start_s": 14.96,
+          "end_s": 15.3,
+          "conf": 0.9
+        },
+        {
+          "w": "thousand",
+          "start_s": 15.3,
+          "end_s": 15.88,
+          "conf": 0.97
+        },
+        {
+          "w": "dollar",
+          "start_s": 15.88,
+          "end_s": 16.35,
+          "conf": 0.81
+        },
+        {
+          "w": "transfer",
+          "start_s": 16.35,
+          "end_s": 16.93,
+          "conf": 0.84
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

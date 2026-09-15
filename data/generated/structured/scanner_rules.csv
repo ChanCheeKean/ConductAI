@@ -1,0 +1,15 @@
+rule_id,description,rule_logic,glossary_version_basis,deployed_at,available_at
+SCN-CLOSE-OBSTRUCTION,close request not completed,deterministic_rule_8,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-COMPLAINT-NO-DISPOSITION,complaint phrase without disposition,deterministic_rule_9,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-CONSENT-NEG-ENROLL,negative or minimal consent near enrollment,deterministic_rule_1,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-CREDIT-ASSURANCE,credit-impact assurance,deterministic_rule_3,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-FAST-DISCLOSURE,disclosure over speed limit,deterministic_rule_12,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-HARDSHIP-SALE,sale with hardship flag,deterministic_rule_10,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-NO-FEE-DISCLOSED,fee disclosure absent,deterministic_rule_5,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-NO-INTEREST-FRAMING,no-interest wording,deterministic_rule_6,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-OUTBOUND-SALE,sale on outbound call,deterministic_rule_2,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-POSTCALL-ENROLL,enrollment after call end,deterministic_rule_11,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-PREAPPROVED,pre-approved wording,deterministic_rule_7,CLB-GLOSS@v6,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-RECORDING-GAP-SALE,sale overlaps recording gap,deterministic_rule_14,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-TOPDECILE-ADDON-TEAMFLAG,high add-on volume on team with finding,deterministic_rule_13,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z
+SCN-WAIVER-ENROLL-60S,waiver and enrollment proximity,deterministic_rule_4,CLB-GLOSS@v8,2026-11-01T05:00:00Z,2026-11-01T05:00:00Z

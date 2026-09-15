@@ -1,0 +1,127 @@
+{
+  "review_id": "REV-2026-90018",
+  "code": "C15",
+  "title": "Opted Out, Not Synced",
+  "depth": "L3",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9001801",
+    "INT-9001802"
+  ],
+  "summary": "Catalog-grounded Opted Out, Not Synced review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "control_gap",
+    "categories": [],
+    "customer_outcome": "suppress solicitation; keep BT",
+    "colleague_outcome": "no_finding",
+    "control_outcome": "INC-9001801 population=9",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "incident_id": "INC-9001801",
+      "delayed_preferences": 1214,
+      "solicited": 9,
+      "solicited_ids": [
+        "INT-9001802",
+        "INT-0150000",
+        "INT-0150001",
+        "INT-0150002",
+        "INT-0150003",
+        "INT-0150004",
+        "INT-0150005",
+        "INT-0150006",
+        "INT-0150007"
+      ]
+    },
+    {
+      "latest_safe_decision": "2026-11-30"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-SRV-004@v2 §2.9"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [
+    "customer_reply"
+  ],
+  "required_capabilities": [
+    {
+      "capability": "router",
+      "necessity": "primary",
+      "why": "solicitation after opt-out must route to a preference-sync check",
+      "trajectory_signals": [
+        "route_decision {route_id, method, confidence, track, language, depth}"
+      ]
+    },
+    {
+      "capability": "loop_termination",
+      "necessity": "supporting",
+      "why": "used in the expected C15 path",
+      "trajectory_signals": [
+        "termination {reason}",
+        "wait_suspended {until, latest_safe_decision}",
+        "wait_resumed",
+        "no_progress_detected"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C15 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "harness",
+      "necessity": "primary",
+      "why": "the customer's choice arrives as a persona reply",
+      "trajectory_signals": [
+        "clock_advanced",
+        "artifact_arrived {id}",
+        "persona_reply",
+        "colleague_statement_arrived"
+      ]
+    },
+    {
+      "capability": "memory_persistent",
+      "necessity": "primary",
+      "why": "preference set vs synced timestamps",
+      "trajectory_signals": [
+        "sql_query / get_* with row IDs in tool_result"
+      ]
+    },
+    {
+      "capability": "memory_graph",
+      "necessity": "supporting",
+      "why": "used in the expected C15 path",
+      "trajectory_signals": [
+        "graph_query {cypher, node_ids}",
+        "graph_write {node|edge, status}"
+      ]
+    }
+  ]
+}

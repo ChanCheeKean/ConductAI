@@ -1,0 +1,209 @@
+{
+  "interaction_id": "INT-9001201",
+  "channel": "phone",
+  "source": "retranscription",
+  "asr_model": "es-US-general",
+  "language": "es",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.97,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 12.32,
+      "text": "Con Flex, puede pagar esta compra de $1,850 en 12 pagos, sin intereses — pero hay un cargo mensual fijo de 1.72%, o sea $31.82 al mes.",
+      "words": [
+        {
+          "w": "Con",
+          "start_s": 2.2,
+          "end_s": 2.52,
+          "conf": 0.93
+        },
+        {
+          "w": "Flex",
+          "start_s": 2.52,
+          "end_s": 2.9,
+          "conf": 0.94
+        },
+        {
+          "w": "puede",
+          "start_s": 2.9,
+          "end_s": 3.36,
+          "conf": 0.99
+        },
+        {
+          "w": "pagar",
+          "start_s": 3.36,
+          "end_s": 3.81,
+          "conf": 0.98
+        },
+        {
+          "w": "esta",
+          "start_s": 3.81,
+          "end_s": 4.2,
+          "conf": 0.97
+        },
+        {
+          "w": "compra",
+          "start_s": 4.2,
+          "end_s": 4.72,
+          "conf": 0.95
+        },
+        {
+          "w": "de",
+          "start_s": 4.72,
+          "end_s": 4.97,
+          "conf": 0.99
+        },
+        {
+          "w": "$1,850",
+          "start_s": 4.97,
+          "end_s": 5.49,
+          "conf": 0.98
+        },
+        {
+          "w": "en",
+          "start_s": 5.49,
+          "end_s": 5.74,
+          "conf": 0.96
+        },
+        {
+          "w": "12",
+          "start_s": 5.74,
+          "end_s": 5.98,
+          "conf": 0.93
+        },
+        {
+          "w": "pagos",
+          "start_s": 5.98,
+          "end_s": 6.44,
+          "conf": 0.99
+        },
+        {
+          "w": "sin",
+          "start_s": 6.44,
+          "end_s": 6.75,
+          "conf": 0.95
+        },
+        {
+          "w": "intereses",
+          "start_s": 6.75,
+          "end_s": 7.49,
+          "conf": 0.82
+        },
+        {
+          "w": "—",
+          "start_s": 7.49,
+          "end_s": 7.67,
+          "conf": 0.99
+        },
+        {
+          "w": "pero",
+          "start_s": 7.67,
+          "end_s": 8.05,
+          "conf": 0.96
+        },
+        {
+          "w": "hay",
+          "start_s": 8.05,
+          "end_s": 8.37,
+          "conf": 0.99
+        },
+        {
+          "w": "un",
+          "start_s": 8.37,
+          "end_s": 8.61,
+          "conf": 0.94
+        },
+        {
+          "w": "cargo",
+          "start_s": 8.61,
+          "end_s": 9.07,
+          "conf": 0.95
+        },
+        {
+          "w": "mensual",
+          "start_s": 9.07,
+          "end_s": 9.66,
+          "conf": 0.95
+        },
+        {
+          "w": "fijo",
+          "start_s": 9.66,
+          "end_s": 10.05,
+          "conf": 0.95
+        },
+        {
+          "w": "de",
+          "start_s": 10.05,
+          "end_s": 10.29,
+          "conf": 0.99
+        },
+        {
+          "w": "1.72%",
+          "start_s": 10.29,
+          "end_s": 10.75,
+          "conf": 0.96
+        },
+        {
+          "w": "o",
+          "start_s": 10.75,
+          "end_s": 10.92,
+          "conf": 0.99
+        },
+        {
+          "w": "sea",
+          "start_s": 10.92,
+          "end_s": 11.24,
+          "conf": 0.95
+        },
+        {
+          "w": "$31.82",
+          "start_s": 11.24,
+          "end_s": 11.76,
+          "conf": 0.99
+        },
+        {
+          "w": "al",
+          "start_s": 11.76,
+          "end_s": 12.01,
+          "conf": 0.99
+        },
+        {
+          "w": "mes",
+          "start_s": 12.01,
+          "end_s": 12.32,
+          "conf": 0.96
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "customer",
+      "start_s": 13.02,
+      "end_s": 13.82,
+      "text": "Sí, acepto.",
+      "words": [
+        {
+          "w": "Sí",
+          "start_s": 13.02,
+          "end_s": 13.27,
+          "conf": 0.95
+        },
+        {
+          "w": "acepto",
+          "start_s": 13.27,
+          "end_s": 13.82,
+          "conf": 0.99
+        }
+      ]
+    }
+  ],
+  "redactions": [],
+  "retranscription_id": "RTX-9001201",
+  "method": "es-US",
+  "requested_segment": null
+}

@@ -1,0 +1,104 @@
+{
+  "review_id": "REV-2026-90022",
+  "code": "C19",
+  "title": "Yesterday's Glossary",
+  "depth": "L2",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9002201"
+  ],
+  "summary": "Catalog-grounded Yesterday's Glossary review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "no_error",
+    "categories": [],
+    "customer_outcome": "none",
+    "colleague_outcome": "none",
+    "control_outcome": "scanner rule update request",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "firm_offer": true,
+      "displayed": true,
+      "glossary": "v8 (same rule as v7)"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-GLOSS@v8 §MC-03.2"
+  ],
+  "must_not": [],
+  "memory_ops": {
+    "supersede": "MEM-0350",
+    "valid_to": "2026-06-30",
+    "consolidate": "conditional replacement"
+  },
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C19 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "skills",
+      "necessity": "supporting",
+      "why": "used in the expected C19 path",
+      "trajectory_signals": [
+        "skill_loaded {skill}"
+      ]
+    },
+    {
+      "capability": "memory_semantic",
+      "necessity": "primary",
+      "why": "glossary condition as of the interaction date",
+      "trajectory_signals": [
+        "retrieval {query, filters: as_of/status/validity/speaker, doc_ids, used/discarded}"
+      ]
+    },
+    {
+      "capability": "read_paths",
+      "necessity": "primary",
+      "why": "reject the over-generalized consolidated note",
+      "trajectory_signals": [
+        "memory_read {filters}",
+        "memory_verified / memory_rejected {note_id, reason}"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "primary",
+      "why": "supersede MEM-0350 and re-consolidate",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

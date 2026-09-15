@@ -1,0 +1,163 @@
+{
+  "review_id": "REV-2026-90015",
+  "code": "C12",
+  "title": "The Cheat Sheet",
+  "depth": "L4",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9001501"
+  ],
+  "summary": "Catalog-grounded The Cheat Sheet review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "substantiated",
+    "categories": [
+      "MC-03"
+    ],
+    "customer_outcome": "correction letters and premium refund offers to 15",
+    "colleague_outcome": "coaching_only for 5",
+    "control_outcome": "quarantine ICM-9001501; systemic population=15",
+    "panel_used": true
+  },
+  "key_facts": [
+    {
+      "message_id": "ICM-9001501",
+      "semantic_hits": [
+        "INT-9001501",
+        "INT-9001502",
+        "INT-9001503",
+        "INT-9001504",
+        "INT-9001505",
+        "INT-9001506",
+        "INT-9001507",
+        "INT-9001508",
+        "INT-9001509",
+        "INT-9001510",
+        "INT-9001511",
+        "INT-9001512",
+        "INT-9001513",
+        "INT-9001514",
+        "INT-9001515",
+        "INT-9001516",
+        "INT-9001517"
+      ],
+      "exact_phrase_hits": 3,
+      "affected": 15,
+      "discarded": {
+        "INT-9001509": "speaker channel customer",
+        "INT-9001514": "negation"
+      }
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-PRD-CARDSHIELD@v3 §2.2"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "agents",
+      "necessity": "primary",
+      "why": "chase a phrase from one chat to shared supervisor material",
+      "trajectory_signals": [
+        "plan_created",
+        "plan_updated (agent-initiated)",
+        "hypothesis_updated"
+      ]
+    },
+    {
+      "capability": "agent_graph",
+      "necessity": "primary",
+      "why": "re-plan from individual conduct to systemic material",
+      "trajectory_signals": [
+        "node_entered / node_exited",
+        "edge_taken {from, to} incl. back-edges"
+      ]
+    },
+    {
+      "capability": "subagents",
+      "necessity": "primary",
+      "why": "one verifier per phrase hit (17)",
+      "trajectory_signals": [
+        "subagent_started {name, parent_span_id}",
+        "subagent_finished",
+        "panel_position / adjudication"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C12 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "memory_graph",
+      "necessity": "primary",
+      "why": "colleagues → team → supervisor → internal message",
+      "trajectory_signals": [
+        "graph_query {cypher, node_ids}",
+        "graph_write {node|edge, status}"
+      ]
+    },
+    {
+      "capability": "memory_semantic",
+      "necessity": "primary",
+      "why": "paraphrase search over colleague transcript segments",
+      "trajectory_signals": [
+        "retrieval {query, filters: as_of/status/validity/speaker, doc_ids, used/discarded}"
+      ]
+    },
+    {
+      "capability": "sandbox",
+      "necessity": "supporting",
+      "why": "used in the expected C12 path",
+      "trajectory_signals": [
+        "computation {code, inputs, output}"
+      ]
+    },
+    {
+      "capability": "read_paths",
+      "necessity": "supporting",
+      "why": "used in the expected C12 path",
+      "trajectory_signals": [
+        "memory_read {filters}",
+        "memory_verified / memory_rejected {note_id, reason}"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "primary",
+      "why": "consolidate observations + material graph write",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+plan_id,account_id,interaction_id,principal,months,monthly_fee_rate,monthly_fee_amount,first_fee_date,status,available_at
+FLX-9001002,ACC-90010,INT-9001002,2400.00,12,1.72,41.28,2026-11-20,active,2026-11-04T16:00:16Z
+FLX-9001202,ACC-90012,INT-9001201,1850.00,12,1.72,31.82,2026-11-20,active,2026-10-28T19:00:12Z

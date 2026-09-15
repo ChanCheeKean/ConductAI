@@ -1,0 +1,120 @@
+{
+  "review_id": "REV-2026-90014",
+  "code": "C11b",
+  "title": "Same Team, Clean Record",
+  "depth": "L2",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9001401"
+  ],
+  "summary": "Catalog-grounded Same Team, Clean Record review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "no_error",
+    "categories": [],
+    "customer_outcome": "none",
+    "colleague_outcome": "none",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "colleague_id": "COL-4425",
+      "interaction_ids": [
+        "INT-9001401",
+        "INT-0425000",
+        "INT-0425001",
+        "INT-0425002",
+        "INT-0425003",
+        "INT-0425004",
+        "INT-0425005",
+        "INT-0425006",
+        "INT-0425007",
+        "INT-0425008",
+        "INT-0425009",
+        "INT-0425010",
+        "INT-0425011",
+        "INT-0425012",
+        "INT-0425013",
+        "INT-0425014",
+        "INT-0425015",
+        "INT-0425016",
+        "INT-0425017"
+      ],
+      "total": 19,
+      "cancelled_within_30d": 2,
+      "complaints": 0
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-CRM-004@v2 §3.1"
+  ],
+  "must_not": [
+    "link COL-4425 to COL-4421 pattern",
+    "enhanced monitoring"
+  ],
+  "memory_ops": {
+    "operation": "skip"
+  },
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C11b path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "memory_graph",
+      "necessity": "primary",
+      "why": "scope boundary: no traversal from a teammate's pattern",
+      "trajectory_signals": [
+        "graph_query {cypher, node_ids}",
+        "graph_write {node|edge, status}"
+      ]
+    },
+    {
+      "capability": "read_paths",
+      "necessity": "primary",
+      "why": "reject a teammate-scoped pattern note",
+      "trajectory_signals": [
+        "memory_read {filters}",
+        "memory_verified / memory_rejected {note_id, reason}"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "primary",
+      "why": "log the decision not to write",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

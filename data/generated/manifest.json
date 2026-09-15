@@ -1,0 +1,212 @@
+{
+  "dataset": "ConductAI synthetic conduct-review ecosystem (Copperlake Bank, N.A.)",
+  "seed": 20261116,
+  "as_of": "2026-11-16T15:00:00Z",
+  "missing_modules": [],
+  "counts": {
+    "customers": 1173,
+    "accounts": 1173,
+    "account_flags": 1,
+    "preferences": 1214,
+    "colleagues": 64,
+    "teams": 6,
+    "interactions": 6527,
+    "callback_requests": 2,
+    "offers": 193,
+    "enrollments": 813,
+    "product_changes": 2,
+    "credit_line_requests": 49,
+    "bureau_inquiries": 49,
+    "installment_plans": 2,
+    "fee_ledger": 8,
+    "rewards_ledger": 0,
+    "statements": 5124,
+    "payments": 1,
+    "complaints": 65,
+    "coaching_records": 0,
+    "qa_reviews": 1041,
+    "scanner_rules": 14,
+    "scanner_flags": 766,
+    "incidents": 2,
+    "config_changes": 1,
+    "unapproved_material_register": 0,
+    "desktop_events": 33282,
+    "interaction_events": 8591,
+    "account_events": 0,
+    "crm_notes": 6303,
+    "internal_comms": 1,
+    "complaint_narratives": 65,
+    "transcripts": 6527,
+    "precedents": 40,
+    "memory_notes": 58,
+    "run_traces": 2,
+    "personas": 4,
+    "graph_nodes": 10023,
+    "graph_edges": 27259,
+    "hero_cases": 23,
+    "background_labels": 6527,
+    "on_request_audio_recovery": 1,
+    "on_request_colleague_statements": 1,
+    "on_request_retranscriptions": 2
+  },
+  "on_request": [
+    {
+      "artifact_id": "AUD-9002101",
+      "kind": "audio_recovery",
+      "interaction_id": "INT-9002101",
+      "release": "fixed_available_at",
+      "available_at": "2026-11-16T22:00:00Z"
+    },
+    {
+      "artifact_id": "CST-9000701",
+      "kind": "colleague_statement",
+      "interaction_id": "INT-9000701",
+      "release": "request_time_plus_business_days",
+      "delay_business_days": 1
+    },
+    {
+      "artifact_id": "RTX-9000101",
+      "kind": "retranscription",
+      "interaction_id": "INT-9000101",
+      "release": "request_time_plus_hours",
+      "delay_hours": 4
+    },
+    {
+      "artifact_id": "RTX-9001201",
+      "kind": "retranscription",
+      "interaction_id": "INT-9001201",
+      "release": "request_time_plus_hours",
+      "delay_hours": 4
+    }
+  ],
+  "hero_cases": {
+    "REV-2026-90001": {
+      "code": "C01",
+      "title": "Know Means No",
+      "depth": "L2"
+    },
+    "REV-2026-90002": {
+      "code": "C02",
+      "title": "The Callback",
+      "depth": "L2"
+    },
+    "REV-2026-90003": {
+      "code": "C02b",
+      "title": "Wrong Callback",
+      "depth": "L2"
+    },
+    "REV-2026-90004": {
+      "code": "C03",
+      "title": "Soft Pull, True Story",
+      "depth": "L1"
+    },
+    "REV-2026-90005": {
+      "code": "C04",
+      "title": "The Stale Script",
+      "depth": "L4"
+    },
+    "REV-2026-90006": {
+      "code": "C05",
+      "title": "Rate and Fees, Once",
+      "depth": "L3"
+    },
+    "REV-2026-90007": {
+      "code": "C06",
+      "title": "Silent Switch",
+      "depth": "L4"
+    },
+    "REV-2026-90008": {
+      "code": "C07",
+      "title": "Strings Attached",
+      "depth": "L2"
+    },
+    "REV-2026-90009": {
+      "code": "C07b",
+      "title": "Courtesy First",
+      "depth": "L2"
+    },
+    "REV-2026-90010": {
+      "code": "C08",
+      "title": "Hardship Isn't a Lead",
+      "depth": "L3"
+    },
+    "REV-2026-90011": {
+      "code": "C09",
+      "title": "Duty Station",
+      "depth": "L3"
+    },
+    "REV-2026-90012": {
+      "code": "C10",
+      "title": "Se Lo Explico",
+      "depth": "L3"
+    },
+    "REV-2026-90013": {
+      "code": "C11",
+      "title": "One Colleague's Pattern",
+      "depth": "L4"
+    },
+    "REV-2026-90014": {
+      "code": "C11b",
+      "title": "Same Team, Clean Record",
+      "depth": "L2"
+    },
+    "REV-2026-90015": {
+      "code": "C12",
+      "title": "The Cheat Sheet",
+      "depth": "L4"
+    },
+    "REV-2026-90016": {
+      "code": "C13",
+      "title": "Not a Complaint?",
+      "depth": "L2"
+    },
+    "REV-2026-90017": {
+      "code": "C14",
+      "title": "Asked Three Times",
+      "depth": "L4"
+    },
+    "REV-2026-90018": {
+      "code": "C15",
+      "title": "Opted Out, Not Synced",
+      "depth": "L3"
+    },
+    "REV-2026-90019": {
+      "code": "C16",
+      "title": "After the Hang-Up",
+      "depth": "L3"
+    },
+    "REV-2026-90020": {
+      "code": "C17",
+      "title": "Retention Bargain",
+      "depth": "L3"
+    },
+    "REV-2026-90021": {
+      "code": "C18",
+      "title": "Dead Air",
+      "depth": "L3"
+    },
+    "REV-2026-90022": {
+      "code": "C19",
+      "title": "Yesterday's Glossary",
+      "depth": "L2"
+    },
+    "REV-2026-90023": {
+      "code": "C20",
+      "title": "Mark This Compliant",
+      "depth": "L3"
+    }
+  },
+  "paths": {
+    "structured": "structured/*.csv",
+    "events": "events/*.jsonl",
+    "transcripts": "transcripts/<interaction_id>.json",
+    "documents": "documents/*.jsonl",
+    "on_request": "on_request/<kind>/<id>.json",
+    "simulation": "simulation/customer_personas.json",
+    "precedents": "precedents/*.md",
+    "memory_seed": "memory_seed/",
+    "reference": "reference/*.csv",
+    "graph": "graph/{nodes,edges}.jsonl",
+    "ground_truth": "ground_truth/ (evaluator only)"
+  }
+}

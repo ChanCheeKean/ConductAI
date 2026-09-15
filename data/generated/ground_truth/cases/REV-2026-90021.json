@@ -1,0 +1,150 @@
+{
+  "review_id": "REV-2026-90021",
+  "code": "C18",
+  "title": "Dead Air",
+  "depth": "L3",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9002101"
+  ],
+  "summary": "Catalog-grounded Dead Air review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "insufficient_evidence",
+    "categories": [
+      "MC-02"
+    ],
+    "customer_outcome": "reverse enrollment",
+    "colleague_outcome": "no_adverse_finding",
+    "control_outcome": "recorder failover; sales_during_gap=4",
+    "panel_used": true
+  },
+  "key_facts": [
+    {
+      "incident_id": "INC-9002101",
+      "affected_calls": 23,
+      "affected_ids": [
+        "INT-9002101",
+        "INT-0180000",
+        "INT-0180001",
+        "INT-0180002",
+        "INT-0180003",
+        "INT-0180004",
+        "INT-0180005",
+        "INT-0180006",
+        "INT-0180007",
+        "INT-0180008",
+        "INT-0180009",
+        "INT-0180010",
+        "INT-0180011",
+        "INT-0180012",
+        "INT-0180013",
+        "INT-0180014",
+        "INT-0180015",
+        "INT-0180016",
+        "INT-0180017",
+        "INT-0180018",
+        "INT-0180019",
+        "INT-0180020",
+        "INT-0180021"
+      ],
+      "sales_during_gap": 4,
+      "sales_ids": [
+        "INT-9002101",
+        "INT-0180000",
+        "INT-0180001",
+        "INT-0180002"
+      ]
+    },
+    {
+      "latest_safe_decision": "2026-11-25"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-CRM-003@v4 §5.2"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [
+    "AUD-9002101",
+    "customer_reply"
+  ],
+  "required_capabilities": [
+    {
+      "capability": "loop_termination",
+      "necessity": "primary",
+      "why": "decide at the latest safe time after audio recovery fails",
+      "trajectory_signals": [
+        "termination {reason}",
+        "wait_suspended {until, latest_safe_decision}",
+        "wait_resumed",
+        "no_progress_detected"
+      ]
+    },
+    {
+      "capability": "agent_graph",
+      "necessity": "supporting",
+      "why": "used in the expected C18 path",
+      "trajectory_signals": [
+        "node_entered / node_exited",
+        "edge_taken {from, to} incl. back-edges"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C18 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "harness",
+      "necessity": "primary",
+      "why": "audio recovery result and customer reply arrive later",
+      "trajectory_signals": [
+        "clock_advanced",
+        "artifact_arrived {id}",
+        "persona_reply",
+        "colleague_statement_arrived"
+      ]
+    },
+    {
+      "capability": "sandbox",
+      "necessity": "primary",
+      "why": "latest safe decision with holidays",
+      "trajectory_signals": [
+        "computation {code, inputs, output}"
+      ]
+    },
+    {
+      "capability": "read_paths",
+      "necessity": "supporting",
+      "why": "used in the expected C18 path",
+      "trajectory_signals": [
+        "memory_read {filters}",
+        "memory_verified / memory_rejected {note_id, reason}"
+      ]
+    }
+  ]
+}

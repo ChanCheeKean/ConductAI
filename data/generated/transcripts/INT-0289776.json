@@ -1,0 +1,299 @@
+{
+  "interaction_id": "INT-0289776",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 6.06,
+      "text": "Thank you for calling Copperlake. I need to verify your account.",
+      "words": [
+        {
+          "w": "Thank",
+          "start_s": 2.2,
+          "end_s": 2.57,
+          "conf": 0.85
+        },
+        {
+          "w": "you",
+          "start_s": 2.57,
+          "end_s": 2.82,
+          "conf": 0.85
+        },
+        {
+          "w": "for",
+          "start_s": 2.82,
+          "end_s": 3.07,
+          "conf": 0.87
+        },
+        {
+          "w": "calling",
+          "start_s": 3.07,
+          "end_s": 3.55,
+          "conf": 0.8
+        },
+        {
+          "w": "Copperlake",
+          "start_s": 3.55,
+          "end_s": 4.2,
+          "conf": 0.83
+        },
+        {
+          "w": "I",
+          "start_s": 4.2,
+          "end_s": 4.34,
+          "conf": 0.84
+        },
+        {
+          "w": "need",
+          "start_s": 4.34,
+          "end_s": 4.65,
+          "conf": 0.81
+        },
+        {
+          "w": "to",
+          "start_s": 4.65,
+          "end_s": 4.85,
+          "conf": 0.86
+        },
+        {
+          "w": "verify",
+          "start_s": 4.85,
+          "end_s": 5.27,
+          "conf": 0.81
+        },
+        {
+          "w": "your",
+          "start_s": 5.27,
+          "end_s": 5.58,
+          "conf": 0.83
+        },
+        {
+          "w": "account",
+          "start_s": 5.58,
+          "end_s": 6.06,
+          "conf": 0.83
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "customer",
+      "start_s": 6.76,
+      "end_s": 8.51,
+      "text": "Can you explain this fee?",
+      "words": [
+        {
+          "w": "Can",
+          "start_s": 6.76,
+          "end_s": 7.05,
+          "conf": 0.79
+        },
+        {
+          "w": "you",
+          "start_s": 7.05,
+          "end_s": 7.33,
+          "conf": 0.82
+        },
+        {
+          "w": "explain",
+          "start_s": 7.33,
+          "end_s": 7.88,
+          "conf": 0.82
+        },
+        {
+          "w": "this",
+          "start_s": 7.88,
+          "end_s": 8.23,
+          "conf": 0.88
+        },
+        {
+          "w": "fee",
+          "start_s": 8.23,
+          "end_s": 8.51,
+          "conf": 0.73
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 0.86,
+      "speaker_channel": "colleague",
+      "start_s": 9.21,
+      "end_s": 13.07,
+      "text": "I've completed the request and reviewed the applicable terms with you.",
+      "words": [
+        {
+          "w": "I've",
+          "start_s": 9.21,
+          "end_s": 9.49,
+          "conf": 0.87
+        },
+        {
+          "w": "completed",
+          "start_s": 9.49,
+          "end_s": 10.03,
+          "conf": 0.83
+        },
+        {
+          "w": "the",
+          "start_s": 10.03,
+          "end_s": 10.26,
+          "conf": 0.86
+        },
+        {
+          "w": "request",
+          "start_s": 10.26,
+          "end_s": 10.69,
+          "conf": 0.92
+        },
+        {
+          "w": "and",
+          "start_s": 10.69,
+          "end_s": 10.92,
+          "conf": 0.88
+        },
+        {
+          "w": "reviewed",
+          "start_s": 10.92,
+          "end_s": 11.41,
+          "conf": 0.85
+        },
+        {
+          "w": "the",
+          "start_s": 11.41,
+          "end_s": 11.64,
+          "conf": 0.91
+        },
+        {
+          "w": "applicable",
+          "start_s": 11.64,
+          "end_s": 12.23,
+          "conf": 0.92
+        },
+        {
+          "w": "terms",
+          "start_s": 12.23,
+          "end_s": 12.56,
+          "conf": 0.98
+        },
+        {
+          "w": "with",
+          "start_s": 12.56,
+          "end_s": 12.84,
+          "conf": 0.88
+        },
+        {
+          "w": "you",
+          "start_s": 12.84,
+          "end_s": 13.07,
+          "conf": 0.73
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "customer",
+      "start_s": 13.77,
+      "end_s": 14.82,
+      "text": "Thank you. uh",
+      "words": [
+        {
+          "w": "Thank",
+          "start_s": 13.77,
+          "end_s": 14.24,
+          "conf": 0.89
+        },
+        {
+          "w": "you",
+          "start_s": 14.24,
+          "end_s": 14.57,
+          "conf": 0.86
+        },
+        {
+          "w": "uh",
+          "start_s": 14.57,
+          "end_s": 14.82,
+          "conf": 0.84
+        }
+      ]
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "colleague",
+      "speaker_confidence": 0.87,
+      "speaker_channel": "colleague",
+      "start_s": 15.52,
+      "end_s": 18.68,
+      "text": "Is there anything else I can help with today?",
+      "words": [
+        {
+          "w": "Is",
+          "start_s": 15.52,
+          "end_s": 15.74,
+          "conf": 0.86
+        },
+        {
+          "w": "there",
+          "start_s": 15.74,
+          "end_s": 16.16,
+          "conf": 0.8
+        },
+        {
+          "w": "anything",
+          "start_s": 16.16,
+          "end_s": 16.76,
+          "conf": 0.96
+        },
+        {
+          "w": "else",
+          "start_s": 16.76,
+          "end_s": 17.11,
+          "conf": 0.84
+        },
+        {
+          "w": "I",
+          "start_s": 17.11,
+          "end_s": 17.27,
+          "conf": 0.87
+        },
+        {
+          "w": "can",
+          "start_s": 17.27,
+          "end_s": 17.56,
+          "conf": 0.93
+        },
+        {
+          "w": "help",
+          "start_s": 17.56,
+          "end_s": 17.91,
+          "conf": 0.83
+        },
+        {
+          "w": "with",
+          "start_s": 17.91,
+          "end_s": 18.26,
+          "conf": 0.91
+        },
+        {
+          "w": "today",
+          "start_s": 18.26,
+          "end_s": 18.68,
+          "conf": 0.92
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

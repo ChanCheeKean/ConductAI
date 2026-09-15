@@ -1,0 +1,96 @@
+{
+  "review_id": "REV-2026-90004",
+  "code": "C03",
+  "title": "Soft Pull, True Story",
+  "depth": "L1",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9000401"
+  ],
+  "summary": "Catalog-grounded Soft Pull, True Story review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "no_error",
+    "categories": [],
+    "customer_outcome": "none",
+    "colleague_outcome": "none",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "tenure_months": 74,
+      "increase": 1500,
+      "inquiry": "SOFT"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-POL-CLI@v6 §2.1"
+  ],
+  "must_not": [],
+  "memory_ops": {
+    "operation": "skip"
+  },
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "router",
+      "necessity": "primary",
+      "why": "a phrase hit on a true statement must take the L1 fast path",
+      "trajectory_signals": [
+        "route_decision {route_id, method, confidence, track, language, depth}"
+      ]
+    },
+    {
+      "capability": "loop_termination",
+      "necessity": "primary",
+      "why": "stop early once the inquiry record confirms the statement",
+      "trajectory_signals": [
+        "termination {reason}",
+        "wait_suspended {until, latest_safe_decision}",
+        "wait_resumed",
+        "no_progress_detected"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C03 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "primary",
+      "why": "skip: a true statement is not new knowledge",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+incident_id,system,started_at_utc,ended_at_utc,description,affected_count,available_at
+INC-9001801,preference_sync,2026-10-12T05:00:00Z,2026-10-20T20:00:00Z,"1,214 preference records delayed",1214,2026-10-20T20:00:00Z
+INC-9002101,recorder,2026-11-11T19:50:00Z,2026-11-11T20:20:00Z,Recorder failover affected 23 calls,23,2026-11-11T20:20:00Z

@@ -1,0 +1,12 @@
+code,category,typical_type
+MC-01,Pressure / excessive rebuttals after a clear decline,judgment
+MC-02,"Enrollment or sale without affirmative, informed consent",bright_line
+MC-03,Misrepresentation of product terms,bright_line
+MC-04,Omission or unclear delivery of a required disclosure,bright_line
+MC-05,"Inaccurate credit-reporting, score or inquiry information",bright_line
+MC-06,"Leveraging a servicing, cancellation or fee request to secure a sale; failing to honor a cancellation",judgment
+MC-07,Sale in a prohibited context,bright_line
+MC-08,Undisclosed product switching,bright_line
+MC-09,Sale to a customer in a protected situation,judgment
+MC-10,Misinformation about or obstruction of customer rights,judgment
+MC-11,Inaccurate records,bright_line

@@ -1,0 +1,176 @@
+{
+  "review_id": "REV-2026-90013",
+  "code": "C11",
+  "title": "One Colleague's Pattern",
+  "depth": "L4",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9001301"
+  ],
+  "summary": "Catalog-grounded One Colleague's Pattern review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "substantiated",
+    "categories": [
+      "MC-02"
+    ],
+    "customer_outcome": "reverse and refund for 17 customers",
+    "colleague_outcome": "pattern finding; coaching; enhanced_monitoring",
+    "control_outcome": "none",
+    "panel_used": true
+  },
+  "key_facts": [
+    {
+      "colleague_id": "COL-4421",
+      "interaction_ids": [
+        "INT-9001301",
+        "INT-0421000",
+        "INT-0421001",
+        "INT-0421002",
+        "INT-0421003",
+        "INT-0421004",
+        "INT-0421005",
+        "INT-0421006",
+        "INT-0421007",
+        "INT-0421008",
+        "INT-0421009",
+        "INT-0421010",
+        "INT-0421011",
+        "INT-0421012",
+        "INT-0421013",
+        "INT-0421014",
+        "INT-0421015",
+        "INT-0421016",
+        "INT-0421017",
+        "INT-0421018",
+        "INT-0421019",
+        "INT-0421020",
+        "INT-0421021"
+      ],
+      "total": 23,
+      "nonconsensual": 15,
+      "clean": 6,
+      "recording_gap": 2,
+      "cancelled_within_30d": 14
+    },
+    {
+      "binomial_p": 1e-08
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-SAL-001@v4 §3.1"
+  ],
+  "must_not": [],
+  "memory_ops": {
+    "consolidate": [
+      "MEM-0341",
+      "MEM-0342",
+      "MEM-0343"
+    ]
+  },
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "agents",
+      "necessity": "primary",
+      "why": "turn one complaint into a colleague lookback when statistics suggest a pattern",
+      "trajectory_signals": [
+        "plan_created",
+        "plan_updated (agent-initiated)",
+        "hypothesis_updated"
+      ]
+    },
+    {
+      "capability": "agent_graph",
+      "necessity": "primary",
+      "why": "re-plan from a single interaction into a lookback",
+      "trajectory_signals": [
+        "node_entered / node_exited",
+        "edge_taken {from, to} incl. back-edges"
+      ]
+    },
+    {
+      "capability": "subagents",
+      "necessity": "primary",
+      "why": "one reviewer per enrollment interaction (22)",
+      "trajectory_signals": [
+        "subagent_started {name, parent_span_id}",
+        "subagent_finished",
+        "panel_position / adjudication"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C11 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "skills",
+      "necessity": "supporting",
+      "why": "used in the expected C11 path",
+      "trajectory_signals": [
+        "skill_loaded {skill}"
+      ]
+    },
+    {
+      "capability": "memory_persistent",
+      "necessity": "supporting",
+      "why": "used in the expected C11 path",
+      "trajectory_signals": [
+        "sql_query / get_* with row IDs in tool_result"
+      ]
+    },
+    {
+      "capability": "memory_graph",
+      "necessity": "primary",
+      "why": "colleague → enrollments → cancellations → complaints; pattern write",
+      "trajectory_signals": [
+        "graph_query {cypher, node_ids}",
+        "graph_write {node|edge, status}"
+      ]
+    },
+    {
+      "capability": "sandbox",
+      "necessity": "primary",
+      "why": "cancellation rate vs program (binomial)",
+      "trajectory_signals": [
+        "computation {code, inputs, output}"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "primary",
+      "why": "consolidate raw notes + pattern graph write",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

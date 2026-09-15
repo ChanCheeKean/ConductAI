@@ -1,0 +1,127 @@
+{
+  "interaction_id": "INT-9001901",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.6,
+      "text": "I need to change my address.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 2.2,
+          "end_s": 2.39,
+          "conf": 0.99
+        },
+        {
+          "w": "need",
+          "start_s": 2.39,
+          "end_s": 2.82,
+          "conf": 0.92
+        },
+        {
+          "w": "to",
+          "start_s": 2.82,
+          "end_s": 3.09,
+          "conf": 0.88
+        },
+        {
+          "w": "change",
+          "start_s": 3.09,
+          "end_s": 3.67,
+          "conf": 0.96
+        },
+        {
+          "w": "my",
+          "start_s": 3.67,
+          "end_s": 3.94,
+          "conf": 0.87
+        },
+        {
+          "w": "address",
+          "start_s": 3.94,
+          "end_s": 4.6,
+          "conf": 0.99
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "colleague",
+      "start_s": 5.3,
+      "end_s": 7.55,
+      "text": "Your address is updated. Anything else?",
+      "words": [
+        {
+          "w": "Your",
+          "start_s": 5.3,
+          "end_s": 5.6,
+          "conf": 0.83
+        },
+        {
+          "w": "address",
+          "start_s": 5.6,
+          "end_s": 6.07,
+          "conf": 0.91
+        },
+        {
+          "w": "is",
+          "start_s": 6.07,
+          "end_s": 6.26,
+          "conf": 0.83
+        },
+        {
+          "w": "updated",
+          "start_s": 6.26,
+          "end_s": 6.73,
+          "conf": 0.96
+        },
+        {
+          "w": "Anything",
+          "start_s": 6.73,
+          "end_s": 7.25,
+          "conf": 0.85
+        },
+        {
+          "w": "else",
+          "start_s": 7.25,
+          "end_s": 7.55,
+          "conf": 0.88
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.88,
+      "speaker_channel": "customer",
+      "start_s": 8.25,
+      "end_s": 9.05,
+      "text": "No, thanks.",
+      "words": [
+        {
+          "w": "No",
+          "start_s": 8.25,
+          "end_s": 8.5,
+          "conf": 0.94
+        },
+        {
+          "w": "thanks",
+          "start_s": 8.5,
+          "end_s": 9.05,
+          "conf": 0.86
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

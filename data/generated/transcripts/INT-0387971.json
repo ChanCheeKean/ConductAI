@@ -1,0 +1,60 @@
+{
+  "interaction_id": "INT-0387971",
+  "channel": "chat",
+  "source": "chat_exact",
+  "asr_model": "none",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "colleague",
+      "start_s": 26.5,
+      "end_s": 26.5,
+      "text": "Thank you for calling Copperlake. I need to verify your account.",
+      "words": []
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "customer",
+      "start_s": 51.5,
+      "end_s": 51.5,
+      "text": "My card is missing and I need a replacement.",
+      "words": []
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "colleague",
+      "start_s": 76.5,
+      "end_s": 76.5,
+      "text": "I've completed the request and reviewed the applicable terms with you.",
+      "words": []
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "customer",
+      "start_s": 101.5,
+      "end_s": 101.5,
+      "text": "Thank you.",
+      "words": []
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "colleague",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "colleague",
+      "start_s": 126.5,
+      "end_s": 126.5,
+      "text": "Is there anything else I can help with today?",
+      "words": []
+    }
+  ],
+  "redactions": []
+}

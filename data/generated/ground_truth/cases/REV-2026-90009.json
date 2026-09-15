@@ -1,0 +1,79 @@
+{
+  "review_id": "REV-2026-90009",
+  "code": "C07b",
+  "title": "Courtesy First",
+  "depth": "L2",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9000901"
+  ],
+  "summary": "Catalog-grounded Courtesy First review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "no_error",
+    "categories": [],
+    "customer_outcome": "none",
+    "colleague_outcome": "none",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "waiver_true_utc": "2026-11-10T21:17:53Z",
+      "waiver_before_pitch_seconds": 47,
+      "workstation_offset_seconds": 9
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-SRV-002@v2 §3.1"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C07b path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "memory_persistent",
+      "necessity": "primary",
+      "why": "event timestamps and workstation clock offsets",
+      "trajectory_signals": [
+        "sql_query / get_* with row IDs in tool_result"
+      ]
+    },
+    {
+      "capability": "sandbox",
+      "necessity": "primary",
+      "why": "clock-offset and time-zone alignment",
+      "trajectory_signals": [
+        "computation {code, inputs, output}"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "interaction_id": "INT-9000101",
+  "channel": "phone",
+  "source": "retranscription",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "customer",
+      "start_s": 375,
+      "end_s": 378.2,
+      "text": "Oh — I do need that. Go ahead.",
+      "words": [
+        {
+          "w": "Oh",
+          "start_s": 375,
+          "end_s": 375.34,
+          "conf": 0.97
+        },
+        {
+          "w": "—",
+          "start_s": 375.34,
+          "end_s": 375.58,
+          "conf": 0.97
+        },
+        {
+          "w": "I",
+          "start_s": 375.58,
+          "end_s": 375.82,
+          "conf": 0.99
+        },
+        {
+          "w": "do",
+          "start_s": 375.82,
+          "end_s": 376.16,
+          "conf": 0.99
+        },
+        {
+          "w": "need",
+          "start_s": 376.16,
+          "end_s": 376.7,
+          "conf": 0.98
+        },
+        {
+          "w": "that",
+          "start_s": 376.7,
+          "end_s": 377.23,
+          "conf": 0.97
+        },
+        {
+          "w": "Go",
+          "start_s": 377.23,
+          "end_s": 377.57,
+          "conf": 0.92
+        },
+        {
+          "w": "ahead",
+          "start_s": 377.57,
+          "end_s": 378.2,
+          "conf": 0.91
+        }
+      ]
+    }
+  ],
+  "redactions": [],
+  "retranscription_id": "RTX-9000101",
+  "method": "stereo channel-separated, human-verified",
+  "requested_segment": [
+    340,
+    400
+  ]
+}

@@ -1,0 +1,289 @@
+{
+  "interaction_id": "INT-9001101",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 9.8,
+      "text": "I'm an Army reservist. I got orders and report for active duty December first. Is there an interest cap?",
+      "words": [
+        {
+          "w": "I'm",
+          "start_s": 2.2,
+          "end_s": 2.51,
+          "conf": 0.93
+        },
+        {
+          "w": "an",
+          "start_s": 2.51,
+          "end_s": 2.75,
+          "conf": 0.93
+        },
+        {
+          "w": "Army",
+          "start_s": 2.75,
+          "end_s": 3.12,
+          "conf": 0.87
+        },
+        {
+          "w": "reservist",
+          "start_s": 3.12,
+          "end_s": 3.84,
+          "conf": 0.94
+        },
+        {
+          "w": "I",
+          "start_s": 3.84,
+          "end_s": 4.01,
+          "conf": 0.98
+        },
+        {
+          "w": "got",
+          "start_s": 4.01,
+          "end_s": 4.31,
+          "conf": 0.96
+        },
+        {
+          "w": "orders",
+          "start_s": 4.31,
+          "end_s": 4.82,
+          "conf": 0.98
+        },
+        {
+          "w": "and",
+          "start_s": 4.82,
+          "end_s": 5.13,
+          "conf": 0.85
+        },
+        {
+          "w": "report",
+          "start_s": 5.13,
+          "end_s": 5.64,
+          "conf": 0.85
+        },
+        {
+          "w": "for",
+          "start_s": 5.64,
+          "end_s": 5.95,
+          "conf": 0.81
+        },
+        {
+          "w": "active",
+          "start_s": 5.95,
+          "end_s": 6.46,
+          "conf": 0.82
+        },
+        {
+          "w": "duty",
+          "start_s": 6.46,
+          "end_s": 6.83,
+          "conf": 0.89
+        },
+        {
+          "w": "December",
+          "start_s": 6.83,
+          "end_s": 7.48,
+          "conf": 0.94
+        },
+        {
+          "w": "first",
+          "start_s": 7.48,
+          "end_s": 7.93,
+          "conf": 0.92
+        },
+        {
+          "w": "Is",
+          "start_s": 7.93,
+          "end_s": 8.16,
+          "conf": 0.97
+        },
+        {
+          "w": "there",
+          "start_s": 8.16,
+          "end_s": 8.61,
+          "conf": 0.88
+        },
+        {
+          "w": "an",
+          "start_s": 8.61,
+          "end_s": 8.85,
+          "conf": 0.9
+        },
+        {
+          "w": "interest",
+          "start_s": 8.85,
+          "end_s": 9.49,
+          "conf": 0.91
+        },
+        {
+          "w": "cap",
+          "start_s": 9.49,
+          "end_s": 9.8,
+          "conf": 0.85
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "colleague",
+      "start_s": 10.5,
+      "end_s": 18.0,
+      "text": "That SCRA thing is for mortgages and car loans, not credit cards. What I can do is a balance transfer.",
+      "words": [
+        {
+          "w": "That",
+          "start_s": 10.5,
+          "end_s": 10.88,
+          "conf": 0.85
+        },
+        {
+          "w": "SCRA",
+          "start_s": 10.88,
+          "end_s": 11.25,
+          "conf": 0.89
+        },
+        {
+          "w": "thing",
+          "start_s": 11.25,
+          "end_s": 11.69,
+          "conf": 0.89
+        },
+        {
+          "w": "is",
+          "start_s": 11.69,
+          "end_s": 11.93,
+          "conf": 0.91
+        },
+        {
+          "w": "for",
+          "start_s": 11.93,
+          "end_s": 12.24,
+          "conf": 0.93
+        },
+        {
+          "w": "mortgages",
+          "start_s": 12.24,
+          "end_s": 12.95,
+          "conf": 0.94
+        },
+        {
+          "w": "and",
+          "start_s": 12.95,
+          "end_s": 13.26,
+          "conf": 0.91
+        },
+        {
+          "w": "car",
+          "start_s": 13.26,
+          "end_s": 13.57,
+          "conf": 0.86
+        },
+        {
+          "w": "loans",
+          "start_s": 13.57,
+          "end_s": 14.01,
+          "conf": 0.94
+        },
+        {
+          "w": "not",
+          "start_s": 14.01,
+          "end_s": 14.32,
+          "conf": 0.99
+        },
+        {
+          "w": "credit",
+          "start_s": 14.32,
+          "end_s": 14.83,
+          "conf": 0.83
+        },
+        {
+          "w": "cards",
+          "start_s": 14.83,
+          "end_s": 15.27,
+          "conf": 0.9
+        },
+        {
+          "w": "What",
+          "start_s": 15.27,
+          "end_s": 15.65,
+          "conf": 0.91
+        },
+        {
+          "w": "I",
+          "start_s": 15.65,
+          "end_s": 15.82,
+          "conf": 0.89
+        },
+        {
+          "w": "can",
+          "start_s": 15.82,
+          "end_s": 16.12,
+          "conf": 0.94
+        },
+        {
+          "w": "do",
+          "start_s": 16.12,
+          "end_s": 16.36,
+          "conf": 0.85
+        },
+        {
+          "w": "is",
+          "start_s": 16.36,
+          "end_s": 16.6,
+          "conf": 0.89
+        },
+        {
+          "w": "a",
+          "start_s": 16.6,
+          "end_s": 16.77,
+          "conf": 0.88
+        },
+        {
+          "w": "balance",
+          "start_s": 16.77,
+          "end_s": 17.35,
+          "conf": 0.88
+        },
+        {
+          "w": "transfer",
+          "start_s": 17.35,
+          "end_s": 18.0,
+          "conf": 0.92
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "customer",
+      "start_s": 18.7,
+      "end_s": 19.5,
+      "text": "No thanks.",
+      "words": [
+        {
+          "w": "No",
+          "start_s": 18.7,
+          "end_s": 18.95,
+          "conf": 0.87
+        },
+        {
+          "w": "thanks",
+          "start_s": 18.95,
+          "end_s": 19.5,
+          "conf": 0.81
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

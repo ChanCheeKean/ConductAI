@@ -1,0 +1,246 @@
+{
+  "interaction_id": "INT-9000101",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 4.08,
+      "text": "CardShield can help with payments.",
+      "words": [
+        {
+          "w": "CardShield",
+          "start_s": 2.2,
+          "end_s": 2.79,
+          "conf": 0.79
+        },
+        {
+          "w": "can",
+          "start_s": 2.79,
+          "end_s": 3.02,
+          "conf": 0.79
+        },
+        {
+          "w": "help",
+          "start_s": 3.02,
+          "end_s": 3.3,
+          "conf": 0.89
+        },
+        {
+          "w": "with",
+          "start_s": 3.3,
+          "end_s": 3.59,
+          "conf": 0.86
+        },
+        {
+          "w": "payments",
+          "start_s": 3.59,
+          "end_s": 4.08,
+          "conf": 0.8
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "colleague",
+      "start_s": 340,
+      "end_s": 346.0,
+      "text": "eighty-nine cents for every hundred dollars of your ending statement balance, and you can cancel anytime",
+      "words": [
+        {
+          "w": "eighty-nine",
+          "start_s": 340,
+          "end_s": 340.67,
+          "conf": 0.79
+        },
+        {
+          "w": "cents",
+          "start_s": 340.67,
+          "end_s": 341.02,
+          "conf": 0.86
+        },
+        {
+          "w": "for",
+          "start_s": 341.02,
+          "end_s": 341.26,
+          "conf": 0.77
+        },
+        {
+          "w": "every",
+          "start_s": 341.26,
+          "end_s": 341.61,
+          "conf": 0.77
+        },
+        {
+          "w": "hundred",
+          "start_s": 341.61,
+          "end_s": 342.06,
+          "conf": 0.8
+        },
+        {
+          "w": "dollars",
+          "start_s": 342.06,
+          "end_s": 342.52,
+          "conf": 0.84
+        },
+        {
+          "w": "of",
+          "start_s": 342.52,
+          "end_s": 342.71,
+          "conf": 0.79
+        },
+        {
+          "w": "your",
+          "start_s": 342.71,
+          "end_s": 343.0,
+          "conf": 0.84
+        },
+        {
+          "w": "ending",
+          "start_s": 343.0,
+          "end_s": 343.4,
+          "conf": 0.78
+        },
+        {
+          "w": "statement",
+          "start_s": 343.4,
+          "end_s": 343.96,
+          "conf": 0.82
+        },
+        {
+          "w": "balance",
+          "start_s": 343.96,
+          "end_s": 344.42,
+          "conf": 0.82
+        },
+        {
+          "w": "and",
+          "start_s": 344.42,
+          "end_s": 344.66,
+          "conf": 0.81
+        },
+        {
+          "w": "you",
+          "start_s": 344.66,
+          "end_s": 344.9,
+          "conf": 0.82
+        },
+        {
+          "w": "can",
+          "start_s": 344.9,
+          "end_s": 345.14,
+          "conf": 0.86
+        },
+        {
+          "w": "cancel",
+          "start_s": 345.14,
+          "end_s": 345.54,
+          "conf": 0.84
+        },
+        {
+          "w": "anytime",
+          "start_s": 345.54,
+          "end_s": 346.0,
+          "conf": 0.8
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "customer",
+      "start_s": 375,
+      "end_s": 377.0,
+      "text": "No. I don't need that.",
+      "words": [
+        {
+          "w": "No",
+          "start_s": 375,
+          "end_s": 375.3,
+          "conf": 0.41
+        },
+        {
+          "w": "I",
+          "start_s": 375.3,
+          "end_s": 375.51,
+          "conf": 0.76
+        },
+        {
+          "w": "don't",
+          "start_s": 375.51,
+          "end_s": 376.06,
+          "conf": 0.46
+        },
+        {
+          "w": "need",
+          "start_s": 376.06,
+          "end_s": 376.53,
+          "conf": 0.77
+        },
+        {
+          "w": "that",
+          "start_s": 376.53,
+          "end_s": 377.0,
+          "conf": 0.84
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "colleague",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "colleague",
+      "start_s": 390,
+      "end_s": 392.25,
+      "text": "Okay, I've added it for you.",
+      "words": [
+        {
+          "w": "Okay",
+          "start_s": 390,
+          "end_s": 390.41,
+          "conf": 0.78
+        },
+        {
+          "w": "I've",
+          "start_s": 390.41,
+          "end_s": 390.83,
+          "conf": 0.87
+        },
+        {
+          "w": "added",
+          "start_s": 390.83,
+          "end_s": 391.31,
+          "conf": 0.76
+        },
+        {
+          "w": "it",
+          "start_s": 391.31,
+          "end_s": 391.58,
+          "conf": 0.84
+        },
+        {
+          "w": "for",
+          "start_s": 391.58,
+          "end_s": 391.91,
+          "conf": 0.81
+        },
+        {
+          "w": "you",
+          "start_s": 391.91,
+          "end_s": 392.25,
+          "conf": 0.76
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

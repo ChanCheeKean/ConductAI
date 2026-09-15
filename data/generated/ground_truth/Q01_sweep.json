@@ -1,0 +1,172 @@
+{
+  "code": "Q01",
+  "as_of": "2026-11-16T15:00:00Z",
+  "week_start": "2026-11-09",
+  "week_end": "2026-11-13",
+  "capacity": 40,
+  "risk_capacity": 36,
+  "random_capacity": 4,
+  "seed": 20261116,
+  "population_count": 546,
+  "gold_positive_ids": [
+    "INT-0117883",
+    "INT-0165026",
+    "INT-0193412",
+    "INT-0194614",
+    "INT-0231287",
+    "INT-0272324",
+    "INT-0438206",
+    "INT-0445655",
+    "INT-0532384",
+    "INT-0690353",
+    "INT-0717654",
+    "INT-0849784",
+    "INT-0859973",
+    "INT-0945034",
+    "INT-0976693",
+    "INT-9000301",
+    "INT-9000302",
+    "INT-9000801",
+    "INT-9001501",
+    "INT-9001901",
+    "INT-9002301"
+  ],
+  "risk_ranked_picks": [
+    "INT-9000101",
+    "INT-9000801",
+    "INT-9000901",
+    "INT-9001401",
+    "INT-9001901",
+    "INT-9002101",
+    "INT-9002201",
+    "INT-9002301",
+    "INT-0193412",
+    "INT-0438206",
+    "INT-0117883",
+    "INT-0009224",
+    "INT-0045035",
+    "INT-0063657",
+    "INT-0165026",
+    "INT-0194614",
+    "INT-0231287",
+    "INT-0272324",
+    "INT-0532384",
+    "INT-0690353",
+    "INT-0717654",
+    "INT-0859973",
+    "INT-0032052",
+    "INT-0065506",
+    "INT-0180000",
+    "INT-0180001",
+    "INT-0180002",
+    "INT-9000302",
+    "INT-0001721",
+    "INT-0002366",
+    "INT-0003261",
+    "INT-0003913",
+    "INT-0004914",
+    "INT-0006003",
+    "INT-0008166",
+    "INT-0008871"
+  ],
+  "random_stratified_picks": [
+    "INT-0272071",
+    "INT-0263061",
+    "INT-0523006",
+    "INT-0864560"
+  ],
+  "risk_gold_positive_ids": [
+    "INT-0117883",
+    "INT-0165026",
+    "INT-0193412",
+    "INT-0194614",
+    "INT-0231287",
+    "INT-0272324",
+    "INT-0438206",
+    "INT-0532384",
+    "INT-0690353",
+    "INT-0717654",
+    "INT-0859973",
+    "INT-9000302",
+    "INT-9000801",
+    "INT-9001901",
+    "INT-9002301"
+  ],
+  "risk_recall": 0.7143,
+  "minimum_recall": 0.7,
+  "required_hero_ids": [
+    "INT-9000101",
+    "INT-9000801",
+    "INT-9000901",
+    "INT-9001401",
+    "INT-9001901",
+    "INT-9002101",
+    "INT-9002201",
+    "INT-9002301"
+  ],
+  "prohibited_features": [
+    "age",
+    "birth_year",
+    "language",
+    "accent",
+    "asr_confidence",
+    "site",
+    "demographics"
+  ],
+  "required_capabilities": [
+    {
+      "capability": "router",
+      "necessity": "primary",
+      "why": "portfolio selection is routing over a week of interactions",
+      "trajectory_signals": [
+        "route_decision {route_id, method, confidence, track, language, depth}"
+      ]
+    },
+    {
+      "capability": "subagents",
+      "necessity": "primary",
+      "why": "per-candidate scoring under a review budget",
+      "trajectory_signals": [
+        "subagent_started {name, parent_span_id}",
+        "subagent_finished",
+        "panel_position / adjudication"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected Q01 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "harness",
+      "necessity": "primary",
+      "why": "a week of interactions as of Monday morning",
+      "trajectory_signals": [
+        "clock_advanced",
+        "artifact_arrived {id}",
+        "persona_reply",
+        "colleague_statement_arrived"
+      ]
+    },
+    {
+      "capability": "memory_persistent",
+      "necessity": "primary",
+      "why": "week population and permitted risk signals",
+      "trajectory_signals": [
+        "sql_query / get_* with row IDs in tool_result"
+      ]
+    },
+    {
+      "capability": "sandbox",
+      "necessity": "primary",
+      "why": "risk scores and seeded random slice",
+      "trajectory_signals": [
+        "computation {code, inputs, output}"
+      ]
+    }
+  ]
+}

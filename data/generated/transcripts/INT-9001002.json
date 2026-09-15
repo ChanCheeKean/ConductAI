@@ -1,0 +1,169 @@
+{
+  "interaction_id": "INT-9001002",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.87,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.6,
+      "text": "Can I change my payment date?",
+      "words": [
+        {
+          "w": "Can",
+          "start_s": 2.2,
+          "end_s": 2.54,
+          "conf": 0.87
+        },
+        {
+          "w": "I",
+          "start_s": 2.54,
+          "end_s": 2.73,
+          "conf": 0.92
+        },
+        {
+          "w": "change",
+          "start_s": 2.73,
+          "end_s": 3.29,
+          "conf": 0.85
+        },
+        {
+          "w": "my",
+          "start_s": 3.29,
+          "end_s": 3.55,
+          "conf": 0.92
+        },
+        {
+          "w": "payment",
+          "start_s": 3.55,
+          "end_s": 4.19,
+          "conf": 0.92
+        },
+        {
+          "w": "date",
+          "start_s": 4.19,
+          "end_s": 4.6,
+          "conf": 0.89
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "colleague",
+      "start_s": 5.3,
+      "end_s": 9.8,
+      "text": "To lower your payments you could put the $2,400 on Flex Installments.",
+      "words": [
+        {
+          "w": "To",
+          "start_s": 5.3,
+          "end_s": 5.51,
+          "conf": 0.91
+        },
+        {
+          "w": "lower",
+          "start_s": 5.51,
+          "end_s": 5.9,
+          "conf": 0.91
+        },
+        {
+          "w": "your",
+          "start_s": 5.9,
+          "end_s": 6.23,
+          "conf": 0.79
+        },
+        {
+          "w": "payments",
+          "start_s": 6.23,
+          "end_s": 6.8,
+          "conf": 0.94
+        },
+        {
+          "w": "you",
+          "start_s": 6.8,
+          "end_s": 7.07,
+          "conf": 0.94
+        },
+        {
+          "w": "could",
+          "start_s": 7.07,
+          "end_s": 7.46,
+          "conf": 0.95
+        },
+        {
+          "w": "put",
+          "start_s": 7.46,
+          "end_s": 7.73,
+          "conf": 0.88
+        },
+        {
+          "w": "the",
+          "start_s": 7.73,
+          "end_s": 8.0,
+          "conf": 0.79
+        },
+        {
+          "w": "$2,400",
+          "start_s": 8.0,
+          "end_s": 8.45,
+          "conf": 0.92
+        },
+        {
+          "w": "on",
+          "start_s": 8.45,
+          "end_s": 8.66,
+          "conf": 0.82
+        },
+        {
+          "w": "Flex",
+          "start_s": 8.66,
+          "end_s": 8.99,
+          "conf": 0.92
+        },
+        {
+          "w": "Installments",
+          "start_s": 8.99,
+          "end_s": 9.8,
+          "conf": 0.88
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.96,
+      "speaker_channel": "customer",
+      "start_s": 10.5,
+      "end_s": 11.7,
+      "text": "Okay, do it.",
+      "words": [
+        {
+          "w": "Okay",
+          "start_s": 10.5,
+          "end_s": 11.03,
+          "conf": 0.89
+        },
+        {
+          "w": "do",
+          "start_s": 11.03,
+          "end_s": 11.36,
+          "conf": 0.87
+        },
+        {
+          "w": "it",
+          "start_s": 11.36,
+          "end_s": 11.7,
+          "conf": 0.86
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

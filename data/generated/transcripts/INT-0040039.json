@@ -1,0 +1,145 @@
+{
+  "interaction_id": "INT-0040039",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 5.0,
+      "text": "Please increase my line by three thousand.",
+      "words": [
+        {
+          "w": "Please",
+          "start_s": 2.2,
+          "end_s": 2.66,
+          "conf": 0.81
+        },
+        {
+          "w": "increase",
+          "start_s": 2.66,
+          "end_s": 3.25,
+          "conf": 0.91
+        },
+        {
+          "w": "my",
+          "start_s": 3.25,
+          "end_s": 3.46,
+          "conf": 0.92
+        },
+        {
+          "w": "line",
+          "start_s": 3.46,
+          "end_s": 3.8,
+          "conf": 0.92
+        },
+        {
+          "w": "by",
+          "start_s": 3.8,
+          "end_s": 4.02,
+          "conf": 0.88
+        },
+        {
+          "w": "three",
+          "start_s": 4.02,
+          "end_s": 4.42,
+          "conf": 0.83
+        },
+        {
+          "w": "thousand",
+          "start_s": 4.42,
+          "end_s": 5.0,
+          "conf": 0.95
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "colleague",
+      "start_s": 5.7,
+      "end_s": 9.07,
+      "text": "There will be no effect on your credit score.",
+      "words": [
+        {
+          "w": "There",
+          "start_s": 5.7,
+          "end_s": 6.14,
+          "conf": 0.88
+        },
+        {
+          "w": "will",
+          "start_s": 6.14,
+          "end_s": 6.52,
+          "conf": 0.9
+        },
+        {
+          "w": "be",
+          "start_s": 6.52,
+          "end_s": 6.76,
+          "conf": 0.94
+        },
+        {
+          "w": "no",
+          "start_s": 6.76,
+          "end_s": 7.0,
+          "conf": 0.87
+        },
+        {
+          "w": "effect",
+          "start_s": 7.0,
+          "end_s": 7.51,
+          "conf": 0.88
+        },
+        {
+          "w": "on",
+          "start_s": 7.51,
+          "end_s": 7.75,
+          "conf": 0.95
+        },
+        {
+          "w": "your",
+          "start_s": 7.75,
+          "end_s": 8.12,
+          "conf": 0.98
+        },
+        {
+          "w": "credit",
+          "start_s": 8.12,
+          "end_s": 8.63,
+          "conf": 0.86
+        },
+        {
+          "w": "score",
+          "start_s": 8.63,
+          "end_s": 9.07,
+          "conf": 0.79
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "customer",
+      "start_s": 9.77,
+      "end_s": 10.17,
+      "text": "Proceed.",
+      "words": [
+        {
+          "w": "Proceed",
+          "start_s": 9.77,
+          "end_s": 10.17,
+          "conf": 0.92
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

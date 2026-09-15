@@ -1,0 +1,12 @@
+[project]
+name = "conductai"
+version = "0.1.0"
+description = "Synthetic data foundation for automated credit-card conduct review"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

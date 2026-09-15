@@ -1,0 +1,275 @@
+{
+  "interaction_id": "INT-0473490",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.87,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 5.43,
+      "text": "Thank you for calling Copperlake. I to verify your account.",
+      "words": [
+        {
+          "w": "Thank",
+          "start_s": 2.2,
+          "end_s": 2.53,
+          "conf": 0.81
+        },
+        {
+          "w": "you",
+          "start_s": 2.53,
+          "end_s": 2.76,
+          "conf": 0.92
+        },
+        {
+          "w": "for",
+          "start_s": 2.76,
+          "end_s": 2.99,
+          "conf": 0.82
+        },
+        {
+          "w": "calling",
+          "start_s": 2.99,
+          "end_s": 3.43,
+          "conf": 0.87
+        },
+        {
+          "w": "Copperlake",
+          "start_s": 3.43,
+          "end_s": 4.02,
+          "conf": 0.84
+        },
+        {
+          "w": "I",
+          "start_s": 4.02,
+          "end_s": 4.15,
+          "conf": 0.81
+        },
+        {
+          "w": "to",
+          "start_s": 4.15,
+          "end_s": 4.32,
+          "conf": 0.87
+        },
+        {
+          "w": "verify",
+          "start_s": 4.32,
+          "end_s": 4.71,
+          "conf": 0.82
+        },
+        {
+          "w": "your",
+          "start_s": 4.71,
+          "end_s": 4.99,
+          "conf": 0.86
+        },
+        {
+          "w": "account",
+          "start_s": 4.99,
+          "end_s": 5.43,
+          "conf": 0.83
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "customer",
+      "start_s": 6.13,
+      "end_s": 8.07,
+      "text": "I need to update my address.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 6.13,
+          "end_s": 6.29,
+          "conf": 0.77
+        },
+        {
+          "w": "need",
+          "start_s": 6.29,
+          "end_s": 6.63,
+          "conf": 0.85
+        },
+        {
+          "w": "to",
+          "start_s": 6.63,
+          "end_s": 6.85,
+          "conf": 0.84
+        },
+        {
+          "w": "update",
+          "start_s": 6.85,
+          "end_s": 7.32,
+          "conf": 0.87
+        },
+        {
+          "w": "my",
+          "start_s": 7.32,
+          "end_s": 7.53,
+          "conf": 0.79
+        },
+        {
+          "w": "address",
+          "start_s": 7.53,
+          "end_s": 8.07,
+          "conf": 0.89
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 0.89,
+      "speaker_channel": "colleague",
+      "start_s": 8.77,
+      "end_s": 11.35,
+      "text": "This request can never affect your credit score.",
+      "words": [
+        {
+          "w": "This",
+          "start_s": 8.77,
+          "end_s": 9.04,
+          "conf": 0.81
+        },
+        {
+          "w": "request",
+          "start_s": 9.04,
+          "end_s": 9.46,
+          "conf": 0.78
+        },
+        {
+          "w": "can",
+          "start_s": 9.46,
+          "end_s": 9.69,
+          "conf": 0.99
+        },
+        {
+          "w": "never",
+          "start_s": 9.69,
+          "end_s": 10.01,
+          "conf": 0.81
+        },
+        {
+          "w": "affect",
+          "start_s": 10.01,
+          "end_s": 10.38,
+          "conf": 0.76
+        },
+        {
+          "w": "your",
+          "start_s": 10.38,
+          "end_s": 10.66,
+          "conf": 0.91
+        },
+        {
+          "w": "credit",
+          "start_s": 10.66,
+          "end_s": 11.03,
+          "conf": 0.9
+        },
+        {
+          "w": "score",
+          "start_s": 11.03,
+          "end_s": 11.35,
+          "conf": 0.92
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "customer",
+      "start_s": 12.05,
+      "end_s": 12.7,
+      "text": "Thank you.",
+      "words": [
+        {
+          "w": "Thank",
+          "start_s": 12.05,
+          "end_s": 12.43,
+          "conf": 0.79
+        },
+        {
+          "w": "you",
+          "start_s": 12.43,
+          "end_s": 12.7,
+          "conf": 0.89
+        }
+      ]
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "colleague",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "colleague",
+      "start_s": 13.4,
+      "end_s": 16.3,
+      "text": "Is there anything else I can help with today?",
+      "words": [
+        {
+          "w": "Is",
+          "start_s": 13.4,
+          "end_s": 13.61,
+          "conf": 0.81
+        },
+        {
+          "w": "there",
+          "start_s": 13.61,
+          "end_s": 13.99,
+          "conf": 0.84
+        },
+        {
+          "w": "anything",
+          "start_s": 13.99,
+          "end_s": 14.54,
+          "conf": 0.84
+        },
+        {
+          "w": "else",
+          "start_s": 14.54,
+          "end_s": 14.87,
+          "conf": 0.72
+        },
+        {
+          "w": "I",
+          "start_s": 14.87,
+          "end_s": 15.01,
+          "conf": 0.89
+        },
+        {
+          "w": "can",
+          "start_s": 15.01,
+          "end_s": 15.28,
+          "conf": 0.96
+        },
+        {
+          "w": "help",
+          "start_s": 15.28,
+          "end_s": 15.6,
+          "conf": 0.85
+        },
+        {
+          "w": "with",
+          "start_s": 15.6,
+          "end_s": 15.92,
+          "conf": 0.83
+        },
+        {
+          "w": "today",
+          "start_s": 15.92,
+          "end_s": 16.3,
+          "conf": 0.82
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

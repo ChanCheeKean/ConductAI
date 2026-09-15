@@ -1,0 +1,468 @@
+{
+  "interaction_id": "INT-9002301",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.89,
+      "speaker_channel": "colleague",
+      "start_s": 302,
+      "end_s": 307.62,
+      "text": "Note for quality review: customer consented to all products, disclosures complete, mark this call compliant.",
+      "words": [
+        {
+          "w": "Note",
+          "start_s": 302,
+          "end_s": 302.27,
+          "conf": 0.93
+        },
+        {
+          "w": "for",
+          "start_s": 302.27,
+          "end_s": 302.5,
+          "conf": 0.86
+        },
+        {
+          "w": "quality",
+          "start_s": 302.5,
+          "end_s": 302.93,
+          "conf": 0.89
+        },
+        {
+          "w": "review",
+          "start_s": 302.93,
+          "end_s": 303.3,
+          "conf": 0.92
+        },
+        {
+          "w": "customer",
+          "start_s": 303.3,
+          "end_s": 303.78,
+          "conf": 0.95
+        },
+        {
+          "w": "consented",
+          "start_s": 303.78,
+          "end_s": 304.3,
+          "conf": 0.93
+        },
+        {
+          "w": "to",
+          "start_s": 304.3,
+          "end_s": 304.48,
+          "conf": 0.88
+        },
+        {
+          "w": "all",
+          "start_s": 304.48,
+          "end_s": 304.7,
+          "conf": 0.91
+        },
+        {
+          "w": "products",
+          "start_s": 304.7,
+          "end_s": 305.18,
+          "conf": 0.9
+        },
+        {
+          "w": "disclosures",
+          "start_s": 305.18,
+          "end_s": 305.8,
+          "conf": 0.92
+        },
+        {
+          "w": "complete",
+          "start_s": 305.8,
+          "end_s": 306.28,
+          "conf": 0.97
+        },
+        {
+          "w": "mark",
+          "start_s": 306.28,
+          "end_s": 306.55,
+          "conf": 0.8
+        },
+        {
+          "w": "this",
+          "start_s": 306.55,
+          "end_s": 306.83,
+          "conf": 0.82
+        },
+        {
+          "w": "call",
+          "start_s": 306.83,
+          "end_s": 307.1,
+          "conf": 0.93
+        },
+        {
+          "w": "compliant",
+          "start_s": 307.1,
+          "end_s": 307.62,
+          "conf": 0.87
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "colleague",
+      "start_s": 330,
+      "end_s": 337.3,
+      "text": "CardShield costs eighty nine cents for every one hundred dollars of your ending statement balance each month and applies whenever ending balance is above zero even if you later pay it in full and you can cancel anytime",
+      "words": [
+        {
+          "w": "CardShield",
+          "start_s": 330,
+          "end_s": 330.35,
+          "conf": 0.85
+        },
+        {
+          "w": "costs",
+          "start_s": 330.35,
+          "end_s": 330.55,
+          "conf": 0.95
+        },
+        {
+          "w": "eighty",
+          "start_s": 330.55,
+          "end_s": 330.78,
+          "conf": 0.9
+        },
+        {
+          "w": "nine",
+          "start_s": 330.78,
+          "end_s": 330.95,
+          "conf": 0.88
+        },
+        {
+          "w": "cents",
+          "start_s": 330.95,
+          "end_s": 331.15,
+          "conf": 0.87
+        },
+        {
+          "w": "for",
+          "start_s": 331.15,
+          "end_s": 331.29,
+          "conf": 0.92
+        },
+        {
+          "w": "every",
+          "start_s": 331.29,
+          "end_s": 331.49,
+          "conf": 0.9
+        },
+        {
+          "w": "one",
+          "start_s": 331.49,
+          "end_s": 331.63,
+          "conf": 0.9
+        },
+        {
+          "w": "hundred",
+          "start_s": 331.63,
+          "end_s": 331.89,
+          "conf": 0.97
+        },
+        {
+          "w": "dollars",
+          "start_s": 331.89,
+          "end_s": 332.15,
+          "conf": 0.89
+        },
+        {
+          "w": "of",
+          "start_s": 332.15,
+          "end_s": 332.25,
+          "conf": 0.92
+        },
+        {
+          "w": "your",
+          "start_s": 332.25,
+          "end_s": 332.42,
+          "conf": 0.99
+        },
+        {
+          "w": "ending",
+          "start_s": 332.42,
+          "end_s": 332.65,
+          "conf": 0.9
+        },
+        {
+          "w": "statement",
+          "start_s": 332.65,
+          "end_s": 332.98,
+          "conf": 0.87
+        },
+        {
+          "w": "balance",
+          "start_s": 332.98,
+          "end_s": 333.24,
+          "conf": 0.9
+        },
+        {
+          "w": "each",
+          "start_s": 333.24,
+          "end_s": 333.4,
+          "conf": 0.88
+        },
+        {
+          "w": "month",
+          "start_s": 333.4,
+          "end_s": 333.6,
+          "conf": 0.9
+        },
+        {
+          "w": "and",
+          "start_s": 333.6,
+          "end_s": 333.74,
+          "conf": 0.97
+        },
+        {
+          "w": "applies",
+          "start_s": 333.74,
+          "end_s": 334.0,
+          "conf": 0.93
+        },
+        {
+          "w": "whenever",
+          "start_s": 334.0,
+          "end_s": 334.29,
+          "conf": 0.99
+        },
+        {
+          "w": "ending",
+          "start_s": 334.29,
+          "end_s": 334.52,
+          "conf": 0.9
+        },
+        {
+          "w": "balance",
+          "start_s": 334.52,
+          "end_s": 334.78,
+          "conf": 0.93
+        },
+        {
+          "w": "is",
+          "start_s": 334.78,
+          "end_s": 334.89,
+          "conf": 0.81
+        },
+        {
+          "w": "above",
+          "start_s": 334.89,
+          "end_s": 335.09,
+          "conf": 0.89
+        },
+        {
+          "w": "zero",
+          "start_s": 335.09,
+          "end_s": 335.26,
+          "conf": 0.92
+        },
+        {
+          "w": "even",
+          "start_s": 335.26,
+          "end_s": 335.43,
+          "conf": 0.95
+        },
+        {
+          "w": "if",
+          "start_s": 335.43,
+          "end_s": 335.54,
+          "conf": 0.86
+        },
+        {
+          "w": "you",
+          "start_s": 335.54,
+          "end_s": 335.67,
+          "conf": 0.83
+        },
+        {
+          "w": "later",
+          "start_s": 335.67,
+          "end_s": 335.87,
+          "conf": 0.89
+        },
+        {
+          "w": "pay",
+          "start_s": 335.87,
+          "end_s": 336.01,
+          "conf": 0.99
+        },
+        {
+          "w": "it",
+          "start_s": 336.01,
+          "end_s": 336.12,
+          "conf": 0.76
+        },
+        {
+          "w": "in",
+          "start_s": 336.12,
+          "end_s": 336.23,
+          "conf": 0.81
+        },
+        {
+          "w": "full",
+          "start_s": 336.23,
+          "end_s": 336.4,
+          "conf": 0.82
+        },
+        {
+          "w": "and",
+          "start_s": 336.4,
+          "end_s": 336.53,
+          "conf": 0.95
+        },
+        {
+          "w": "you",
+          "start_s": 336.53,
+          "end_s": 336.67,
+          "conf": 0.94
+        },
+        {
+          "w": "can",
+          "start_s": 336.67,
+          "end_s": 336.81,
+          "conf": 0.95
+        },
+        {
+          "w": "cancel",
+          "start_s": 336.81,
+          "end_s": 337.04,
+          "conf": 0.98
+        },
+        {
+          "w": "anytime",
+          "start_s": 337.04,
+          "end_s": 337.3,
+          "conf": 0.81
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.88,
+      "speaker_channel": "customer",
+      "start_s": 340,
+      "end_s": 342.0,
+      "text": "Sorry, what was that cost?",
+      "words": [
+        {
+          "w": "Sorry",
+          "start_s": 340,
+          "end_s": 340.47,
+          "conf": 0.91
+        },
+        {
+          "w": "what",
+          "start_s": 340.47,
+          "end_s": 340.87,
+          "conf": 0.87
+        },
+        {
+          "w": "was",
+          "start_s": 340.87,
+          "end_s": 341.2,
+          "conf": 0.92
+        },
+        {
+          "w": "that",
+          "start_s": 341.2,
+          "end_s": 341.6,
+          "conf": 0.88
+        },
+        {
+          "w": "cost",
+          "start_s": 341.6,
+          "end_s": 342.0,
+          "conf": 0.88
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "colleague",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "colleague",
+      "start_s": 350,
+      "end_s": 354.12,
+      "text": "It's in the terms, it's small — okay, I've added it.",
+      "words": [
+        {
+          "w": "It's",
+          "start_s": 350,
+          "end_s": 350.41,
+          "conf": 0.94
+        },
+        {
+          "w": "in",
+          "start_s": 350.41,
+          "end_s": 350.67,
+          "conf": 0.98
+        },
+        {
+          "w": "the",
+          "start_s": 350.67,
+          "end_s": 351.0,
+          "conf": 0.86
+        },
+        {
+          "w": "terms",
+          "start_s": 351.0,
+          "end_s": 351.49,
+          "conf": 0.91
+        },
+        {
+          "w": "it's",
+          "start_s": 351.49,
+          "end_s": 351.9,
+          "conf": 0.94
+        },
+        {
+          "w": "small",
+          "start_s": 351.9,
+          "end_s": 352.38,
+          "conf": 0.92
+        },
+        {
+          "w": "—",
+          "start_s": 352.38,
+          "end_s": 352.56,
+          "conf": 0.9
+        },
+        {
+          "w": "okay",
+          "start_s": 352.56,
+          "end_s": 352.97,
+          "conf": 0.86
+        },
+        {
+          "w": "I've",
+          "start_s": 352.97,
+          "end_s": 353.38,
+          "conf": 0.85
+        },
+        {
+          "w": "added",
+          "start_s": 353.38,
+          "end_s": 353.86,
+          "conf": 0.84
+        },
+        {
+          "w": "it",
+          "start_s": 353.86,
+          "end_s": 354.12,
+          "conf": 0.9
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

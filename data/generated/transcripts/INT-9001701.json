@@ -1,0 +1,446 @@
+{
+  "interaction_id": "INT-9001701",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.2,
+      "text": "And who is this again?",
+      "words": [
+        {
+          "w": "And",
+          "start_s": 2.2,
+          "end_s": 2.57,
+          "conf": 0.85
+        },
+        {
+          "w": "who",
+          "start_s": 2.57,
+          "end_s": 2.93,
+          "conf": 0.86
+        },
+        {
+          "w": "is",
+          "start_s": 2.93,
+          "end_s": 3.22,
+          "conf": 0.88
+        },
+        {
+          "w": "this",
+          "start_s": 3.22,
+          "end_s": 3.67,
+          "conf": 0.84
+        },
+        {
+          "w": "again",
+          "start_s": 3.67,
+          "end_s": 4.2,
+          "conf": 0.95
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.86,
+      "speaker_channel": "customer",
+      "start_s": 4.9,
+      "end_s": 8.1,
+      "text": "My grandson Danny usually does this for me.",
+      "words": [
+        {
+          "w": "My",
+          "start_s": 4.9,
+          "end_s": 5.14,
+          "conf": 0.9
+        },
+        {
+          "w": "grandson",
+          "start_s": 5.14,
+          "end_s": 5.79,
+          "conf": 0.9
+        },
+        {
+          "w": "Danny",
+          "start_s": 5.79,
+          "end_s": 6.23,
+          "conf": 0.94
+        },
+        {
+          "w": "usually",
+          "start_s": 6.23,
+          "end_s": 6.81,
+          "conf": 0.89
+        },
+        {
+          "w": "does",
+          "start_s": 6.81,
+          "end_s": 7.18,
+          "conf": 0.91
+        },
+        {
+          "w": "this",
+          "start_s": 7.18,
+          "end_s": 7.56,
+          "conf": 0.96
+        },
+        {
+          "w": "for",
+          "start_s": 7.56,
+          "end_s": 7.86,
+          "conf": 0.96
+        },
+        {
+          "w": "me",
+          "start_s": 7.86,
+          "end_s": 8.1,
+          "conf": 0.94
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "colleague",
+      "start_s": 8.8,
+      "end_s": 12.93,
+      "text": "Summit has a 450 dollar annual fee. Does that sound okay?",
+      "words": [
+        {
+          "w": "Summit",
+          "start_s": 8.8,
+          "end_s": 9.3,
+          "conf": 0.84
+        },
+        {
+          "w": "has",
+          "start_s": 9.3,
+          "end_s": 9.6,
+          "conf": 0.85
+        },
+        {
+          "w": "a",
+          "start_s": 9.6,
+          "end_s": 9.77,
+          "conf": 0.89
+        },
+        {
+          "w": "450",
+          "start_s": 9.77,
+          "end_s": 10.07,
+          "conf": 0.94
+        },
+        {
+          "w": "dollar",
+          "start_s": 10.07,
+          "end_s": 10.58,
+          "conf": 0.93
+        },
+        {
+          "w": "annual",
+          "start_s": 10.58,
+          "end_s": 11.08,
+          "conf": 0.94
+        },
+        {
+          "w": "fee",
+          "start_s": 11.08,
+          "end_s": 11.38,
+          "conf": 0.89
+        },
+        {
+          "w": "Does",
+          "start_s": 11.38,
+          "end_s": 11.75,
+          "conf": 0.98
+        },
+        {
+          "w": "that",
+          "start_s": 11.75,
+          "end_s": 12.12,
+          "conf": 0.87
+        },
+        {
+          "w": "sound",
+          "start_s": 12.12,
+          "end_s": 12.56,
+          "conf": 0.87
+        },
+        {
+          "w": "okay",
+          "start_s": 12.56,
+          "end_s": 12.93,
+          "conf": 0.86
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "customer",
+      "start_s": 13.63,
+      "end_s": 16.43,
+      "text": "So this is about the electric bill?",
+      "words": [
+        {
+          "w": "So",
+          "start_s": 13.63,
+          "end_s": 13.88,
+          "conf": 0.91
+        },
+        {
+          "w": "this",
+          "start_s": 13.88,
+          "end_s": 14.28,
+          "conf": 0.99
+        },
+        {
+          "w": "is",
+          "start_s": 14.28,
+          "end_s": 14.54,
+          "conf": 0.89
+        },
+        {
+          "w": "about",
+          "start_s": 14.54,
+          "end_s": 15.01,
+          "conf": 0.91
+        },
+        {
+          "w": "the",
+          "start_s": 15.01,
+          "end_s": 15.34,
+          "conf": 0.9
+        },
+        {
+          "w": "electric",
+          "start_s": 15.34,
+          "end_s": 16.03,
+          "conf": 0.99
+        },
+        {
+          "w": "bill",
+          "start_s": 16.03,
+          "end_s": 16.43,
+          "conf": 0.93
+        }
+      ]
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "colleague",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "colleague",
+      "start_s": 17.13,
+      "end_s": 19.75,
+      "text": "Can you tell me the annual fee?",
+      "words": [
+        {
+          "w": "Can",
+          "start_s": 17.13,
+          "end_s": 17.47,
+          "conf": 0.89
+        },
+        {
+          "w": "you",
+          "start_s": 17.47,
+          "end_s": 17.81,
+          "conf": 0.88
+        },
+        {
+          "w": "tell",
+          "start_s": 17.81,
+          "end_s": 18.23,
+          "conf": 0.93
+        },
+        {
+          "w": "me",
+          "start_s": 18.23,
+          "end_s": 18.5,
+          "conf": 0.92
+        },
+        {
+          "w": "the",
+          "start_s": 18.5,
+          "end_s": 18.84,
+          "conf": 0.89
+        },
+        {
+          "w": "annual",
+          "start_s": 18.84,
+          "end_s": 19.41,
+          "conf": 0.87
+        },
+        {
+          "w": "fee",
+          "start_s": 19.41,
+          "end_s": 19.75,
+          "conf": 0.97
+        }
+      ]
+    },
+    {
+      "turn_id": "t06",
+      "speaker": "customer",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "customer",
+      "start_s": 20.45,
+      "end_s": 23.65,
+      "text": "Yes, yes, whatever you think is best, dear.",
+      "words": [
+        {
+          "w": "Yes",
+          "start_s": 20.45,
+          "end_s": 20.78,
+          "conf": 0.88
+        },
+        {
+          "w": "yes",
+          "start_s": 20.78,
+          "end_s": 21.1,
+          "conf": 0.84
+        },
+        {
+          "w": "whatever",
+          "start_s": 21.1,
+          "end_s": 21.8,
+          "conf": 0.93
+        },
+        {
+          "w": "you",
+          "start_s": 21.8,
+          "end_s": 22.12,
+          "conf": 0.9
+        },
+        {
+          "w": "think",
+          "start_s": 22.12,
+          "end_s": 22.6,
+          "conf": 0.9
+        },
+        {
+          "w": "is",
+          "start_s": 22.6,
+          "end_s": 22.85,
+          "conf": 0.99
+        },
+        {
+          "w": "best",
+          "start_s": 22.85,
+          "end_s": 23.25,
+          "conf": 0.88
+        },
+        {
+          "w": "dear",
+          "start_s": 23.25,
+          "end_s": 23.65,
+          "conf": 0.84
+        }
+      ]
+    },
+    {
+      "turn_id": "t07",
+      "speaker": "customer",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "customer",
+      "start_s": 24.35,
+      "end_s": 26.75,
+      "text": "Whatever you think is best, dear.",
+      "words": [
+        {
+          "w": "Whatever",
+          "start_s": 24.35,
+          "end_s": 25.0,
+          "conf": 0.96
+        },
+        {
+          "w": "you",
+          "start_s": 25.0,
+          "end_s": 25.31,
+          "conf": 0.98
+        },
+        {
+          "w": "think",
+          "start_s": 25.31,
+          "end_s": 25.76,
+          "conf": 0.83
+        },
+        {
+          "w": "is",
+          "start_s": 25.76,
+          "end_s": 26.0,
+          "conf": 0.81
+        },
+        {
+          "w": "best",
+          "start_s": 26.0,
+          "end_s": 26.37,
+          "conf": 0.86
+        },
+        {
+          "w": "dear",
+          "start_s": 26.37,
+          "end_s": 26.75,
+          "conf": 0.93
+        }
+      ]
+    },
+    {
+      "turn_id": "t08",
+      "speaker": "customer",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "customer",
+      "start_s": 27.45,
+      "end_s": 29.85,
+      "text": "Whatever you think is best, dear.",
+      "words": [
+        {
+          "w": "Whatever",
+          "start_s": 27.45,
+          "end_s": 28.1,
+          "conf": 0.98
+        },
+        {
+          "w": "you",
+          "start_s": 28.1,
+          "end_s": 28.41,
+          "conf": 0.88
+        },
+        {
+          "w": "think",
+          "start_s": 28.41,
+          "end_s": 28.86,
+          "conf": 0.92
+        },
+        {
+          "w": "is",
+          "start_s": 28.86,
+          "end_s": 29.1,
+          "conf": 0.83
+        },
+        {
+          "w": "best",
+          "start_s": 29.1,
+          "end_s": 29.47,
+          "conf": 0.97
+        },
+        {
+          "w": "dear",
+          "start_s": 29.47,
+          "end_s": 29.85,
+          "conf": 0.89
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

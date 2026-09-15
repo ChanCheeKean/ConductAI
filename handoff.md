@@ -2,9 +2,9 @@
 
 Last updated: 2026-09-15
 Repository: `/Users/kean/Dev/ConductAI`
-Branch: `main` (remote `origin` → `github.com/ChanCheeKean/ConductAI`); Stage 0 committed and pushed
-Current phase: **Stage 0 — design foundation: COMPLETE**
-Next stage: **Stage 1 — data foundation** (corpus, generator, validator, ground truth, SQLite loader)
+Branch: `main` (remote `origin` → `github.com/ChanCheeKean/ConductAI`)
+Current phase: **Stage 1 — data foundation: COMPLETE**
+Next stage: **Stage 2 — architecture research** (`docs/prompts/02-implementation-kickoff.md` §4; checkpoint with user)
 
 ## Current objective
 
@@ -17,12 +17,12 @@ The use case was inspired by an industry GenAI call-monitoring pilot (`docs/refe
 Read, in order:
 
 1. `handoff.md` (this file).
-2. `docs/prompts/01-data-foundation-kickoff.md` — **the prompt for Stage 1**. Paste or reference it to start the session.
+2. `docs/prompts/02-implementation-kickoff.md` — Stage 2 architecture-research instructions.
 3. `README.md` — the foundation document (use case, ecosystems, memory, governance rules §8, generation §9, component → scenario §10, target layout §14).
-4. `docs/design/02-case-catalog.md` — the contract for every hero case (facts, amounts, timestamps, SLA dates, ground truth, traps, capability coverage).
-5. `docs/design/03-data-dictionary.md` — every file/field, joins, output and ground-truth schemas.
-6. `docs/research/01-domain-research.md` (+ `docs/research/briefs/`) — what is real vs invented; unverified items.
-7. For implementation patterns: `/Users/kean/Dev/CatcherAI/data/generator/*`, `/Users/kean/Dev/CatcherAI/data/corpus/author_policies.py`, and CatcherAI's `handoff.md`.
+4. `docs/design/02-case-catalog.md` — the contract for every hero case.
+5. `docs/design/03-data-dictionary.md` — implemented file/field and ground-truth schemas.
+6. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
+7. `docs/research/01-domain-research.md` (+ `docs/research/briefs/`) — what is real vs invented; unverified items.
 
 ## What exists now
 
@@ -36,9 +36,12 @@ Read, in order:
 | `docs/design/02-case-catalog.md` | 23 hero reviews + Q01 sweep; taxonomy; three-outcome model; coverage matrices; failure modes; effective dates; SLA dates; background population | complete (design) |
 | `docs/design/03-data-dictionary.md` | Target data specification | complete (design) |
 | `docs/prompts/01-data-foundation-kickoff.md` | Stage 1 session prompt | complete |
-| `docs/prompts/02-implementation-kickoff.md` | Stages 2–5 session prompt (CatcherAI's kickoff adapted to conduct review) | complete |
-
-Nothing else exists: no `pyproject.toml`, `data/`, `src/`, `config/`, `skills/`, `tests/`, `schemas/` or `frontend/`.
+| `docs/prompts/02-implementation-kickoff.md` | Stages 2–5 session prompt | complete |
+| `pyproject.toml`, `tests/test_derived.py` | Python 3.11+ stdlib project scaffold and derived-helper tests | complete |
+| `data/corpus/` | Reproducible author, 53 versioned documents, 11 review skills, index and clause contract | complete |
+| `data/generator/` | World, people, all hero builders, background/ASR, oversight, precedents, memory, sweep, graph, validation and loader | complete |
+| `data/generated/` | 6,527 interactions/transcripts, structured/event/document ecosystems, 23 case truths + Q01, graph and manifest | complete; SQLite reproducible and git-ignored |
+| `data/generated/conduct.sqlite` | Agent-visible tables plus FTS5 indexes (no evaluator/simulation data) | built locally by loader |
 
 ## Decisions made (and why)
 
@@ -77,11 +80,10 @@ Nothing else exists: no `pyproject.toml`, `data/`, `src/`, `config/`, `skills/`,
 ### Stage 0 — Design foundation: COMPLETE
 Domain and AI-methods research; use case; case catalog; data dictionary; README; data-foundation and implementation kickoff prompts; this handoff.
 
-### Stage 1 — Data foundation: NEXT
+### Stage 1 — Data foundation: COMPLETE
 Prompt: `docs/prompts/01-data-foundation-kickoff.md`.
 Deliverables: `pyproject.toml` (uv), `data/corpus/` via `author_corpus.py` (regulation abridgements, SOPs, glossary v6/v7/v8, scripts, product disclosures, incentive plan, skills), `data/generator/` (world, 23 hero builders, background with transcripts + ASR/diarization noise, planted structures, derived arithmetic, capabilities, memory seed, precedents, on-request artifacts, personas, graph, manifest), `validate.py` (schemas, joins, arithmetic, capability coverage ≥ 3 primary cases each, discoverability, reviewer-baseline calibration, fairness hygiene), `load_sqlite.py` → `data/generated/conduct.sqlite`.
-Acceptance: `python3 data/generator/gen.py && python3 data/generator/validate.py` passes deterministically; `load_sqlite.py` builds the database; catalog/dictionary/README updated to match what was built.
-Suggested batching: delegate hero builders in five batches to Sonnet subagents; review every ground-truth file in the main session.
+Acceptance met: `python3 data/generator/gen.py && python3 data/generator/validate.py` passes 377,519 checks; `load_sqlite.py` builds an integrity-clean SQLite database with 55 tables/virtual tables and three FTS5 indexes. Two clean regenerations are byte-identical (digest recorded in Stage history). Catalog facts were preserved; the dictionary and README carry actual counts.
 
 ### Stage 2 — Architecture research (implementation phase 1)
 Prompt: `docs/prompts/02-implementation-kickoff.md` §4. Deliverable `docs/design/04-agent-architecture-research.md`; start from CatcherAI's research doc, re-verify framework APIs. **Checkpoint with user.**
@@ -110,10 +112,10 @@ Mirror CatcherAI's Dispute Observatory (`docs/prompts/03-…`, `docs/design/07-�
 4. Q01 capacity and random-slice share as console parameters? (yes, in Stage 6)
 5. Keep `gpt-5.6-luna` as the runtime default, or switch providers? (keep, to reuse CatcherAI adapters; configuration-only change later)
 
-## Known risks to watch in Stage 1
+## Known risks carried into implementation
 
-- **Transcript realism** is the biggest quality lever and the easiest to get wrong: background calls must read like real servicing calls, with misconduct at realistic subtlety — not caricatures.
-- **Reviewer-noise calibration** must hit the reference baseline without making labels random on bright-line categories (noise should concentrate on judgment categories).
+- **Transcript realism** remains the biggest quality lever: Stage 1 uses deterministic template grammar and compact hero dialogue; production-like expansion would need more linguistic variety and audio-derived evidence.
+- Reviewer baselines are deterministically calibrated to target aggregate precision/recall; future evaluation should avoid treating those synthetic historical labels as independent human judgments.
 - **Discoverability vs leakage**: planted patterns must be findable by the intended queries without IDs, naming or `is_hero` giving them away.
 - **Catalog drift**: any fact changed during implementation must be changed in catalog, data dictionary, ground truth and README together.
 - Unverified research items (research §10) must stay out of load-bearing ground truth or be marked.
@@ -133,3 +135,13 @@ Update: header (date, phase, next stage), "What exists now", any new or changed 
 - Consistency fixes: aligned the panel-trigger rule with cases C05, C16 and C20 (now decided without a panel).
 - Wrote the data dictionary, README, both kickoff prompts and this handoff.
 - User set the standing rule: after every stage, update `handoff.md`, commit and push. Applied to the handoff and both kickoff prompts; Stage 0 committed and pushed to `origin/main`.
+
+### 2026-09-15 — Stage 1 data foundation complete
+- Authored the corpus reproducibly from `author_corpus.py`: 53 effective-dated regulation/policy/glossary/script/product/incentive documents and 11 procedural skills. Clause references are validated against headings.
+- Implemented the stdlib-only deterministic generator: static world and people, all 23 hero builders, seven planted structures, 6,500-interaction background, ASR and diarization noise, reviewer/scanner baselines, precedents, memory, Q01 sweep and graph projection.
+- Generated 6,527 total interactions/transcripts, 41,873 event rows, 6,369 document rows, 40 precedents, 58 memory notes, four on-request artifacts, four personas, and a 10,023-node/27,259-edge graph. Background gold misconduct is exactly 234/6,500 (3.6%).
+- Legacy reviewer baselines are confined to the pre-2026-10-01 historical slice and hit the requested bands: R-A 78.64/76.42, R-B 74.26/70.75, R-C 75.23/77.36 precision/recall. Q01 risk-ranked recall is 71.43% with the required hero set inside its 36 picks.
+- `validate.py` passed 377,519 independent checks over corpus metadata/clauses, schemas, joins, timing, arithmetic, planted discoverability, capability coverage, calibration, fairness hygiene and evaluator leakage.
+- Two clean regenerations were byte-identical across every generated non-SQLite file: aggregate SHA-256 `ab157236ad0ae2ffab339ea6ac3d0f59fd02ac4b9e8e015957fc60f02f656bcf`.
+- `load_sqlite.py` built `data/generated/conduct.sqlite` (28,962,816 bytes), SQLite `integrity_check` returned `ok`, and FTS5 indexes cover transcript turns, corpus chunks and documents. The DB is reproducible and git-ignored.
+- Deliberate scope choice: background event/document density is 41,873/6,369 rather than the design's early ~180k/~9k target; this retains the required modalities and discoverability while keeping the POC repository compact. Hero facts and planted population counts did not change.

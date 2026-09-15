@@ -1,0 +1,104 @@
+{
+  "interaction_id": "INT-9001507",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 5.2,
+      "text": "practically costs nothing if you pay in full",
+      "words": [
+        {
+          "w": "practically",
+          "start_s": 2.2,
+          "end_s": 2.97,
+          "conf": 0.88
+        },
+        {
+          "w": "costs",
+          "start_s": 2.97,
+          "end_s": 3.36,
+          "conf": 0.92
+        },
+        {
+          "w": "nothing",
+          "start_s": 3.36,
+          "end_s": 3.88,
+          "conf": 0.93
+        },
+        {
+          "w": "if",
+          "start_s": 3.88,
+          "end_s": 4.1,
+          "conf": 0.84
+        },
+        {
+          "w": "you",
+          "start_s": 4.1,
+          "end_s": 4.37,
+          "conf": 0.85
+        },
+        {
+          "w": "pay",
+          "start_s": 4.37,
+          "end_s": 4.65,
+          "conf": 0.92
+        },
+        {
+          "w": "in",
+          "start_s": 4.65,
+          "end_s": 4.86,
+          "conf": 0.89
+        },
+        {
+          "w": "full",
+          "start_s": 4.86,
+          "end_s": 5.2,
+          "conf": 0.95
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.88,
+      "speaker_channel": "colleague",
+      "start_s": 5.9,
+      "end_s": 7.4,
+      "text": "Let me enroll you.",
+      "words": [
+        {
+          "w": "Let",
+          "start_s": 5.9,
+          "end_s": 6.24,
+          "conf": 0.85
+        },
+        {
+          "w": "me",
+          "start_s": 6.24,
+          "end_s": 6.5,
+          "conf": 0.92
+        },
+        {
+          "w": "enroll",
+          "start_s": 6.5,
+          "end_s": 7.06,
+          "conf": 0.9
+        },
+        {
+          "w": "you",
+          "start_s": 7.06,
+          "end_s": 7.4,
+          "conf": 0.82
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

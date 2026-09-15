@@ -1,0 +1,299 @@
+{
+  "agents": {
+    "label": "Agents",
+    "primary": [
+      "C06",
+      "C11",
+      "C12",
+      "C14"
+    ],
+    "supporting": [
+      "C04",
+      "C05",
+      "C08",
+      "C17"
+    ],
+    "trajectory_signals": [
+      "plan_created",
+      "plan_updated (agent-initiated)",
+      "hypothesis_updated"
+    ]
+  },
+  "router": {
+    "label": "Router",
+    "primary": [
+      "C02",
+      "C03",
+      "C10",
+      "C13",
+      "C15",
+      "Q01"
+    ],
+    "supporting": [
+      "C02b",
+      "C08",
+      "C09"
+    ],
+    "trajectory_signals": [
+      "route_decision {route_id, method, confidence, track, language, depth}"
+    ]
+  },
+  "loop_termination": {
+    "label": "Loop engineering (real termination conditions)",
+    "primary": [
+      "C01",
+      "C03",
+      "C06",
+      "C17",
+      "C18"
+    ],
+    "supporting": [
+      "C10",
+      "C13",
+      "C15"
+    ],
+    "trajectory_signals": [
+      "termination {reason}",
+      "wait_suspended {until, latest_safe_decision}",
+      "wait_resumed",
+      "no_progress_detected"
+    ]
+  },
+  "agent_graph": {
+    "label": "Agent graph engineering",
+    "primary": [
+      "C04",
+      "C06",
+      "C11",
+      "C12",
+      "C14"
+    ],
+    "supporting": [
+      "C05",
+      "C08",
+      "C18"
+    ],
+    "trajectory_signals": [
+      "node_entered / node_exited",
+      "edge_taken {from, to} incl. back-edges"
+    ]
+  },
+  "subagents": {
+    "label": "Subagents",
+    "primary": [
+      "C06",
+      "C11",
+      "C12",
+      "C14",
+      "Q01"
+    ],
+    "supporting": [
+      "C04",
+      "C08"
+    ],
+    "trajectory_signals": [
+      "subagent_started {name, parent_span_id}",
+      "subagent_finished",
+      "panel_position / adjudication"
+    ]
+  },
+  "tool_calling": {
+    "label": "Tool / function calling",
+    "primary": [
+      "C01",
+      "C05",
+      "C16",
+      "C20"
+    ],
+    "supporting": [
+      "C02",
+      "C02b",
+      "C03",
+      "C04",
+      "C06",
+      "C07",
+      "C07b",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C11b",
+      "C12",
+      "C13",
+      "C14",
+      "C15",
+      "C17",
+      "C18",
+      "C19",
+      "Q01"
+    ],
+    "trajectory_signals": [
+      "tool_call {tool, args, rationale}",
+      "tool_result {status, source_ids}"
+    ]
+  },
+  "harness": {
+    "label": "Harness",
+    "primary": [
+      "C01",
+      "C06",
+      "C10",
+      "C15",
+      "C17",
+      "C18",
+      "Q01"
+    ],
+    "supporting": [
+      "C04"
+    ],
+    "trajectory_signals": [
+      "clock_advanced",
+      "artifact_arrived {id}",
+      "persona_reply",
+      "colleague_statement_arrived"
+    ]
+  },
+  "skills": {
+    "label": "Skills",
+    "primary": [
+      "C05",
+      "C08",
+      "C09",
+      "C13",
+      "C17"
+    ],
+    "supporting": [
+      "C06",
+      "C10",
+      "C11",
+      "C14",
+      "C19"
+    ],
+    "trajectory_signals": [
+      "skill_loaded {skill}"
+    ]
+  },
+  "memory_persistent": {
+    "label": "Memory — persistent (SQLite system of record)",
+    "primary": [
+      "C02",
+      "C05",
+      "C07b",
+      "C15",
+      "C16",
+      "Q01"
+    ],
+    "supporting": [
+      "C04",
+      "C11",
+      "C17"
+    ],
+    "trajectory_signals": [
+      "sql_query / get_* with row IDs in tool_result"
+    ]
+  },
+  "memory_graph": {
+    "label": "Memory — graph",
+    "primary": [
+      "C02",
+      "C02b",
+      "C08",
+      "C11",
+      "C11b",
+      "C12"
+    ],
+    "supporting": [
+      "C15",
+      "C16"
+    ],
+    "trajectory_signals": [
+      "graph_query {cypher, node_ids}",
+      "graph_write {node|edge, status}"
+    ]
+  },
+  "memory_semantic": {
+    "label": "Memory — semantic / vector",
+    "primary": [
+      "C04",
+      "C09",
+      "C12",
+      "C17",
+      "C19"
+    ],
+    "supporting": [
+      "C05",
+      "C10",
+      "C13",
+      "C14"
+    ],
+    "trajectory_signals": [
+      "retrieval {query, filters: as_of/status/validity/speaker, doc_ids, used/discarded}"
+    ]
+  },
+  "sandbox": {
+    "label": "Sandbox / REPL",
+    "primary": [
+      "C04",
+      "C05",
+      "C07b",
+      "C10",
+      "C11",
+      "C16",
+      "C18",
+      "C20",
+      "Q01"
+    ],
+    "supporting": [
+      "C06",
+      "C12",
+      "C17"
+    ],
+    "trajectory_signals": [
+      "computation {code, inputs, output}"
+    ]
+  },
+  "read_paths": {
+    "label": "Agent read paths (selective read)",
+    "primary": [
+      "C04",
+      "C10",
+      "C11b",
+      "C14",
+      "C19"
+    ],
+    "supporting": [
+      "C07",
+      "C12",
+      "C18"
+    ],
+    "trajectory_signals": [
+      "memory_read {filters}",
+      "memory_verified / memory_rejected {note_id, reason}"
+    ]
+  },
+  "write_paths": {
+    "label": "Agent write paths (selective write, consolidation, forgetting)",
+    "primary": [
+      "C03",
+      "C04",
+      "C11",
+      "C11b",
+      "C12",
+      "C14",
+      "C19"
+    ],
+    "supporting": [
+      "C01",
+      "C06",
+      "C07",
+      "C10"
+    ],
+    "trajectory_signals": [
+      "memory_write / supersede / retract / consolidate / purge",
+      "memory_write_skipped",
+      "write_rejected",
+      "graph_write",
+      "automated_action"
+    ]
+  }
+}

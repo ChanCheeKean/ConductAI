@@ -1,0 +1,21 @@
+code,meaning
+GEN_INQUIRY,General inquiry
+BALANCE_PAYMENT,Balance or payment question
+FEE_INQUIRY,Fee question
+FEE_WAIVER,Fee waived
+CARD_REPLACEMENT,Lost/stolen/replacement card
+REWARDS,Rewards inquiry or redemption
+PRODUCT_INFO,Product information
+CLI_REQUEST,Credit line increase request
+SALE_BT,Balance transfer sale
+SALE_ADDON,Add-on enrollment
+SALE_FLEX,Flex Installments plan
+PRODUCT_CHANGE,Product change
+RETENTION_SAVE,Retention: account kept
+ACCOUNT_CLOSED,Account closed
+HARDSHIP,Hardship program
+DISPUTE_INTAKE,Billing dispute intake
+PROFILE_UPDATE,Address or profile update
+COMPLAINT,Complaint logged
+SCRA_REFERRAL,SCRA benefits review opened
+CALLBACK_SCHEDULED,Callback scheduled

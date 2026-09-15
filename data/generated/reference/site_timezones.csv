@@ -1,0 +1,3 @@
+site,city,state,timezone,observes_dst
+TEMPE,Tempe,AZ,America/Phoenix,false
+SAN_ANTONIO,San Antonio,TX,America/Chicago,true

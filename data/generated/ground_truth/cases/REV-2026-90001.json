@@ -1,0 +1,101 @@
+{
+  "review_id": "REV-2026-90001",
+  "code": "C01",
+  "title": "Know Means No",
+  "depth": "L2",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9000101"
+  ],
+  "summary": "Catalog-grounded Know Means No review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "no_error",
+    "categories": [],
+    "customer_outcome": "none",
+    "colleague_outcome": "none",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "asr": "No. I don't need that.",
+      "retranscription": "Oh — I do need that. Go ahead.",
+      "latest_safe_decision": "2026-11-27"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-SAL-001@v4 §3.1"
+  ],
+  "must_not": [],
+  "memory_ops": {
+    "operation": "skip"
+  },
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [
+    "RTX-9000101"
+  ],
+  "required_capabilities": [
+    {
+      "capability": "loop_termination",
+      "necessity": "primary",
+      "why": "suspend for the re-transcription and resume before the SLA",
+      "trajectory_signals": [
+        "termination {reason}",
+        "wait_suspended {until, latest_safe_decision}",
+        "wait_resumed",
+        "no_progress_detected"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "primary",
+      "why": "request_retranscription is the only way to resolve the ASR conflict",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "harness",
+      "necessity": "primary",
+      "why": "the re-transcription is released 4 hours after the request",
+      "trajectory_signals": [
+        "clock_advanced",
+        "artifact_arrived {id}",
+        "persona_reply",
+        "colleague_statement_arrived"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "supporting",
+      "why": "used in the expected C01 path",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

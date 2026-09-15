@@ -1,0 +1,32 @@
+{
+  "gold_positive_count": 106,
+  "population": 2773,
+  "period_end": "2026-09-25",
+  "reviewers": {
+    "R-A": {
+      "tp": 81,
+      "fp": 22,
+      "fn": 25,
+      "tn": 2645,
+      "precision": 0.7864,
+      "recall": 0.7642
+    },
+    "R-B": {
+      "tp": 75,
+      "fp": 26,
+      "fn": 31,
+      "tn": 2641,
+      "precision": 0.7426,
+      "recall": 0.7075
+    },
+    "R-C": {
+      "tp": 82,
+      "fp": 27,
+      "fn": 24,
+      "tn": 2640,
+      "precision": 0.7523,
+      "recall": 0.7736
+    }
+  },
+  "note": "legacy reviewers before automated current-period governance"
+}

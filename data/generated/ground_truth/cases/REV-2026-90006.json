@@ -1,0 +1,117 @@
+{
+  "review_id": "REV-2026-90006",
+  "code": "C05",
+  "title": "Rate and Fees, Once",
+  "depth": "L3",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9000601"
+  ],
+  "summary": "Catalog-grounded Rate and Fees, Once review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "substantiated",
+    "categories": [
+      "MC-03",
+      "MC-04"
+    ],
+    "customer_outcome": "refund_fee 124.00; offer_bt_cancellation_letter",
+    "colleague_outcome": "record_finding_and_coaching",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "submitted_fee": "310.00",
+      "represented_fee": "186.00",
+      "refund": "124.00"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-CHC-BT@v5 §2.2"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "agents",
+      "necessity": "supporting",
+      "why": "used in the expected C05 path",
+      "trajectory_signals": [
+        "plan_created",
+        "plan_updated (agent-initiated)",
+        "hypothesis_updated"
+      ]
+    },
+    {
+      "capability": "agent_graph",
+      "necessity": "supporting",
+      "why": "used in the expected C05 path",
+      "trajectory_signals": [
+        "node_entered / node_exited",
+        "edge_taken {from, to} incl. back-edges"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "primary",
+      "why": "the submitted offer is only visible through the order-system tools",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "skills",
+      "necessity": "primary",
+      "why": "balance-transfer disclosure playbook (fee % and $ under CHC-BT v5)",
+      "trajectory_signals": [
+        "skill_loaded {skill}"
+      ]
+    },
+    {
+      "capability": "memory_persistent",
+      "necessity": "primary",
+      "why": "offer submitted vs offer presented",
+      "trajectory_signals": [
+        "sql_query / get_* with row IDs in tool_result"
+      ]
+    },
+    {
+      "capability": "memory_semantic",
+      "necessity": "supporting",
+      "why": "used in the expected C05 path",
+      "trajectory_signals": [
+        "retrieval {query, filters: as_of/status/validity/speaker, doc_ids, used/discarded}"
+      ]
+    },
+    {
+      "capability": "sandbox",
+      "necessity": "primary",
+      "why": "BT fee arithmetic",
+      "trajectory_signals": [
+        "computation {code, inputs, output}"
+      ]
+    }
+  ]
+}

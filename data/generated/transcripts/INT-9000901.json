@@ -1,0 +1,270 @@
+{
+  "interaction_id": "INT-9000901",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "colleague",
+      "start_s": 192,
+      "end_s": 195.0,
+      "text": "I've gone ahead and removed that late fee.",
+      "words": [
+        {
+          "w": "I've",
+          "start_s": 192,
+          "end_s": 192.36,
+          "conf": 0.89
+        },
+        {
+          "w": "gone",
+          "start_s": 192.36,
+          "end_s": 192.72,
+          "conf": 0.99
+        },
+        {
+          "w": "ahead",
+          "start_s": 192.72,
+          "end_s": 193.14,
+          "conf": 0.91
+        },
+        {
+          "w": "and",
+          "start_s": 193.14,
+          "end_s": 193.43,
+          "conf": 0.9
+        },
+        {
+          "w": "removed",
+          "start_s": 193.43,
+          "end_s": 193.99,
+          "conf": 0.96
+        },
+        {
+          "w": "that",
+          "start_s": 193.99,
+          "end_s": 194.35,
+          "conf": 0.92
+        },
+        {
+          "w": "late",
+          "start_s": 194.35,
+          "end_s": 194.71,
+          "conf": 0.92
+        },
+        {
+          "w": "fee",
+          "start_s": 194.71,
+          "end_s": 195.0,
+          "conf": 0.91
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "colleague",
+      "start_s": 220,
+      "end_s": 223.38,
+      "text": "Also, since you mentioned you're self-employed, we have CardShield.",
+      "words": [
+        {
+          "w": "Also",
+          "start_s": 220,
+          "end_s": 220.27,
+          "conf": 0.95
+        },
+        {
+          "w": "since",
+          "start_s": 220.27,
+          "end_s": 220.58,
+          "conf": 0.82
+        },
+        {
+          "w": "you",
+          "start_s": 220.58,
+          "end_s": 220.8,
+          "conf": 0.86
+        },
+        {
+          "w": "mentioned",
+          "start_s": 220.8,
+          "end_s": 221.31,
+          "conf": 0.96
+        },
+        {
+          "w": "you're",
+          "start_s": 221.31,
+          "end_s": 221.68,
+          "conf": 0.85
+        },
+        {
+          "w": "self-employed",
+          "start_s": 221.68,
+          "end_s": 222.38,
+          "conf": 0.92
+        },
+        {
+          "w": "we",
+          "start_s": 222.38,
+          "end_s": 222.55,
+          "conf": 0.97
+        },
+        {
+          "w": "have",
+          "start_s": 222.55,
+          "end_s": 222.82,
+          "conf": 0.87
+        },
+        {
+          "w": "CardShield",
+          "start_s": 222.82,
+          "end_s": 223.38,
+          "conf": 0.92
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "colleague",
+      "start_s": 224.08,
+      "end_s": 230.08,
+      "text": "eighty-nine cents for every hundred dollars of your ending statement balance, and you can cancel anytime",
+      "words": [
+        {
+          "w": "eighty-nine",
+          "start_s": 224.08,
+          "end_s": 224.75,
+          "conf": 0.9
+        },
+        {
+          "w": "cents",
+          "start_s": 224.75,
+          "end_s": 225.1,
+          "conf": 0.91
+        },
+        {
+          "w": "for",
+          "start_s": 225.1,
+          "end_s": 225.34,
+          "conf": 0.8
+        },
+        {
+          "w": "every",
+          "start_s": 225.34,
+          "end_s": 225.69,
+          "conf": 0.97
+        },
+        {
+          "w": "hundred",
+          "start_s": 225.69,
+          "end_s": 226.14,
+          "conf": 0.95
+        },
+        {
+          "w": "dollars",
+          "start_s": 226.14,
+          "end_s": 226.6,
+          "conf": 0.92
+        },
+        {
+          "w": "of",
+          "start_s": 226.6,
+          "end_s": 226.79,
+          "conf": 0.87
+        },
+        {
+          "w": "your",
+          "start_s": 226.79,
+          "end_s": 227.08,
+          "conf": 0.99
+        },
+        {
+          "w": "ending",
+          "start_s": 227.08,
+          "end_s": 227.48,
+          "conf": 0.9
+        },
+        {
+          "w": "statement",
+          "start_s": 227.48,
+          "end_s": 228.04,
+          "conf": 0.97
+        },
+        {
+          "w": "balance",
+          "start_s": 228.04,
+          "end_s": 228.5,
+          "conf": 0.96
+        },
+        {
+          "w": "and",
+          "start_s": 228.5,
+          "end_s": 228.74,
+          "conf": 0.93
+        },
+        {
+          "w": "you",
+          "start_s": 228.74,
+          "end_s": 228.98,
+          "conf": 0.93
+        },
+        {
+          "w": "can",
+          "start_s": 228.98,
+          "end_s": 229.22,
+          "conf": 0.93
+        },
+        {
+          "w": "cancel",
+          "start_s": 229.22,
+          "end_s": 229.62,
+          "conf": 0.84
+        },
+        {
+          "w": "anytime",
+          "start_s": 229.62,
+          "end_s": 230.08,
+          "conf": 0.85
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "customer",
+      "start_s": 230.78,
+      "end_s": 231.98,
+      "text": "Yes, add it.",
+      "words": [
+        {
+          "w": "Yes",
+          "start_s": 230.78,
+          "end_s": 231.21,
+          "conf": 0.96
+        },
+        {
+          "w": "add",
+          "start_s": 231.21,
+          "end_s": 231.64,
+          "conf": 0.88
+        },
+        {
+          "w": "it",
+          "start_s": 231.64,
+          "end_s": 231.98,
+          "conf": 0.86
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

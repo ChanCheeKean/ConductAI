@@ -1,0 +1,281 @@
+{
+  "interaction_id": "INT-0292616",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 6.25,
+      "text": "Thank you for calling Copperlake. I need to verify your account.",
+      "words": [
+        {
+          "w": "Thank",
+          "start_s": 2.2,
+          "end_s": 2.58,
+          "conf": 0.82
+        },
+        {
+          "w": "you",
+          "start_s": 2.58,
+          "end_s": 2.85,
+          "conf": 0.7
+        },
+        {
+          "w": "for",
+          "start_s": 2.85,
+          "end_s": 3.12,
+          "conf": 0.87
+        },
+        {
+          "w": "calling",
+          "start_s": 3.12,
+          "end_s": 3.62,
+          "conf": 0.81
+        },
+        {
+          "w": "Copperlake",
+          "start_s": 3.62,
+          "end_s": 4.3,
+          "conf": 0.75
+        },
+        {
+          "w": "I",
+          "start_s": 4.3,
+          "end_s": 4.45,
+          "conf": 0.9
+        },
+        {
+          "w": "need",
+          "start_s": 4.45,
+          "end_s": 4.77,
+          "conf": 0.94
+        },
+        {
+          "w": "to",
+          "start_s": 4.77,
+          "end_s": 4.98,
+          "conf": 0.86
+        },
+        {
+          "w": "verify",
+          "start_s": 4.98,
+          "end_s": 5.42,
+          "conf": 0.87
+        },
+        {
+          "w": "your",
+          "start_s": 5.42,
+          "end_s": 5.75,
+          "conf": 0.87
+        },
+        {
+          "w": "account",
+          "start_s": 5.75,
+          "end_s": 6.25,
+          "conf": 0.85
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.88,
+      "speaker_channel": "customer",
+      "start_s": 6.95,
+      "end_s": 8.79,
+      "text": "Can you explain this fee?",
+      "words": [
+        {
+          "w": "Can",
+          "start_s": 6.95,
+          "end_s": 7.25,
+          "conf": 0.93
+        },
+        {
+          "w": "you",
+          "start_s": 7.25,
+          "end_s": 7.55,
+          "conf": 0.88
+        },
+        {
+          "w": "explain",
+          "start_s": 7.55,
+          "end_s": 8.12,
+          "conf": 0.86
+        },
+        {
+          "w": "this",
+          "start_s": 8.12,
+          "end_s": 8.49,
+          "conf": 0.88
+        },
+        {
+          "w": "fee",
+          "start_s": 8.49,
+          "end_s": 8.79,
+          "conf": 0.84
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 0.89,
+      "speaker_channel": "colleague",
+      "start_s": 9.49,
+      "end_s": 13.17,
+      "text": "I can waive that fee only if you add protection.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 9.49,
+          "end_s": 9.66,
+          "conf": 0.79
+        },
+        {
+          "w": "can",
+          "start_s": 9.66,
+          "end_s": 9.98,
+          "conf": 0.84
+        },
+        {
+          "w": "waive",
+          "start_s": 9.98,
+          "end_s": 10.43,
+          "conf": 0.92
+        },
+        {
+          "w": "that",
+          "start_s": 10.43,
+          "end_s": 10.81,
+          "conf": 0.94
+        },
+        {
+          "w": "fee",
+          "start_s": 10.81,
+          "end_s": 11.12,
+          "conf": 0.9
+        },
+        {
+          "w": "only",
+          "start_s": 11.12,
+          "end_s": 11.5,
+          "conf": 0.82
+        },
+        {
+          "w": "if",
+          "start_s": 11.5,
+          "end_s": 11.75,
+          "conf": 0.86
+        },
+        {
+          "w": "you",
+          "start_s": 11.75,
+          "end_s": 12.06,
+          "conf": 0.79
+        },
+        {
+          "w": "add",
+          "start_s": 12.06,
+          "end_s": 12.37,
+          "conf": 0.88
+        },
+        {
+          "w": "protection",
+          "start_s": 12.37,
+          "end_s": 13.17,
+          "conf": 0.91
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "customer",
+      "start_s": 13.87,
+      "end_s": 14.24,
+      "text": "Okay.",
+      "words": [
+        {
+          "w": "Okay",
+          "start_s": 13.87,
+          "end_s": 14.24,
+          "conf": 0.78
+        }
+      ]
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "colleague",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "colleague",
+      "start_s": 14.94,
+      "end_s": 18.25,
+      "text": "Is there anything else I can help with today?",
+      "words": [
+        {
+          "w": "Is",
+          "start_s": 14.94,
+          "end_s": 15.17,
+          "conf": 0.9
+        },
+        {
+          "w": "there",
+          "start_s": 15.17,
+          "end_s": 15.61,
+          "conf": 0.81
+        },
+        {
+          "w": "anything",
+          "start_s": 15.61,
+          "end_s": 16.25,
+          "conf": 0.93
+        },
+        {
+          "w": "else",
+          "start_s": 16.25,
+          "end_s": 16.61,
+          "conf": 0.83
+        },
+        {
+          "w": "I",
+          "start_s": 16.61,
+          "end_s": 16.78,
+          "conf": 0.98
+        },
+        {
+          "w": "can",
+          "start_s": 16.78,
+          "end_s": 17.08,
+          "conf": 0.87
+        },
+        {
+          "w": "help",
+          "start_s": 17.08,
+          "end_s": 17.45,
+          "conf": 0.95
+        },
+        {
+          "w": "with",
+          "start_s": 17.45,
+          "end_s": 17.82,
+          "conf": 0.87
+        },
+        {
+          "w": "today",
+          "start_s": 17.82,
+          "end_s": 18.25,
+          "conf": 0.79
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

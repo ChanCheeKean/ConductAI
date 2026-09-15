@@ -1,0 +1,58 @@
+[
+  {
+    "customer_id": "CUS-90007",
+    "review_id": "REV-2026-90007",
+    "disposition": "reverse",
+    "style": "plain, cooperative",
+    "facts_known": [
+      "no product change disclosed"
+    ],
+    "disclosure_rules": [],
+    "reply_to_outreach": {
+      "template": "Please put it back, I have a trip in December. Can the fee still be waived?",
+      "available_at": "2026-11-17T16:00:00Z"
+    }
+  },
+  {
+    "customer_id": "CUS-90018",
+    "review_id": "REV-2026-90018",
+    "disposition": "keep",
+    "style": "plain, cooperative",
+    "facts_known": [
+      "wants transfer kept"
+    ],
+    "disclosure_rules": [],
+    "reply_to_outreach": {
+      "template": "Honestly the transfer saved me money — keep it. Just stop calling me with offers.",
+      "available_at": "2026-11-17T18:00:00Z"
+    }
+  },
+  {
+    "customer_id": "CUS-90020",
+    "review_id": "REV-2026-90020",
+    "disposition": "close",
+    "style": "plain, cooperative",
+    "facts_known": [
+      "requested closure twice"
+    ],
+    "disclosure_rules": [],
+    "reply_to_outreach": {
+      "template": "Yes, please close it.",
+      "available_at": "2026-11-17T17:00:00Z"
+    }
+  },
+  {
+    "customer_id": "CUS-90021",
+    "review_id": "REV-2026-90021",
+    "disposition": "uncertain",
+    "style": "plain, cooperative",
+    "facts_known": [
+      "does not remember"
+    ],
+    "disclosure_rules": [],
+    "reply_to_outreach": {
+      "template": "I don't remember saying yes to that.",
+      "available_at": "2026-11-17T17:00:00Z"
+    }
+  }
+]

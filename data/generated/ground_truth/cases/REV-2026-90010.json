@@ -1,0 +1,118 @@
+{
+  "review_id": "REV-2026-90010",
+  "code": "C08",
+  "title": "Hardship Isn't a Lead",
+  "depth": "L3",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9001001",
+    "INT-9001002"
+  ],
+  "summary": "Catalog-grounded Hardship Isn't a Lead review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "substantiated",
+    "categories": [
+      "MC-09"
+    ],
+    "customer_outcome": "reverse_flex_plan; preserve HRP",
+    "colleague_outcome": "record_finding_and_coaching",
+    "control_outcome": "order_system_hrp_block_missing",
+    "panel_used": true
+  },
+  "key_facts": [
+    {
+      "monthly_fee": "41.28"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-VUL-001@v2 §4.1"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "agents",
+      "necessity": "supporting",
+      "why": "used in the expected C08 path",
+      "trajectory_signals": [
+        "plan_created",
+        "plan_updated (agent-initiated)",
+        "hypothesis_updated"
+      ]
+    },
+    {
+      "capability": "router",
+      "necessity": "supporting",
+      "why": "used in the expected C08 path",
+      "trajectory_signals": [
+        "route_decision {route_id, method, confidence, track, language, depth}"
+      ]
+    },
+    {
+      "capability": "agent_graph",
+      "necessity": "supporting",
+      "why": "used in the expected C08 path",
+      "trajectory_signals": [
+        "node_entered / node_exited",
+        "edge_taken {from, to} incl. back-edges"
+      ]
+    },
+    {
+      "capability": "subagents",
+      "necessity": "supporting",
+      "why": "used in the expected C08 path",
+      "trajectory_signals": [
+        "subagent_started {name, parent_span_id}",
+        "subagent_finished",
+        "panel_position / adjudication"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C08 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "skills",
+      "necessity": "primary",
+      "why": "hardship-and-vulnerability playbook (no credit sales in HRP)",
+      "trajectory_signals": [
+        "skill_loaded {skill}"
+      ]
+    },
+    {
+      "capability": "memory_graph",
+      "necessity": "primary",
+      "why": "call → customer → earlier hardship chat",
+      "trajectory_signals": [
+        "graph_query {cypher, node_ids}",
+        "graph_write {node|edge, status}"
+      ]
+    }
+  ]
+}

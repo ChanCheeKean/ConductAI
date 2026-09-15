@@ -1,0 +1,88 @@
+{
+  "review_id": "REV-2026-90002",
+  "code": "C02",
+  "title": "The Callback",
+  "depth": "L2",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9000201",
+    "INT-9000202"
+  ],
+  "summary": "Catalog-grounded The Callback review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "no_error",
+    "categories": [],
+    "customer_outcome": "none",
+    "colleague_outcome": "none",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "callback_purpose": "balance_transfer_offer",
+      "fee": "120.00"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-SAL-002@v3 §3.2"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "router",
+      "necessity": "primary",
+      "why": "outbound + sale must route to the callback-exception check, not straight to MC-07",
+      "trajectory_signals": [
+        "route_decision {route_id, method, confidence, track, language, depth}"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C02 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "memory_persistent",
+      "necessity": "primary",
+      "why": "callback request purpose, window and consent",
+      "trajectory_signals": [
+        "sql_query / get_* with row IDs in tool_result"
+      ]
+    },
+    {
+      "capability": "memory_graph",
+      "necessity": "primary",
+      "why": "outbound call → callback request → originating chat",
+      "trajectory_signals": [
+        "graph_query {cypher, node_ids}",
+        "graph_write {node|edge, status}"
+      ]
+    }
+  ]
+}

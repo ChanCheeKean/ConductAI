@@ -1,0 +1,2 @@
+change_id,system,changed_at_utc,description,reverted_at_utc,available_at
+CHG-2026-1019-ASR,queue_router,2026-10-19T05:00:00Z,Bilingual queue incorrectly mapped to en-US-general,,2026-10-19T05:00:00Z

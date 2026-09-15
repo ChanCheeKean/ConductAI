@@ -1,0 +1,86 @@
+{
+  "interaction_id": "INT-0100058",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "es",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.2,
+      "text": "Necesito ayuda con mi cuenta.",
+      "words": [
+        {
+          "w": "Necesito",
+          "start_s": 2.2,
+          "end_s": 2.8,
+          "conf": 0.6
+        },
+        {
+          "w": "ayuda",
+          "start_s": 2.8,
+          "end_s": 3.22,
+          "conf": 0.51
+        },
+        {
+          "w": "con",
+          "start_s": 3.22,
+          "end_s": 3.5,
+          "conf": 0.48
+        },
+        {
+          "w": "mi",
+          "start_s": 3.5,
+          "end_s": 3.72,
+          "conf": 0.46
+        },
+        {
+          "w": "cuenta",
+          "start_s": 3.72,
+          "end_s": 4.2,
+          "conf": 0.46
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.97,
+      "speaker_channel": "colleague",
+      "start_s": 4.9,
+      "end_s": 6.4,
+      "text": "Claro, se lo explico.",
+      "words": [
+        {
+          "w": "Claro",
+          "start_s": 4.9,
+          "end_s": 5.34,
+          "conf": 0.45
+        },
+        {
+          "w": "se",
+          "start_s": 5.34,
+          "end_s": 5.58,
+          "conf": 0.52
+        },
+        {
+          "w": "lo",
+          "start_s": 5.58,
+          "end_s": 5.82,
+          "conf": 0.51
+        },
+        {
+          "w": "explico",
+          "start_s": 5.82,
+          "end_s": 6.4,
+          "conf": 0.5
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

@@ -1,0 +1,7 @@
+team_id,site,supervisor_id,queue_types,available_at
+T-SAT-1,SAN_ANTONIO,COL-7700,general|bilingual,2025-01-01T00:00:00Z
+T-SAT-2,SAN_ANTONIO,COL-6600,general,2025-01-01T00:00:00Z
+T-SAT-3,SAN_ANTONIO,COL-8800,general|hardship,2025-01-01T00:00:00Z
+T-TMP-1,TEMPE,COL-3100,general,2025-01-01T00:00:00Z
+T-TMP-2,TEMPE,COL-5500,general|retention,2025-01-01T00:00:00Z
+T-TMP-3,TEMPE,COL-4400,general,2025-01-01T00:00:00Z

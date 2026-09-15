@@ -1,0 +1,30 @@
+{
+  "interaction_id": "INT-9001501",
+  "channel": "chat",
+  "source": "chat_exact",
+  "asr_model": "none",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "colleague",
+      "start_s": 26.5,
+      "end_s": 26.5,
+      "text": "CardShield is basically free as long as you pay on time — the fee only shows up if you carry a balance.",
+      "words": []
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "customer",
+      "start_s": 51.5,
+      "end_s": 51.5,
+      "text": "That sounds good.",
+      "words": []
+    }
+  ],
+  "redactions": []
+}

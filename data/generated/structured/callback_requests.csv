@@ -1,0 +1,3 @@
+callback_request_id,customer_id,created_in_interaction_id,created_by,purpose,requested_window_start,requested_window_end,requested_tz,consent_to_call,phone,fulfilled_by_interaction_id,available_at
+CBR-9000201,CUS-90002,INT-9000201,COL-5520,balance_transfer_offer,2026-11-06T17:00:00,2026-11-06T19:00:00,America/Chicago,true,(918) 555-0102,INT-9000202,2026-11-05T18:15:26Z
+CBR-9000301,CUS-90003,INT-9000301,COL-6604,replacement_card_status,2026-11-09T10:20:00,2026-11-09T11:00:00,America/Phoenix,true,(480) 555-0103,INT-9000302,2026-11-09T17:05:10Z

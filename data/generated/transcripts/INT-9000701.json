@@ -1,0 +1,224 @@
+{
+  "interaction_id": "INT-9000701",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.96,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 9.4,
+      "text": "I don't want to pay this ninety-five dollars. Just get rid of it, whatever you need to do.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 2.2,
+          "end_s": 2.39,
+          "conf": 0.92
+        },
+        {
+          "w": "don't",
+          "start_s": 2.39,
+          "end_s": 2.87,
+          "conf": 0.83
+        },
+        {
+          "w": "want",
+          "start_s": 2.87,
+          "end_s": 3.28,
+          "conf": 0.82
+        },
+        {
+          "w": "to",
+          "start_s": 3.28,
+          "end_s": 3.54,
+          "conf": 0.85
+        },
+        {
+          "w": "pay",
+          "start_s": 3.54,
+          "end_s": 3.87,
+          "conf": 0.9
+        },
+        {
+          "w": "this",
+          "start_s": 3.87,
+          "end_s": 4.28,
+          "conf": 0.79
+        },
+        {
+          "w": "ninety-five",
+          "start_s": 4.28,
+          "end_s": 5.21,
+          "conf": 0.98
+        },
+        {
+          "w": "dollars",
+          "start_s": 5.21,
+          "end_s": 5.84,
+          "conf": 0.94
+        },
+        {
+          "w": "Just",
+          "start_s": 5.84,
+          "end_s": 6.25,
+          "conf": 0.93
+        },
+        {
+          "w": "get",
+          "start_s": 6.25,
+          "end_s": 6.58,
+          "conf": 0.96
+        },
+        {
+          "w": "rid",
+          "start_s": 6.58,
+          "end_s": 6.91,
+          "conf": 0.87
+        },
+        {
+          "w": "of",
+          "start_s": 6.91,
+          "end_s": 7.17,
+          "conf": 0.9
+        },
+        {
+          "w": "it",
+          "start_s": 7.17,
+          "end_s": 7.43,
+          "conf": 0.92
+        },
+        {
+          "w": "whatever",
+          "start_s": 7.43,
+          "end_s": 8.14,
+          "conf": 0.97
+        },
+        {
+          "w": "you",
+          "start_s": 8.14,
+          "end_s": 8.47,
+          "conf": 0.91
+        },
+        {
+          "w": "need",
+          "start_s": 8.47,
+          "end_s": 8.88,
+          "conf": 0.91
+        },
+        {
+          "w": "to",
+          "start_s": 8.88,
+          "end_s": 9.14,
+          "conf": 0.95
+        },
+        {
+          "w": "do",
+          "start_s": 9.14,
+          "end_s": 9.4,
+          "conf": 0.94
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.9,
+      "speaker_channel": "colleague",
+      "start_s": 10.1,
+      "end_s": 15.35,
+      "text": "Okay, I've taken care of that for you — you won't see that fee.",
+      "words": [
+        {
+          "w": "Okay",
+          "start_s": 10.1,
+          "end_s": 10.52,
+          "conf": 0.89
+        },
+        {
+          "w": "I've",
+          "start_s": 10.52,
+          "end_s": 10.94,
+          "conf": 0.93
+        },
+        {
+          "w": "taken",
+          "start_s": 10.94,
+          "end_s": 11.43,
+          "conf": 0.93
+        },
+        {
+          "w": "care",
+          "start_s": 11.43,
+          "end_s": 11.85,
+          "conf": 0.94
+        },
+        {
+          "w": "of",
+          "start_s": 11.85,
+          "end_s": 12.12,
+          "conf": 0.85
+        },
+        {
+          "w": "that",
+          "start_s": 12.12,
+          "end_s": 12.53,
+          "conf": 0.94
+        },
+        {
+          "w": "for",
+          "start_s": 12.53,
+          "end_s": 12.88,
+          "conf": 0.84
+        },
+        {
+          "w": "you",
+          "start_s": 12.88,
+          "end_s": 13.22,
+          "conf": 0.9
+        },
+        {
+          "w": "—",
+          "start_s": 13.22,
+          "end_s": 13.41,
+          "conf": 0.93
+        },
+        {
+          "w": "you",
+          "start_s": 13.41,
+          "end_s": 13.75,
+          "conf": 0.91
+        },
+        {
+          "w": "won't",
+          "start_s": 13.75,
+          "end_s": 14.25,
+          "conf": 0.95
+        },
+        {
+          "w": "see",
+          "start_s": 14.25,
+          "end_s": 14.59,
+          "conf": 0.97
+        },
+        {
+          "w": "that",
+          "start_s": 14.59,
+          "end_s": 15.01,
+          "conf": 0.95
+        },
+        {
+          "w": "fee",
+          "start_s": 15.01,
+          "end_s": 15.35,
+          "conf": 0.95
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

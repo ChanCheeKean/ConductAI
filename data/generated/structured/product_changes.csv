@@ -1,0 +1,3 @@
+product_change_id,account_id,from_product,to_product,submitted_at_utc,source_interaction_id,rewards_before,rewards_after,rewards_conversion_value,benefits_removed,annual_fee_effect,available_at
+PC-9000701,ACC-90007,VOYAGER,EVERYDAY_CASH,2026-11-02T16:22:41Z,INT-9000701,48200,241.00,241.00,"[""trip_protection""]",reversed,2026-11-02T16:24:41Z
+PC-9001701,ACC-90017,VOYAGER,SUMMIT,2026-11-05T16:02:30Z,INT-9001701,15000,15000,75.00,[],450 billed,2026-11-05T16:04:30Z

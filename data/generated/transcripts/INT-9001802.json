@@ -1,0 +1,151 @@
+{
+  "interaction_id": "INT-9001802",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.95,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 3.8,
+      "text": "I lost my card.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 2.2,
+          "end_s": 2.44,
+          "conf": 0.88
+        },
+        {
+          "w": "lost",
+          "start_s": 2.44,
+          "end_s": 2.95,
+          "conf": 0.95
+        },
+        {
+          "w": "my",
+          "start_s": 2.95,
+          "end_s": 3.28,
+          "conf": 0.88
+        },
+        {
+          "w": "card",
+          "start_s": 3.28,
+          "end_s": 3.8,
+          "conf": 0.88
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.87,
+      "speaker_channel": "colleague",
+      "start_s": 4.5,
+      "end_s": 8.25,
+      "text": "I can replace that. You also have a balance-transfer offer.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 4.5,
+          "end_s": 4.65,
+          "conf": 0.87
+        },
+        {
+          "w": "can",
+          "start_s": 4.65,
+          "end_s": 4.92,
+          "conf": 0.91
+        },
+        {
+          "w": "replace",
+          "start_s": 4.92,
+          "end_s": 5.42,
+          "conf": 0.87
+        },
+        {
+          "w": "that",
+          "start_s": 5.42,
+          "end_s": 5.75,
+          "conf": 0.83
+        },
+        {
+          "w": "You",
+          "start_s": 5.75,
+          "end_s": 6.02,
+          "conf": 0.92
+        },
+        {
+          "w": "also",
+          "start_s": 6.02,
+          "end_s": 6.35,
+          "conf": 0.91
+        },
+        {
+          "w": "have",
+          "start_s": 6.35,
+          "end_s": 6.67,
+          "conf": 0.92
+        },
+        {
+          "w": "a",
+          "start_s": 6.67,
+          "end_s": 6.82,
+          "conf": 0.94
+        },
+        {
+          "w": "balance-transfer",
+          "start_s": 6.82,
+          "end_s": 7.86,
+          "conf": 0.89
+        },
+        {
+          "w": "offer",
+          "start_s": 7.86,
+          "end_s": 8.25,
+          "conf": 0.89
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.87,
+      "speaker_channel": "customer",
+      "start_s": 8.95,
+      "end_s": 10.55,
+      "text": "All right, transfer 2500.",
+      "words": [
+        {
+          "w": "All",
+          "start_s": 8.95,
+          "end_s": 9.23,
+          "conf": 0.89
+        },
+        {
+          "w": "right",
+          "start_s": 9.23,
+          "end_s": 9.63,
+          "conf": 0.87
+        },
+        {
+          "w": "transfer",
+          "start_s": 9.63,
+          "end_s": 10.21,
+          "conf": 0.91
+        },
+        {
+          "w": "2500",
+          "start_s": 10.21,
+          "end_s": 10.55,
+          "conf": 0.96
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

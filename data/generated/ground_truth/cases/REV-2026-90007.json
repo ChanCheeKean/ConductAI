@@ -1,0 +1,149 @@
+{
+  "review_id": "REV-2026-90007",
+  "code": "C06",
+  "title": "Silent Switch",
+  "depth": "L4",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9000701"
+  ],
+  "summary": "Catalog-grounded Silent Switch review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "substantiated",
+    "categories": [
+      "MC-08",
+      "MC-11"
+    ],
+    "customer_outcome": "reverse_product_change; restore 48200 miles; waive 95.00",
+    "colleague_outcome": "finding; coaching; enhanced_monitoring",
+    "control_outcome": "incentive observation only",
+    "panel_used": true
+  },
+  "key_facts": [
+    {
+      "miles": 48200,
+      "cash_value": "241.00",
+      "annual_fee": "95.00"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-CHC-PC@v3 §2.1",
+    "CLB-SOP-SRV-004@v2 §2.2"
+  ],
+  "must_not": [],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [
+    "CST-9000701",
+    "customer_reply"
+  ],
+  "required_capabilities": [
+    {
+      "capability": "agents",
+      "necessity": "primary",
+      "why": "re-route a fee request into a product-change review from desktop evidence",
+      "trajectory_signals": [
+        "plan_created",
+        "plan_updated (agent-initiated)",
+        "hypothesis_updated"
+      ]
+    },
+    {
+      "capability": "loop_termination",
+      "necessity": "primary",
+      "why": "wait for the colleague statement and the customer's reply",
+      "trajectory_signals": [
+        "termination {reason}",
+        "wait_suspended {until, latest_safe_decision}",
+        "wait_resumed",
+        "no_progress_detected"
+      ]
+    },
+    {
+      "capability": "agent_graph",
+      "necessity": "primary",
+      "why": "re-route edge plus the panel node",
+      "trajectory_signals": [
+        "node_entered / node_exited",
+        "edge_taken {from, to} incl. back-edges"
+      ]
+    },
+    {
+      "capability": "subagents",
+      "necessity": "primary",
+      "why": "independent customer and colleague advocates plus adjudicator",
+      "trajectory_signals": [
+        "subagent_started {name, parent_span_id}",
+        "subagent_finished",
+        "panel_position / adjudication"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C06 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "harness",
+      "necessity": "primary",
+      "why": "colleague statement and customer reply arrive on the virtual clock",
+      "trajectory_signals": [
+        "clock_advanced",
+        "artifact_arrived {id}",
+        "persona_reply",
+        "colleague_statement_arrived"
+      ]
+    },
+    {
+      "capability": "skills",
+      "necessity": "supporting",
+      "why": "used in the expected C06 path",
+      "trajectory_signals": [
+        "skill_loaded {skill}"
+      ]
+    },
+    {
+      "capability": "sandbox",
+      "necessity": "supporting",
+      "why": "used in the expected C06 path",
+      "trajectory_signals": [
+        "computation {code, inputs, output}"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "supporting",
+      "why": "used in the expected C06 path",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

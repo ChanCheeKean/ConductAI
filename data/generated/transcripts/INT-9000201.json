@@ -1,0 +1,20 @@
+{
+  "interaction_id": "INT-9000201",
+  "channel": "chat",
+  "source": "chat_exact",
+  "asr_model": "none",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 1.0,
+      "speaker_channel": "customer",
+      "start_s": 26.5,
+      "end_s": 26.5,
+      "text": "Can someone call me tomorrow after 5 about the 12-month balance transfer offer? I'm at work.",
+      "words": []
+    }
+  ],
+  "redactions": []
+}

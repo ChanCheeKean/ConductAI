@@ -1,0 +1,2 @@
+flag_id,account_id,flag,set_at,cleared_at,set_by_interaction_id,source_system,available_at
+FLG-9001001,ACC-90010,HARDSHIP_ACTIVE,2026-10-31T05:00:00Z,,INT-9001001,crm,2026-10-31T05:00:00Z

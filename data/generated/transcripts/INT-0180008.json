@@ -1,0 +1,92 @@
+{
+  "interaction_id": "INT-0180008",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.88,
+      "speaker_channel": "colleague",
+      "start_s": 30,
+      "end_s": 32.25,
+      "text": "Please hold while I check that.",
+      "words": [
+        {
+          "w": "Please",
+          "start_s": 30,
+          "end_s": 30.5,
+          "conf": 0.89
+        },
+        {
+          "w": "hold",
+          "start_s": 30.5,
+          "end_s": 30.86,
+          "conf": 0.86
+        },
+        {
+          "w": "while",
+          "start_s": 30.86,
+          "end_s": 31.29,
+          "conf": 0.96
+        },
+        {
+          "w": "I",
+          "start_s": 31.29,
+          "end_s": 31.46,
+          "conf": 0.83
+        },
+        {
+          "w": "check",
+          "start_s": 31.46,
+          "end_s": 31.89,
+          "conf": 0.89
+        },
+        {
+          "w": "that",
+          "start_s": 31.89,
+          "end_s": 32.25,
+          "conf": 0.83
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "colleague",
+      "start_s": 210,
+      "end_s": 211.5,
+      "text": "Thank you for waiting.",
+      "words": [
+        {
+          "w": "Thank",
+          "start_s": 210,
+          "end_s": 210.41,
+          "conf": 0.86
+        },
+        {
+          "w": "you",
+          "start_s": 210.41,
+          "end_s": 210.69,
+          "conf": 0.97
+        },
+        {
+          "w": "for",
+          "start_s": 210.69,
+          "end_s": 210.97,
+          "conf": 0.86
+        },
+        {
+          "w": "waiting",
+          "start_s": 210.97,
+          "end_s": 211.5,
+          "conf": 0.87
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

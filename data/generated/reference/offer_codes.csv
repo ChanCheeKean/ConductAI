@@ -1,0 +1,11 @@
+offer_code,offer_type,promo_apr,promo_months,fee_rate,eligibility
+OFR-BT-12-3,BT,0.00,12,3.00,all open accounts in good standing
+OFR-BT-15-3,BT,0.00,15,3.00,promotional segment only
+OFR-BT-15-5,BT,0.00,15,5.00,all open accounts in good standing
+OFR-CLI,CLI,,,,customer-requested credit line increase
+OFR-CLI-PS,CLI_PRESCREEN,,,,prescreened firm offer; instance id OFR-CLI-PS-<n>
+OFR-FLEX-12,FLEX,,12,1.72,monthly plan fee % of principal; not for HARDSHIP_ACTIVE accounts
+OFR-PC,PRODUCT_CHANGE,,,,product change between card products
+OFR-ADDON-CS,ADDON,,,,CardShield
+OFR-ADDON-CW,ADDON,,,,CreditWatch Plus
+OFR-RET-CREDIT,RETENTION,,,,retention statement credit

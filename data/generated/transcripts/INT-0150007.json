@@ -1,0 +1,133 @@
+{
+  "interaction_id": "INT-0150007",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.96,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.6,
+      "text": "I need help with my account.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 2.2,
+          "end_s": 2.39,
+          "conf": 0.89
+        },
+        {
+          "w": "need",
+          "start_s": 2.39,
+          "end_s": 2.82,
+          "conf": 0.89
+        },
+        {
+          "w": "help",
+          "start_s": 2.82,
+          "end_s": 3.25,
+          "conf": 0.86
+        },
+        {
+          "w": "with",
+          "start_s": 3.25,
+          "end_s": 3.67,
+          "conf": 0.94
+        },
+        {
+          "w": "my",
+          "start_s": 3.67,
+          "end_s": 3.94,
+          "conf": 0.94
+        },
+        {
+          "w": "account",
+          "start_s": 3.94,
+          "end_s": 4.6,
+          "conf": 0.92
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "colleague",
+      "start_s": 5.3,
+      "end_s": 7.92,
+      "text": "I also have an offer for you.",
+      "words": [
+        {
+          "w": "I",
+          "start_s": 5.3,
+          "end_s": 5.5,
+          "conf": 0.87
+        },
+        {
+          "w": "also",
+          "start_s": 5.5,
+          "end_s": 5.95,
+          "conf": 0.91
+        },
+        {
+          "w": "have",
+          "start_s": 5.95,
+          "end_s": 6.39,
+          "conf": 0.89
+        },
+        {
+          "w": "an",
+          "start_s": 6.39,
+          "end_s": 6.67,
+          "conf": 0.9
+        },
+        {
+          "w": "offer",
+          "start_s": 6.67,
+          "end_s": 7.2,
+          "conf": 0.92
+        },
+        {
+          "w": "for",
+          "start_s": 7.2,
+          "end_s": 7.56,
+          "conf": 0.84
+        },
+        {
+          "w": "you",
+          "start_s": 7.56,
+          "end_s": 7.92,
+          "conf": 0.94
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "customer",
+      "start_s": 8.62,
+      "end_s": 9.42,
+      "text": "No thanks.",
+      "words": [
+        {
+          "w": "No",
+          "start_s": 8.62,
+          "end_s": 8.87,
+          "conf": 0.99
+        },
+        {
+          "w": "thanks",
+          "start_s": 8.87,
+          "end_s": 9.42,
+          "conf": 0.97
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

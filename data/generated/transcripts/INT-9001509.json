@@ -1,0 +1,92 @@
+{
+  "interaction_id": "INT-9001509",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.38,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 3.7,
+      "text": "So it's basically free?",
+      "words": [
+        {
+          "w": "So",
+          "start_s": 2.2,
+          "end_s": 2.41,
+          "conf": 0.89
+        },
+        {
+          "w": "it's",
+          "start_s": 2.41,
+          "end_s": 2.74,
+          "conf": 0.85
+        },
+        {
+          "w": "basically",
+          "start_s": 2.74,
+          "end_s": 3.37,
+          "conf": 0.89
+        },
+        {
+          "w": "free",
+          "start_s": 3.37,
+          "end_s": 3.7,
+          "conf": 0.84
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.89,
+      "speaker_channel": "colleague",
+      "start_s": 4.4,
+      "end_s": 6.65,
+      "text": "No, there is a balance-based premium.",
+      "words": [
+        {
+          "w": "No",
+          "start_s": 4.4,
+          "end_s": 4.6,
+          "conf": 0.89
+        },
+        {
+          "w": "there",
+          "start_s": 4.6,
+          "end_s": 4.98,
+          "conf": 0.91
+        },
+        {
+          "w": "is",
+          "start_s": 4.98,
+          "end_s": 5.18,
+          "conf": 0.87
+        },
+        {
+          "w": "a",
+          "start_s": 5.18,
+          "end_s": 5.32,
+          "conf": 0.9
+        },
+        {
+          "w": "balance-based",
+          "start_s": 5.32,
+          "end_s": 6.16,
+          "conf": 0.87
+        },
+        {
+          "w": "premium",
+          "start_s": 6.16,
+          "end_s": 6.65,
+          "conf": 0.94
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

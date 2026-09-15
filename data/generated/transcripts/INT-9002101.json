@@ -1,0 +1,191 @@
+{
+  "interaction_id": "INT-9002101",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.88,
+      "speaker_channel": "colleague",
+      "start_s": 220,
+      "end_s": 222.25,
+      "text": "Let me tell you about CardShield.",
+      "words": [
+        {
+          "w": "Let",
+          "start_s": 220,
+          "end_s": 220.28,
+          "conf": 0.9
+        },
+        {
+          "w": "me",
+          "start_s": 220.28,
+          "end_s": 220.5,
+          "conf": 0.91
+        },
+        {
+          "w": "tell",
+          "start_s": 220.5,
+          "end_s": 220.84,
+          "conf": 0.86
+        },
+        {
+          "w": "you",
+          "start_s": 220.84,
+          "end_s": 221.12,
+          "conf": 0.86
+        },
+        {
+          "w": "about",
+          "start_s": 221.12,
+          "end_s": 221.53,
+          "conf": 0.85
+        },
+        {
+          "w": "CardShield",
+          "start_s": 221.53,
+          "end_s": 222.25,
+          "conf": 0.84
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "colleague",
+      "start_s": 405,
+      "end_s": 406.5,
+      "text": "So that's all set.",
+      "words": [
+        {
+          "w": "So",
+          "start_s": 405,
+          "end_s": 405.26,
+          "conf": 0.94
+        },
+        {
+          "w": "that's",
+          "start_s": 405.26,
+          "end_s": 405.82,
+          "conf": 0.89
+        },
+        {
+          "w": "all",
+          "start_s": 405.82,
+          "end_s": 406.16,
+          "conf": 0.88
+        },
+        {
+          "w": "set",
+          "start_s": 406.16,
+          "end_s": 406.5,
+          "conf": 0.86
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "customer",
+      "speaker_confidence": 0.91,
+      "speaker_channel": "customer",
+      "start_s": 407.2,
+      "end_s": 408.8,
+      "text": "Wait, what's all set?",
+      "words": [
+        {
+          "w": "Wait",
+          "start_s": 407.2,
+          "end_s": 407.6,
+          "conf": 0.92
+        },
+        {
+          "w": "what's",
+          "start_s": 407.6,
+          "end_s": 408.15,
+          "conf": 0.94
+        },
+        {
+          "w": "all",
+          "start_s": 408.15,
+          "end_s": 408.47,
+          "conf": 0.92
+        },
+        {
+          "w": "set",
+          "start_s": 408.47,
+          "end_s": 408.8,
+          "conf": 0.93
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "colleague",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "colleague",
+      "start_s": 409.5,
+      "end_s": 411.38,
+      "text": "The protection we talked about.",
+      "words": [
+        {
+          "w": "The",
+          "start_s": 409.5,
+          "end_s": 409.75,
+          "conf": 0.8
+        },
+        {
+          "w": "protection",
+          "start_s": 409.75,
+          "end_s": 410.4,
+          "conf": 0.85
+        },
+        {
+          "w": "we",
+          "start_s": 410.4,
+          "end_s": 410.59,
+          "conf": 0.99
+        },
+        {
+          "w": "talked",
+          "start_s": 410.59,
+          "end_s": 411.01,
+          "conf": 0.92
+        },
+        {
+          "w": "about",
+          "start_s": 411.01,
+          "end_s": 411.38,
+          "conf": 0.99
+        }
+      ]
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "customer",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "customer",
+      "start_s": 412.08,
+      "end_s": 412.88,
+      "text": "Oh… okay.",
+      "words": [
+        {
+          "w": "Oh",
+          "start_s": 412.08,
+          "end_s": 412.39,
+          "conf": 0.92
+        },
+        {
+          "w": "okay",
+          "start_s": 412.39,
+          "end_s": 412.88,
+          "conf": 0.86
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

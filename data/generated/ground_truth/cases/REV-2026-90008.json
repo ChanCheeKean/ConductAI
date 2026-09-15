@@ -1,0 +1,89 @@
+{
+  "review_id": "REV-2026-90008",
+  "code": "C07",
+  "title": "Strings Attached",
+  "depth": "L2",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9000801"
+  ],
+  "summary": "Catalog-grounded Strings Attached review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "substantiated",
+    "categories": [
+      "MC-06"
+    ],
+    "customer_outcome": "confirm_cancellation_no_premium; waiver retained",
+    "colleague_outcome": "record_finding_and_coaching",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "prior_waivers": 0,
+      "premium": "0.00"
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-SRV-002@v2 §2.1",
+    "REGZ-1026.52@2024-03-15 §1026.52(b)(1)(ii)(B)"
+  ],
+  "must_not": [],
+  "memory_ops": {
+    "supersede": "MEM-0320",
+    "valid_to": "2025-04-15"
+  },
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C07 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "read_paths",
+      "necessity": "supporting",
+      "why": "used in the expected C07 path",
+      "trajectory_signals": [
+        "memory_read {filters}",
+        "memory_verified / memory_rejected {note_id, reason}"
+      ]
+    },
+    {
+      "capability": "write_paths",
+      "necessity": "supporting",
+      "why": "used in the expected C07 path",
+      "trajectory_signals": [
+        "memory_write / supersede / retract / consolidate / purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "graph_write",
+        "automated_action"
+      ]
+    }
+  ]
+}

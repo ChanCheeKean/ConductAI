@@ -1,0 +1,103 @@
+{
+  "review_id": "REV-2026-90016",
+  "code": "C13",
+  "title": "Not a Complaint?",
+  "depth": "L2",
+  "as_of": "2026-11-16T15:00:00Z",
+  "schema_version": "1.0",
+  "interaction_ids": [
+    "INT-9001601"
+  ],
+  "summary": "Catalog-grounded Not a Complaint? review",
+  "trigger": {
+    "type": "hero_case",
+    "selected_at": "2026-11-13T23:00:00Z"
+  },
+  "sla": {
+    "business_days": 10,
+    "latest_safe_decision": "2026-11-30"
+  },
+  "expected": {
+    "finding_status": "substantiated",
+    "categories": [
+      "MC-10",
+      "MC-11"
+    ],
+    "customer_outcome": "log complaint received_at=2026-11-03; no refund",
+    "colleague_outcome": "record_finding_and_coaching",
+    "control_outcome": "none",
+    "panel_used": false
+  },
+  "key_facts": [
+    {
+      "fee_valid": true,
+      "complaint_logged": false
+    }
+  ],
+  "hypotheses": [],
+  "contradictions": [],
+  "pivots": [],
+  "computations": [],
+  "must_cite": [
+    "CLB-SOP-SRV-003@v5 §2.1"
+  ],
+  "must_not": [
+    "wait for regulator portal",
+    "refund fee"
+  ],
+  "memory_ops": {},
+  "precedents": {},
+  "acceptable_alternatives": [],
+  "deterministic_checks": [],
+  "rubric": [],
+  "budget": {
+    "max_tool_calls": 40
+  },
+  "waits": [],
+  "required_capabilities": [
+    {
+      "capability": "router",
+      "necessity": "primary",
+      "why": "a servicing call with a complaint must take the servicing-conduct track",
+      "trajectory_signals": [
+        "route_decision {route_id, method, confidence, track, language, depth}"
+      ]
+    },
+    {
+      "capability": "loop_termination",
+      "necessity": "supporting",
+      "why": "used in the expected C13 path",
+      "trajectory_signals": [
+        "termination {reason}",
+        "wait_suspended {until, latest_safe_decision}",
+        "wait_resumed",
+        "no_progress_detected"
+      ]
+    },
+    {
+      "capability": "tool_calling",
+      "necessity": "supporting",
+      "why": "used in the expected C13 path",
+      "trajectory_signals": [
+        "tool_call {tool, args, rationale}",
+        "tool_result {status, source_ids}"
+      ]
+    },
+    {
+      "capability": "skills",
+      "necessity": "primary",
+      "why": "complaints playbook (definition independent of the word)",
+      "trajectory_signals": [
+        "skill_loaded {skill}"
+      ]
+    },
+    {
+      "capability": "memory_semantic",
+      "necessity": "supporting",
+      "why": "used in the expected C13 path",
+      "trajectory_signals": [
+        "retrieval {query, filters: as_of/status/validity/speaker, doc_ids, used/discarded}"
+      ]
+    }
+  ]
+}

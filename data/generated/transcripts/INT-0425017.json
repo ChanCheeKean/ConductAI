@@ -1,0 +1,152 @@
+{
+  "interaction_id": "INT-0425017",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.92,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 8.95,
+      "text": "CardShield is eighty-nine cents per hundred and you can cancel anytime. Would you like me to add it?",
+      "words": [
+        {
+          "w": "CardShield",
+          "start_s": 2.2,
+          "end_s": 2.92,
+          "conf": 0.88
+        },
+        {
+          "w": "is",
+          "start_s": 2.92,
+          "end_s": 3.14,
+          "conf": 0.88
+        },
+        {
+          "w": "eighty-nine",
+          "start_s": 3.14,
+          "end_s": 3.92,
+          "conf": 0.89
+        },
+        {
+          "w": "cents",
+          "start_s": 3.92,
+          "end_s": 4.33,
+          "conf": 0.8
+        },
+        {
+          "w": "per",
+          "start_s": 4.33,
+          "end_s": 4.61,
+          "conf": 0.91
+        },
+        {
+          "w": "hundred",
+          "start_s": 4.61,
+          "end_s": 5.14,
+          "conf": 0.78
+        },
+        {
+          "w": "and",
+          "start_s": 5.14,
+          "end_s": 5.42,
+          "conf": 0.85
+        },
+        {
+          "w": "you",
+          "start_s": 5.42,
+          "end_s": 5.7,
+          "conf": 0.87
+        },
+        {
+          "w": "can",
+          "start_s": 5.7,
+          "end_s": 5.98,
+          "conf": 0.95
+        },
+        {
+          "w": "cancel",
+          "start_s": 5.98,
+          "end_s": 6.45,
+          "conf": 0.86
+        },
+        {
+          "w": "anytime",
+          "start_s": 6.45,
+          "end_s": 6.98,
+          "conf": 0.83
+        },
+        {
+          "w": "Would",
+          "start_s": 6.98,
+          "end_s": 7.39,
+          "conf": 0.9
+        },
+        {
+          "w": "you",
+          "start_s": 7.39,
+          "end_s": 7.67,
+          "conf": 0.88
+        },
+        {
+          "w": "like",
+          "start_s": 7.67,
+          "end_s": 8.01,
+          "conf": 0.92
+        },
+        {
+          "w": "me",
+          "start_s": 8.01,
+          "end_s": 8.23,
+          "conf": 0.87
+        },
+        {
+          "w": "to",
+          "start_s": 8.23,
+          "end_s": 8.45,
+          "conf": 0.87
+        },
+        {
+          "w": "add",
+          "start_s": 8.45,
+          "end_s": 8.73,
+          "conf": 0.87
+        },
+        {
+          "w": "it",
+          "start_s": 8.73,
+          "end_s": 8.95,
+          "conf": 0.96
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.94,
+      "speaker_channel": "customer",
+      "start_s": 9.65,
+      "end_s": 10.45,
+      "text": "Yes, please.",
+      "words": [
+        {
+          "w": "Yes",
+          "start_s": 9.65,
+          "end_s": 9.95,
+          "conf": 0.81
+        },
+        {
+          "w": "please",
+          "start_s": 9.95,
+          "end_s": 10.45,
+          "conf": 0.94
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

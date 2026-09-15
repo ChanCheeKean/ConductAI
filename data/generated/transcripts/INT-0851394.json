@@ -1,0 +1,233 @@
+{
+  "interaction_id": "INT-0851394",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "es-US-general",
+  "language": "es",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "colleague",
+      "speaker_confidence": 0.93,
+      "speaker_channel": "colleague",
+      "start_s": 2.2,
+      "end_s": 5.79,
+      "text": "Gracias por llamar a Copperlake. Voy a verificar su cuenta.",
+      "words": [
+        {
+          "w": "Gracias",
+          "start_s": 2.2,
+          "end_s": 2.68,
+          "conf": 0.89
+        },
+        {
+          "w": "por",
+          "start_s": 2.68,
+          "end_s": 2.94,
+          "conf": 0.73
+        },
+        {
+          "w": "llamar",
+          "start_s": 2.94,
+          "end_s": 3.37,
+          "conf": 0.78
+        },
+        {
+          "w": "a",
+          "start_s": 3.37,
+          "end_s": 3.51,
+          "conf": 0.8
+        },
+        {
+          "w": "Copperlake",
+          "start_s": 3.51,
+          "end_s": 4.17,
+          "conf": 0.91
+        },
+        {
+          "w": "Voy",
+          "start_s": 4.17,
+          "end_s": 4.42,
+          "conf": 0.88
+        },
+        {
+          "w": "a",
+          "start_s": 4.42,
+          "end_s": 4.57,
+          "conf": 0.87
+        },
+        {
+          "w": "verificar",
+          "start_s": 4.57,
+          "end_s": 5.17,
+          "conf": 0.82
+        },
+        {
+          "w": "su",
+          "start_s": 5.17,
+          "end_s": 5.37,
+          "conf": 0.82
+        },
+        {
+          "w": "cuenta",
+          "start_s": 5.37,
+          "end_s": 5.79,
+          "conf": 0.81
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "customer",
+      "speaker_confidence": 0.88,
+      "speaker_channel": "customer",
+      "start_s": 6.49,
+      "end_s": 8.29,
+      "text": "Necesito ayuda con mi tarjeta.",
+      "words": [
+        {
+          "w": "Necesito",
+          "start_s": 6.49,
+          "end_s": 7.02,
+          "conf": 0.92
+        },
+        {
+          "w": "ayuda",
+          "start_s": 7.02,
+          "end_s": 7.37,
+          "conf": 0.93
+        },
+        {
+          "w": "con",
+          "start_s": 7.37,
+          "end_s": 7.62,
+          "conf": 0.79
+        },
+        {
+          "w": "mi",
+          "start_s": 7.62,
+          "end_s": 7.82,
+          "conf": 0.86
+        },
+        {
+          "w": "tarjeta",
+          "start_s": 7.82,
+          "end_s": 8.29,
+          "conf": 0.81
+        }
+      ]
+    },
+    {
+      "turn_id": "t03",
+      "speaker": "colleague",
+      "speaker_confidence": 0.97,
+      "speaker_channel": "colleague",
+      "start_s": 8.99,
+      "end_s": 10.43,
+      "text": "Claro, revisemos las opciones.",
+      "words": [
+        {
+          "w": "Claro",
+          "start_s": 8.99,
+          "end_s": 9.29,
+          "conf": 0.76
+        },
+        {
+          "w": "revisemos",
+          "start_s": 9.29,
+          "end_s": 9.78,
+          "conf": 0.8
+        },
+        {
+          "w": "las",
+          "start_s": 9.78,
+          "end_s": 9.99,
+          "conf": 0.91
+        },
+        {
+          "w": "opciones",
+          "start_s": 9.99,
+          "end_s": 10.43,
+          "conf": 0.85
+        }
+      ]
+    },
+    {
+      "turn_id": "t04",
+      "speaker": "customer",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "customer",
+      "start_s": 11.13,
+      "end_s": 11.85,
+      "text": "Sí, gracias.",
+      "words": [
+        {
+          "w": "Sí",
+          "start_s": 11.13,
+          "end_s": 11.34,
+          "conf": 0.79
+        },
+        {
+          "w": "gracias",
+          "start_s": 11.34,
+          "end_s": 11.85,
+          "conf": 0.81
+        }
+      ]
+    },
+    {
+      "turn_id": "t05",
+      "speaker": "colleague",
+      "speaker_confidence": 0.86,
+      "speaker_channel": "colleague",
+      "start_s": 12.55,
+      "end_s": 15.06,
+      "text": "¿Hay algo más en que le ayude?",
+      "words": [
+        {
+          "w": "Hay",
+          "start_s": 12.55,
+          "end_s": 12.9,
+          "conf": 0.86
+        },
+        {
+          "w": "algo",
+          "start_s": 12.9,
+          "end_s": 13.32,
+          "conf": 0.81
+        },
+        {
+          "w": "más",
+          "start_s": 13.32,
+          "end_s": 13.67,
+          "conf": 0.8
+        },
+        {
+          "w": "en",
+          "start_s": 13.67,
+          "end_s": 13.94,
+          "conf": 0.8
+        },
+        {
+          "w": "que",
+          "start_s": 13.94,
+          "end_s": 14.29,
+          "conf": 0.87
+        },
+        {
+          "w": "le",
+          "start_s": 14.29,
+          "end_s": 14.56,
+          "conf": 0.91
+        },
+        {
+          "w": "ayude",
+          "start_s": 14.56,
+          "end_s": 15.06,
+          "conf": 0.75
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

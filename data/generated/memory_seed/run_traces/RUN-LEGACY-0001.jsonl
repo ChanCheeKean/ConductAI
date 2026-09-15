@@ -1,0 +1,2 @@
+{"seq": 1, "type": "review_started", "at": "2026-09-15T15:00:00Z"}
+{"seq": 2, "type": "human_tester_approval", "at": "2026-09-16T15:00:00Z", "note": "historical pre-v4 trace only"}

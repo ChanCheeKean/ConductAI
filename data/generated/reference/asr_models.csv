@@ -1,0 +1,4 @@
+asr_model,language,description
+en-US-general,en,English general telephony model
+es-US-general,es,Spanish (US) telephony model
+none,,"Chat and secure message: exact text, no ASR"

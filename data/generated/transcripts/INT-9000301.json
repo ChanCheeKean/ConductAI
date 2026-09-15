@@ -1,0 +1,104 @@
+{
+  "interaction_id": "INT-9000301",
+  "channel": "phone",
+  "source": "asr",
+  "asr_model": "en-US-general",
+  "language": "en",
+  "turns": [
+    {
+      "turn_id": "t01",
+      "speaker": "customer",
+      "speaker_confidence": 0.87,
+      "speaker_channel": "customer",
+      "start_s": 2.2,
+      "end_s": 4.6,
+      "text": "My replacement card has not arrived.",
+      "words": [
+        {
+          "w": "My",
+          "start_s": 2.2,
+          "end_s": 2.42,
+          "conf": 0.8
+        },
+        {
+          "w": "replacement",
+          "start_s": 2.42,
+          "end_s": 3.18,
+          "conf": 0.95
+        },
+        {
+          "w": "card",
+          "start_s": 3.18,
+          "end_s": 3.52,
+          "conf": 0.91
+        },
+        {
+          "w": "has",
+          "start_s": 3.52,
+          "end_s": 3.8,
+          "conf": 0.84
+        },
+        {
+          "w": "not",
+          "start_s": 3.8,
+          "end_s": 4.08,
+          "conf": 0.89
+        },
+        {
+          "w": "arrived",
+          "start_s": 4.08,
+          "end_s": 4.6,
+          "conf": 0.81
+        }
+      ]
+    },
+    {
+      "turn_id": "t02",
+      "speaker": "colleague",
+      "speaker_confidence": 0.98,
+      "speaker_channel": "colleague",
+      "start_s": 5.3,
+      "end_s": 7.55,
+      "text": "I'll call you back with tracking.",
+      "words": [
+        {
+          "w": "I'll",
+          "start_s": 5.3,
+          "end_s": 5.64,
+          "conf": 0.87
+        },
+        {
+          "w": "call",
+          "start_s": 5.64,
+          "end_s": 5.99,
+          "conf": 0.8
+        },
+        {
+          "w": "you",
+          "start_s": 5.99,
+          "end_s": 6.27,
+          "conf": 0.91
+        },
+        {
+          "w": "back",
+          "start_s": 6.27,
+          "end_s": 6.61,
+          "conf": 0.88
+        },
+        {
+          "w": "with",
+          "start_s": 6.61,
+          "end_s": 6.96,
+          "conf": 0.92
+        },
+        {
+          "w": "tracking",
+          "start_s": 6.96,
+          "end_s": 7.55,
+          "conf": 0.99
+        }
+      ]
+    }
+  ],
+  "redactions": []
+}

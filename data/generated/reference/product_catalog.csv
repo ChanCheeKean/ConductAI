@@ -1,0 +1,7 @@
+product_code,name,annual_fee,purchase_apr,rewards_unit,fact_sheet
+EVERYDAY_CASH,Everyday Cash Visa,0.00,24.49,cash_back,CLB-PRD-EVERYDAY-CASH@v4
+VOYAGER,Voyager Visa Signature,95.00,24.49,miles,CLB-PRD-VOYAGER@v5
+SUMMIT,Summit Visa Infinite,450.00,25.99,miles,CLB-PRD-SUMMIT@v3
+FOUNDATION,Foundation Secured Visa,0.00,28.49,cash_back,CLB-PRD-FOUNDATION@v2
+CARDSHIELD,CardShield payment protection,,,,CLB-PRD-CARDSHIELD@v3
+CREDITWATCH_PLUS,CreditWatch Plus,,,,CLB-PRD-CREDITWATCH@v2
