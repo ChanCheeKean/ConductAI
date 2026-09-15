@@ -1,0 +1,30 @@
+schema_version: 1
+defaults:
+  classifier_threshold: 0.80
+  fallback_route: mixed_ambiguous_l4
+routes:
+  - id: cli_soft_pull_clean
+    priority: 10
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: credit_line_request_present, op: eq, value: true}
+        - {fact: inquiry_type, op: eq, value: SOFT}
+    output:
+      track: sales
+      depth: L1
+      path: fast_clean
+      budget: {tool_calls: 8, model_input_tokens: 30000, wall_seconds: 90, replans: 0}
+      roles: [lead_conduct_reviewer]
+      skills: [credit-line-increase]
+  - id: mixed_ambiguous_l4
+    priority: 10000
+    match: {fallback: true}
+    output:
+      track: mixed
+      depth: L4
+      path: full_investigation
+      budget: {tool_calls: 100, model_input_tokens: 450000, wall_seconds: 900, replans: 3}
+      action_profile: restricted_ambiguous
+      roles: [lead_conduct_reviewer, policy_analyst, verifier]
+      skills: []

@@ -1,0 +1,362 @@
+{
+  "$defs": {
+    "Actor": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "graph_node",
+            "agent",
+            "subagent",
+            "tool",
+            "memory",
+            "sandbox",
+            "harness",
+            "governance",
+            "evaluator",
+            "runtime",
+            "router",
+            "data"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ],
+      "title": "Actor",
+      "type": "object"
+    },
+    "EventType": {
+      "enum": [
+        "run_started",
+        "node_entered",
+        "node_exited",
+        "edge_taken",
+        "checkpoint_saved",
+        "checkpoint_restored",
+        "route_decision",
+        "plan_created",
+        "plan_updated",
+        "todo_updated",
+        "llm_call_started",
+        "llm_stream_event",
+        "llm_call",
+        "llm_call_failed",
+        "retry",
+        "agent_started",
+        "agent_finished",
+        "subagent_started",
+        "subagent_finished",
+        "fanout_started",
+        "fanout_merged",
+        "skill_loaded",
+        "tool_call",
+        "tool_result",
+        "sql_query",
+        "retrieval",
+        "retrieval_decision",
+        "graph_query",
+        "graph_write",
+        "memory_read",
+        "memory_verified",
+        "memory_rejected",
+        "memory_write",
+        "memory_supersede",
+        "memory_retract",
+        "memory_consolidate",
+        "memory_expire",
+        "memory_purge",
+        "memory_write_skipped",
+        "write_rejected",
+        "review_file_updated",
+        "hypothesis_updated",
+        "computation",
+        "artifact_requested",
+        "artifact_arrived",
+        "customer_outreach_sent",
+        "persona_reply",
+        "colleague_statement_arrived",
+        "clock_advanced",
+        "wait_suspended",
+        "wait_resumed",
+        "transcript_assessed",
+        "speaker_attribution_checked",
+        "contradiction_detected",
+        "evidence_span_verified",
+        "citation_verified",
+        "finding_proposed",
+        "finding_updated",
+        "untrusted_content_flagged",
+        "redaction_applied",
+        "fairness_check",
+        "access_denied",
+        "panel_started",
+        "panel_position",
+        "adjudication",
+        "verifier_check",
+        "confidence_computed",
+        "conservative_default_applied",
+        "action_authorized",
+        "automated_action",
+        "assessment_recorded",
+        "budget_update",
+        "no_progress_detected",
+        "replan_limit_reached",
+        "termination",
+        "error",
+        "fallback",
+        "cancelled",
+        "evaluation_check"
+      ],
+      "title": "EventType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "review_id": {
+      "title": "Review Id",
+      "type": "string"
+    },
+    "seq": {
+      "exclusiveMinimum": 0,
+      "title": "Seq",
+      "type": "integer"
+    },
+    "span_id": {
+      "title": "Span Id",
+      "type": "string"
+    },
+    "parent_span_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Span Id"
+    },
+    "branch_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Branch Id"
+    },
+    "checkpoint_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Checkpoint Id"
+    },
+    "ts_wall": {
+      "format": "date-time",
+      "title": "Ts Wall",
+      "type": "string"
+    },
+    "ts_virtual": {
+      "format": "date-time",
+      "title": "Ts Virtual",
+      "type": "string"
+    },
+    "actor": {
+      "$ref": "#/$defs/Actor"
+    },
+    "type": {
+      "$ref": "#/$defs/EventType"
+    },
+    "summary": {
+      "title": "Summary",
+      "type": "string"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object"
+    },
+    "refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Refs",
+      "type": "array"
+    },
+    "runtime": {
+      "additionalProperties": true,
+      "title": "Runtime",
+      "type": "object"
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Usage"
+    },
+    "redactions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Redactions",
+      "type": "array"
+    },
+    "prev_event_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Prev Event Hash"
+    },
+    "event_hash": {
+      "title": "Event Hash",
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "run_id",
+    "review_id",
+    "seq",
+    "span_id",
+    "ts_wall",
+    "ts_virtual",
+    "actor",
+    "type",
+    "summary",
+    "payload",
+    "refs",
+    "runtime",
+    "redactions",
+    "event_hash"
+  ],
+  "title": "RunEvent",
+  "type": "object",
+  "$comment": "payload is discriminated by the complete event_types enumeration",
+  "event_types": [
+    "run_started",
+    "node_entered",
+    "node_exited",
+    "edge_taken",
+    "checkpoint_saved",
+    "checkpoint_restored",
+    "route_decision",
+    "plan_created",
+    "plan_updated",
+    "todo_updated",
+    "llm_call_started",
+    "llm_stream_event",
+    "llm_call",
+    "llm_call_failed",
+    "retry",
+    "agent_started",
+    "agent_finished",
+    "subagent_started",
+    "subagent_finished",
+    "fanout_started",
+    "fanout_merged",
+    "skill_loaded",
+    "tool_call",
+    "tool_result",
+    "sql_query",
+    "retrieval",
+    "retrieval_decision",
+    "graph_query",
+    "graph_write",
+    "memory_read",
+    "memory_verified",
+    "memory_rejected",
+    "memory_write",
+    "memory_supersede",
+    "memory_retract",
+    "memory_consolidate",
+    "memory_expire",
+    "memory_purge",
+    "memory_write_skipped",
+    "write_rejected",
+    "review_file_updated",
+    "hypothesis_updated",
+    "computation",
+    "artifact_requested",
+    "artifact_arrived",
+    "customer_outreach_sent",
+    "persona_reply",
+    "colleague_statement_arrived",
+    "clock_advanced",
+    "wait_suspended",
+    "wait_resumed",
+    "transcript_assessed",
+    "speaker_attribution_checked",
+    "contradiction_detected",
+    "evidence_span_verified",
+    "citation_verified",
+    "finding_proposed",
+    "finding_updated",
+    "untrusted_content_flagged",
+    "redaction_applied",
+    "fairness_check",
+    "access_denied",
+    "panel_started",
+    "panel_position",
+    "adjudication",
+    "verifier_check",
+    "confidence_computed",
+    "conservative_default_applied",
+    "action_authorized",
+    "automated_action",
+    "assessment_recorded",
+    "budget_update",
+    "no_progress_detected",
+    "replan_limit_reached",
+    "termination",
+    "error",
+    "fallback",
+    "cancelled",
+    "evaluation_check"
+  ]
+}

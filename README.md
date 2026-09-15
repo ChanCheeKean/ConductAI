@@ -4,7 +4,19 @@ ConductAI is a proof-of-concept **fully automated agent system that reviews cred
 
 It follows the architecture and working method of its sibling project CatcherAI (Dispute Observatory): a synthetic world with hand-built hero cases and machine-checkable ground truth, a deterministic LangGraph skeleton around adaptive Deep Agents, three memory planes, a sandbox, a virtual-clock harness, automated governance instead of human review, and trajectory-first evaluation.
 
-> **Status: Stage 3 architecture design complete.** The deterministic data foundation, corpus, ground truth, research recommendation, and implementation blueprint exist; the runtime has not yet been implemented. See [`handoff.md`](handoff.md) for the current checkpoint and next stage.
+> **Status: Stage 4A runtime foundation complete.** The C03 L1 vertical slice runs end to end through a real LangGraph workflow with guarded operational data, typed tools, deterministic routing, as-of policy retrieval, verification, a hash-chained event ledger, field-level provenance, SQLite checkpoints and replay. C01 durable wait/resume is next. See [`handoff.md`](handoff.md) for the current checkpoint.
+
+## Run the implemented slice
+
+```bash
+uv sync
+uv run conductai run C03
+uv run conductai replay <run-id>
+uv run conductai replay <run-id> --assessment
+uv run pytest -q
+```
+
+The default run ledger is `data/generated/runs.sqlite` and is git-ignored. `config/models.yaml` resolves OpenAI `gpt-5.6-luna` through the Responses adapter, but C03 is deliberately deterministic and makes no model call. The fake gateway provides offline contract tests; a real API smoke test is opt-in and requires `OPENAI_API_KEY` from the environment.
 
 ## Documents
 
@@ -472,7 +484,7 @@ Where behavior **emerges** rather than being scripted: the order of evidence gat
 
 ## 14. Target repository layout
 
-Mirrors CatcherAI so patterns, tests and tooling transfer. Nothing under `src/`, `config/`, `skills/`, `data/`, `tests/` or `frontend/` exists yet.
+Mirrors CatcherAI so patterns, tests and tooling transfer. Stage 4A implements the runtime/config/data/tool/observability portions needed by C03; later entries remain target structure.
 
 ```
 ConductAI/
@@ -488,17 +500,17 @@ ConductAI/
 │   └── generated/          (see data dictionary §0)
 ├── config/                 models.yaml · routes.yaml · agents/*.yaml · scenarios/*.yaml
 ├── skills/<name>/SKILL.md  review playbooks (Deep Agents format)
-├── schemas/                trajectory-event.schema.json · assessment-record.schema.json · openapi.json
-├── src/
-│   ├── domain/             review, findings, outcomes, events (Pydantic)
-│   ├── data/               manifest-keyed data access
-│   ├── tools/              typed tool schemas + executor
+├── docs/schemas/           run-event-v1.schema.json · assessment-record-v1.schema.json
+├── src/conductai/
+│   ├── domain/             review, findings, outcomes and provenance records (Pydantic)
+│   ├── data/               availability-aware registered operational queries
+│   ├── tools/              typed tool schemas + instrumented executor
 │   ├── memory/             notes, retrieval (as-of, speaker filters), graph, curator
-│   ├── runtime/            LangGraph runtime, subagents, gateway chat model, context
-│   ├── adapters/           OpenAI Responses adapter, fake model
+│   ├── runtime/            provider-neutral contracts and workflow obligations
+│   ├── adapters/           LangGraph runtime, OpenAI Responses and fake model gateways
 │   ├── harness/            virtual clock, on-request artifacts, personas, scheduler
 │   ├── governance.py · routing.py · decisions.py · sandbox.py · redaction.py · replay.py · storage.py · cli.py
-│   ├── observability/      emitter, model gateway instrumentation, redaction
+│   ├── observability/      79-event union, ledger, blobs, schemas and replay
 │   ├── evaluation/         evaluator, reviewer-baseline comparison, fairness pairs, reliability
 │   └── api/                FastAPI + SSE for the console
 ├── tests/

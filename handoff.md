@@ -3,12 +3,12 @@
 Last updated: 2026-09-15
 Repository: `/Users/kean/Dev/ConductAI`
 Branch: `main` (remote `origin` → `github.com/ChanCheeKean/ConductAI`)
-Current phase: **Stage 3 — architecture design: COMPLETE; awaiting user checkpoint**
-Next stage: **Stage 4 — implementation increment 1** (C03/C01 vertical slice; proceed after checkpoint)
+Current phase: **Stage 4A — runtime foundation + C03 L1: COMPLETE; awaiting user checkpoint**
+Next stage: **Stage 4B — C01 transcript-integrity wait/resume**
 
 ## Current objective
 
-Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. The Stage 3 blueprint is now ready for review: a deterministic, event-sourced LangGraph compliance workflow around a bounded Deep Agents investigation loop, 12 selectively invoked roles, typed/instrumented tools, three governed memory planes, a restricted compute harness, automated governance, and a complete frontend-ready trajectory contract. The next action is the user checkpoint before implementing the C03/C01 vertical slice.
+Build **ConductAI**, a proof-of-concept, fully automated agent system that reviews credit-card customer-service interactions (phone, chat, secure message) at the fictional **Copperlake Bank, N.A.** for sales and servicing misconduct. Stage 4 was split into smaller checkpointed substages because the implementation phase is large. Stage 4A now proves the deterministic C03 L1 path through a real LangGraph runtime with immutable configuration, provider/runtime seams, guarded data, typed tools, as-of retrieval, verification, a hash-chained application ledger, field-level provenance, SQLite checkpoints and CLI replay. The next action is the user checkpoint before Stage 4B adds C01's Deep Agents investigation and durable external-artifact wait/resume.
 
 The use case was inspired by an industry GenAI call-monitoring pilot (`docs/reference/reference-program-brief.md`); the problem set, data, cases and implementation are our own.
 
@@ -17,13 +17,15 @@ The use case was inspired by an industry GenAI call-monitoring pilot (`docs/refe
 Read, in order:
 
 1. `handoff.md` (this file).
-2. `docs/design/05-agent-architecture.md` — Stage 3 implementation blueprint and acceptance gates.
+2. `docs/design/05-agent-architecture.md` — implementation blueprint and acceptance gates.
 3. `docs/design/04-agent-architecture-research.md` — Stage 2 recommendation and evidence basis.
 4. `docs/prompts/02-implementation-kickoff.md` — Stage 4 incremental implementation requirements in §7.
 5. `README.md` — the foundation document (use case, ecosystems, memory, governance rules §8, generation §9, component → scenario §10, target layout §14).
 6. `docs/design/02-case-catalog.md` — the contract for every hero case.
 7. `docs/design/03-data-dictionary.md` — implemented file/field and ground-truth schemas.
-8. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
+8. `config/models.yaml`, `config/routes.yaml`, `config/scenarios/c03.yaml` — implemented registries.
+9. `src/conductai/adapters/runtime/langgraph_runtime.py` and `src/conductai/runtime/c03_workflow.py` — current vertical slice.
+10. `data/generator/CONTRACT.md` and `data/corpus/CONTRACT.md` — implementation contracts.
 
 ## What exists now
 
@@ -37,7 +39,7 @@ Read, in order:
 | `docs/design/02-case-catalog.md` | 23 hero reviews + Q01 sweep; taxonomy; three-outcome model; coverage matrices; failure modes; effective dates; SLA dates; background population | complete (design) |
 | `docs/design/03-data-dictionary.md` | Target data specification | complete (design) |
 | `docs/design/04-agent-architecture-research.md` | Four candidate architectures, current API verification, recommended hybrid/12-role roster, case fit, memory, safety and transparency design | complete |
-| `docs/design/05-agent-architecture.md` | 963-line implementation blueprint: system/dependency boundaries, typed state, Mermaid graph, route/role/skill registries, tools, three memory planes, harness, 79-event v1 trajectory catalog, governance, termination, evaluation and extension guide | complete; awaiting checkpoint |
+| `docs/design/05-agent-architecture.md` | 963-line implementation blueprint: system/dependency boundaries, typed state, Mermaid graph, route/role/skill registries, tools, three memory planes, harness, 79-event v1 trajectory catalog, governance, termination, evaluation and extension guide | complete |
 | `docs/prompts/01-data-foundation-kickoff.md` | Stage 1 session prompt | complete |
 | `docs/prompts/02-implementation-kickoff.md` | Stages 2–5 session prompt | complete |
 | `pyproject.toml`, `tests/test_derived.py` | Python 3.11+ stdlib project scaffold and derived-helper tests | complete |
@@ -45,6 +47,10 @@ Read, in order:
 | `data/generator/` | World, people, all hero builders, background/ASR, oversight, precedents, memory, sweep, graph, validation and loader | complete |
 | `data/generated/` | 6,527 interactions/transcripts, structured/event/document ecosystems, 23 case truths + Q01, graph and manifest | complete; SQLite reproducible and git-ignored |
 | `data/generated/conduct.sqlite` | Agent-visible tables plus FTS5 indexes (no evaluator/simulation data) | built locally by loader |
+| `config/`, `skills/credit-line-increase/` | Validated model/route/scenario registries and first Deep Agents-format skill | Stage 4A complete |
+| `src/conductai/` | Domain models, config, guarded data, typed tools, router, runtime protocols, LangGraph adapter, fake/OpenAI gateways, C03 workflow, event ledger/blobs/schema/replay and CLI | Stage 4A complete |
+| `docs/schemas/` | JSON Schema exports for the 79-type v1 event envelope and assessment record | Stage 4A complete |
+| `tests/{architecture,contract,unit,integration}/` | Import boundaries, gateway/config/access/ledger contracts and C03 trajectory/replay/checkpoint acceptance | Stage 4A complete |
 
 ## Decisions made (and why)
 
@@ -69,6 +75,9 @@ Read, in order:
 | Role policy | 12 registered roles, selectively invoked by route/depth; L1 normally 0–1 role, L4 permits bounded fan-out and independent panel roles | Stage 3 design |
 | Confidence formula | Provisional verifier-based weighted formula (25/20/25/20/10); non-applicable components renormalize; Stage 5 must calibrate it without changing CRM-003's 0.75 policy threshold silently | Stage 3 design |
 | Runtime isolation | Agent/harness/evaluator views are separate; raw SQL/Cypher/filesystem and restricted datasets are inaccessible; local sandbox is POC containment, not a production security boundary | Stage 3 design |
+| Implementation staging | Split former Stage 4 increment 1 into **4A C03 foundation** and **4B C01 wait/resume**, then preserve the remaining increments as 4C–4F | user requested smaller stages; keeps each checkpoint independently testable |
+| C03 model use | No LLM call: the complete rule match and decisive records make C03 deterministic; the role stays registered for nontrivial paths | architecture permits zero or one L1 role; avoids decorative model use |
+| Dependency baseline | Python 3.12; Deep Agents 0.7.14, LangGraph 1.2.11, OpenAI 2.54.0, Pydantic 2.13.5, locked in `uv.lock` | Stage 4A resolution |
 
 ## Non-negotiable constraints (carry into every stage)
 
@@ -96,14 +105,15 @@ Acceptance met: `python3 data/generator/gen.py && python3 data/generator/validat
 Prompt: `docs/prompts/02-implementation-kickoff.md` §4. Deliverable `docs/design/04-agent-architecture-research.md`: four candidates compared against ConductAI's cases; current OpenAI, Deep Agents, LangGraph, memory, graph/vector, observability, contact-center and safety interfaces re-verified; recommended hybrid and 12-role selective roster documented. Checkpoint passed when the user asked to continue on 2026-09-15.
 
 ### Stage 3 — Architecture design (implementation phase 2): COMPLETE
-Deliverable `docs/design/05-agent-architecture.md`: exact system/runtime boundaries, typed state and review file, Mermaid graph, route and 12-role registries, tool schemas, skills, three-plane memory flows, harness/isolation, gateway/runtime protocols, complete v1 event catalog, governance as code, termination, evaluation, contract tests and extension guide. **At user checkpoint.**
+Deliverable `docs/design/05-agent-architecture.md`: exact system/runtime boundaries, typed state and review file, Mermaid graph, route and 12-role registries, tool schemas, skills, three-plane memory flows, harness/isolation, gateway/runtime protocols, complete v1 event catalog, governance as code, termination, evaluation, contract tests and extension guide. Checkpoint passed when the user asked to continue on 2026-09-15.
 
-### Stage 4 — Implementation increments (implementation phase 3)
-1. Vertical slice + full trajectory capture: C03, C01.
-2. As-of retrieval, reconciliation, sandbox, verifier, re-plan: C05, C07b, C04, C19.
-3. Graph memory, cross-channel, specialists: C02/C02b, C08, C15, C16.
-4. Panel, outreach, colleague statements, conservative default, memory curator: C06, C14, C18, C17.
-5. Fan-out and populations, language/fairness, injection, servicing track, Q01: C11/C11b, C12, C10, C20, C09, C13, C07, Q01.
+### Stage 4 — Implementation substages (implementation phase 3)
+1. **Stage 4A COMPLETE:** runtime/config/data/tool/ledger/replay foundation + C03 L1.
+2. **Stage 4B NEXT:** C01 transcript integrity, Deep Agents lead, artifact request, durable suspend/resume and virtual clock.
+3. **Stage 4C:** as-of retrieval, reconciliation, sandbox, verifier and re-plan: C05, C07b, C04, C19.
+4. **Stage 4D:** graph memory, cross-channel and specialists: C02/C02b, C08, C15, C16.
+5. **Stage 4E:** panel, outreach, colleague statements, conservative default and memory curator: C06, C14, C18, C17.
+6. **Stage 4F:** fan-out/populations, language/fairness, injection, servicing track and Q01: C11/C11b, C12, C10, C20, C09, C13, C07, Q01.
 
 ### Stage 5 — Full evaluation
 All hero cases with pass^k and trajectory completeness; background precision/recall/FP rate vs legacy reviewers and scanner; calibration; fairness pairs; `docs/design/06-eval-results.md` with an annotated trajectory.
@@ -128,6 +138,8 @@ Mirror CatcherAI's Dispute Observatory (`docs/prompts/03-…`, `docs/design/07-�
 - Unverified research items (research §10) must stay out of load-bearing ground truth or be marked.
 - The Stage 3 computed-confidence weights and route budgets are explicit POC starting values, not calibrated production thresholds; Stage 5 must report calibration and threshold sensitivity.
 - The restricted local subprocess is a POC containment control, not a hostile-code boundary; a production deployment needs a container or microVM with the same contract.
+- Stage 4A deliberately implements only C03's graph path. The fallback route fails closed; it must not be treated as a general reviewer until later substages land.
+- The OpenAI Responses adapter is contract-tested offline but the real API smoke test was not run because Stage 4A's deterministic C03 path does not require credentials or a model call.
 
 ## Mandatory handoff maintenance after every stage
 
@@ -172,3 +184,14 @@ Update: header (date, phase, next stage), "What exists now", any new or changed 
 - Enumerated the complete 79-event v1 trajectory union with an example payload, mandatory emitter and frontend consumer for every event; specified hash-chained SQLite persistence, content-addressed blobs, redaction, replay, AG-UI/SSE projection and transparency reconciliation tests.
 - Coded the exact panel predicate, provisional verifier-based confidence formula, independent advocates, conservative defaults, allowed/forbidden action controls, closed termination enum, corrupt-success evaluation rules, capability mapping, extension paths and implementation gates.
 - Acceptance checks: `python3 data/generator/validate.py` remained green at **377,519 checks**; all 3 derived-helper unit tests passed; an architecture-contract check found all required sections, exactly 79 cataloged event types and balanced code fences; `git diff --check` passed. No case fact, generated datum, corpus contract or ground-truth contract changed.
+
+### 2026-09-15 — Stage 4A runtime foundation + C03 L1 complete
+- Split the large implementation phase into 4A–4F at the user's request. Stage 4A is the smallest complete vertical slice; C01 wait/resume moved intact to 4B.
+- Added immutable Pydantic/YAML model and route configuration with a secret-free content-hashed run snapshot. Preserved exact OpenAI `gpt-5.6-luna` Responses configuration after checking official OpenAI documentation; credentials remain environment-only.
+- Locked the Python 3.12 environment: Deep Agents 0.7.14, LangGraph 1.2.11, `langgraph-checkpoint-sqlite` 3.1.1, OpenAI 2.54.0, Pydantic 2.13.5 and PyYAML 6.0.3.
+- Implemented provider-neutral model/runtime protocols, deterministic fake and OpenAI Responses gateways, and architecture tests that prohibit provider/framework imports outside adapters.
+- Implemented guarded read-only operational queries with virtual availability filters and explicit denials for evaluator/harness resources; typed Pydantic tool schemas and a single executor produce paired call/result, SQL and budget events.
+- Implemented the C03 `cli_soft_pull_clean` route through a real LangGraph graph with 11 mandatory nodes and durable SQLite checkpoints. It loads only the CLI skill, verifies the exact source turn and `CLB-POL-CLI@v6` as of the interaction date, computes the inquiry rule, confirms `BIR-9000401` was SOFT, records no error and deliberately skips memory.
+- Implemented the complete 79-name v1 event union, transactional per-run sequencing, SHA-256 hash chaining, content-addressed/redacted blobs, assessment persistence, complete leaf-level provenance, JSON Schema exports, replay to any sequence and CLI run/replay commands.
+- C03 acceptance trajectory: **84 events**, **5 tool calls**, **0 model calls**, **11 node enter/exit pairs**, **11 ledger checkpoint events**, **at least 11 LangGraph persisted checkpoints**, final event `termination{reason=assessment_complete}`; hash chain and final assessment replay both reconcile.
+- Acceptance checks: `uv run pytest -q` passed **19 tests**; `python3 data/generator/validate.py` remained green at **377,519 checks**; JSON schemas regenerated; `python3 -m compileall -q src tests` and `git diff --check` passed. No case fact, generated datum, corpus contract or ground-truth contract changed. Real OpenAI smoke test intentionally not run because C03 makes no model call.

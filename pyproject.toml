@@ -1,12 +1,30 @@
 [project]
 name = "conductai"
-version = "0.1.0"
-description = "Synthetic data foundation for automated credit-card conduct review"
+version = "0.2.0"
+description = "Automated, transparent credit-card conduct review"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "deepagents>=0.7,<0.8",
+    "langgraph>=1.0,<2",
+    "langgraph-checkpoint-sqlite>=3,<4",
+    "openai>=2,<3",
+    "pydantic>=2.12,<3",
+    "pyyaml>=6,<7",
+]
 
-[tool.uv]
-package = false
+[project.scripts]
+conductai = "conductai.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/conductai"]
+
+[dependency-groups]
+dev = ["pytest>=9,<10"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,18 @@
+schema_version: 1
+default_role: default
+models:
+  default:
+    provider: openai
+    model: gpt-5.6-luna
+    adapter: responses
+    reasoning_effort: medium
+    timeout_seconds: 90
+    max_retries: 2
+    capabilities:
+      structured_output: true
+      tool_calling: true
+      streaming: true
+      reasoning_controls: true
+      usage_reporting: true
+      prompt_caching: true
+      thread_resume: true

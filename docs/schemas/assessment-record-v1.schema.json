@@ -1,0 +1,390 @@
+{
+  "$defs": {
+    "Budget": {
+      "additionalProperties": false,
+      "properties": {
+        "tool_calls": {
+          "minimum": 0,
+          "title": "Tool Calls",
+          "type": "integer"
+        },
+        "model_input_tokens": {
+          "minimum": 0,
+          "title": "Model Input Tokens",
+          "type": "integer"
+        },
+        "wall_seconds": {
+          "minimum": 0,
+          "title": "Wall Seconds",
+          "type": "integer"
+        },
+        "replans": {
+          "minimum": 0,
+          "title": "Replans",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tool_calls",
+        "model_input_tokens",
+        "wall_seconds",
+        "replans"
+      ],
+      "title": "Budget",
+      "type": "object"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "substantiated",
+            "unsubstantiated",
+            "control_gap",
+            "no_error"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "attributable_to": {
+          "enum": [
+            "colleague",
+            "script",
+            "system",
+            "supervisor_material",
+            "none"
+          ],
+          "title": "Attributable To",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "interaction_id": {
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "evidence_spans": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Evidence Spans",
+          "type": "array"
+        },
+        "structured_evidence": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Structured Evidence",
+          "type": "array"
+        },
+        "policy_refs": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Policy Refs",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "finding_id",
+        "category",
+        "status",
+        "attributable_to",
+        "severity",
+        "interaction_id",
+        "evidence_spans",
+        "structured_evidence",
+        "policy_refs",
+        "confidence"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "event_seqs": {
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Event Seqs",
+          "type": "array"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "event_seqs",
+        "source_refs"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "RouteDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "route_id": {
+          "title": "Route Id",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "rule",
+            "classifier",
+            "fallback"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "track": {
+          "enum": [
+            "sales",
+            "servicing",
+            "mixed",
+            "portfolio"
+          ],
+          "title": "Track",
+          "type": "string"
+        },
+        "channel": {
+          "enum": [
+            "phone",
+            "chat",
+            "secure_message"
+          ],
+          "title": "Channel",
+          "type": "string"
+        },
+        "language": {
+          "enum": [
+            "english",
+            "spanish",
+            "code_switched"
+          ],
+          "title": "Language",
+          "type": "string"
+        },
+        "depth": {
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4",
+            "Q01"
+          ],
+          "title": "Depth",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        },
+        "roles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "skills": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Skills",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "route_id",
+        "method",
+        "confidence",
+        "track",
+        "channel",
+        "language",
+        "depth",
+        "path",
+        "budget",
+        "roles",
+        "skills",
+        "rationale"
+      ],
+      "title": "RouteDecision",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "review_id": {
+      "title": "Review Id",
+      "type": "string"
+    },
+    "interaction_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Interaction Ids",
+      "type": "array"
+    },
+    "route": {
+      "$ref": "#/$defs/RouteDecision"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/Finding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "customer_outcome": {
+      "additionalProperties": true,
+      "title": "Customer Outcome",
+      "type": "object"
+    },
+    "colleague_outcome": {
+      "additionalProperties": true,
+      "title": "Colleague Outcome",
+      "type": "object"
+    },
+    "control_outcome": {
+      "additionalProperties": true,
+      "title": "Control Outcome",
+      "type": "object"
+    },
+    "adjudication": {
+      "additionalProperties": true,
+      "title": "Adjudication",
+      "type": "object"
+    },
+    "waits": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Waits",
+      "type": "array"
+    },
+    "memory_ops": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Memory Ops",
+      "type": "array"
+    },
+    "graph_writes": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Graph Writes",
+      "type": "array"
+    },
+    "hypotheses": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Hypotheses",
+      "type": "array"
+    },
+    "citations": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Citations",
+      "type": "array"
+    },
+    "summary_for_record": {
+      "title": "Summary For Record",
+      "type": "string"
+    },
+    "customer_letter": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Customer Letter"
+    },
+    "field_provenance": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Provenance"
+      },
+      "title": "Field Provenance",
+      "type": "object"
+    }
+  },
+  "required": [
+    "run_id",
+    "review_id",
+    "interaction_ids",
+    "route",
+    "findings",
+    "customer_outcome",
+    "colleague_outcome",
+    "control_outcome",
+    "adjudication",
+    "summary_for_record",
+    "field_provenance"
+  ],
+  "title": "AssessmentRecord",
+  "type": "object"
+}
