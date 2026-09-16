@@ -86,12 +86,58 @@ class RequestArtifactArgs(ToolArgs):
     idempotency_key: str
 
 
+class CallbackRequestArgs(ToolArgs):
+    callback_request_id: str
+
+
+class PreferenceArgs(ToolArgs):
+    customer_id: str
+    preference: str | None = None
+
+
+class IncidentArgs(ToolArgs):
+    incident_id: str
+
+
+class AccountFlagArgs(ToolArgs):
+    account_id: str
+    flag: str | None = None
+
+
+class InstallmentPlanArgs(ToolArgs):
+    plan_id: str
+
+
+class QueryGraphArgs(ToolArgs):
+    template_id: str
+    parameters: dict[str, Any] = {}
+    as_of: str
+    max_hops: int = 4
+    limit: int = 250
+
+
+class MessageCustomerArgs(ToolArgs):
+    customer_id: str
+    question: str
+    respond_by: str
+    idempotency_key: str
+
+
+class ScheduleFollowUpArgs(ToolArgs):
+    at: str
+    action_type: str
+    idempotency_key: str
+
+
 class ToolExecutor:
     """No repository operation is reachable as an agent tool without paired events."""
 
     def __init__(
         self, repository: OperationalRepository, ledger: EventLedger,
         request_artifact: Callable[..., Any] | None = None,
+        graph: Any | None = None,
+        message_customer: Callable[..., Any] | None = None,
+        schedule_follow_up: Callable[..., Any] | None = None,
     ) -> None:
         self._repository = repository
         self._ledger = ledger
@@ -113,9 +159,20 @@ class ToolExecutor:
             "search_precedents": (SearchPrecedentsArgs, repository.search_precedents),
             "search_transcripts": (SearchTranscriptsArgs, repository.search_transcripts),
             "run_registered_query": (RunRegisteredQueryArgs, repository.run_registered_query),
+            "get_callback_request": (CallbackRequestArgs, repository.callback_request),
+            "get_preference": (PreferenceArgs, repository.preference),
+            "get_incident": (IncidentArgs, repository.incident),
+            "get_account_flag": (AccountFlagArgs, repository.account_flag),
+            "get_installment_plan": (InstallmentPlanArgs, repository.installment_plan),
         }
         if request_artifact is not None:
             self._tools["request_artifact"] = (RequestArtifactArgs, request_artifact)
+        if graph is not None:
+            self._tools["query_graph"] = (QueryGraphArgs, graph.query_graph)
+        if message_customer is not None:
+            self._tools["message_customer"] = (MessageCustomerArgs, message_customer)
+        if schedule_follow_up is not None:
+            self._tools["schedule_follow_up"] = (ScheduleFollowUpArgs, schedule_follow_up)
 
     @property
     def schemas(self) -> dict[str, dict[str, Any]]:
@@ -192,6 +249,7 @@ def _source_refs(value: Any) -> list[str]:
             "interaction_id", "turn_id", "credit_request_id", "inquiry_id", "doc_id",
             "enrollment_id", "event_id", "artifact_id", "offer_instance_id", "ledger_id",
             "complaint_id", "note_id", "rule_id", "precedent_id", "workstation_id",
+            "callback_request_id", "pref_id", "incident_id", "flag_id", "plan_id",
         ):
             if key in row and row[key] not in refs:
                 refs.append(str(row[key]))

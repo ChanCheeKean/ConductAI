@@ -60,3 +60,34 @@ def c05_run(project_root: Path, tmp_path: Path):
 @pytest.fixture
 def c04_run(project_root: Path, tmp_path: Path):
     return _run_scenario(project_root, tmp_path, "c04")
+
+
+@pytest.fixture
+def c02_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c02")
+
+
+@pytest.fixture
+def c02b_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c02b")
+
+
+@pytest.fixture
+def c08_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c08")
+
+
+@pytest.fixture
+def c16_run(project_root: Path, tmp_path: Path):
+    return _run_scenario(project_root, tmp_path, "c16")
+
+
+@pytest.fixture
+def c15_suspended(project_root: Path, tmp_path: Path):
+    raw = yaml.safe_load((project_root / "config/scenarios/c15.yaml").read_text())
+    path = tmp_path / "run.sqlite"
+    runtime, ledger = build_runtime(project_root, path)
+    request = RunRequest(**{key: raw[key] for key in RunRequest.model_fields})
+    handle = runtime.start(request)
+    list(runtime.run_or_stream(handle))
+    return runtime, ledger, handle, path

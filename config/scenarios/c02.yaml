@@ -1,0 +1,9 @@
+schema_version: 1
+scenario_id: C02
+review_id: REV-2026-90002
+interaction_ids: [INT-9000202]
+trigger:
+  type: scanner_flag
+  id: SFL-9000202-01
+virtual_now: "2026-11-16T15:00:00Z"
+dataset: data/generated/conduct.sqlite

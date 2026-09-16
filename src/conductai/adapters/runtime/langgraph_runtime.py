@@ -83,6 +83,19 @@ class GraphState(TypedDict, total=False):
     finding_event_seq: int
     authorized_actions: list[dict[str, Any]]
     memory_event_seq: int
+    outreach_needed: bool
+    resume_target: str
+    purpose_matches: bool
+    business_days: int
+    consent_recorded: bool
+    exception_holds: bool
+    banner_event_id: str
+    hardship_flag_active_at_call: bool
+    desktop_showed_flag: bool
+    population_customers: list[str]
+    keep_transfer: bool
+    enrolled_at_utc: str
+    gap_seconds: float
     assessment: dict[str, Any]
     assessment_event_seq: int
     termination: str | None
@@ -137,12 +150,12 @@ class LangGraphRuntime:
         builder.add_conditional_edges("request_artifact", self._fixed_edge("request_artifact", "prepare_wait"))
         builder.add_conditional_edges("prepare_wait", self._fixed_edge("prepare_wait", "wait_external"))
         builder.add_conditional_edges("wait_external", self._fixed_edge("wait_external", "ingest_artifact"))
-        builder.add_conditional_edges("ingest_artifact", self._fixed_edge("ingest_artifact", "integrity", back_edge=True))
+        builder.add_conditional_edges("ingest_artifact", self._ingest_edge)
         builder.add_conditional_edges("gather", self._fixed_edge("gather", "reconcile"))
         builder.add_conditional_edges("reconcile", self._reconcile_edge)
         builder.add_conditional_edges("reroute", self._fixed_edge("reroute", "integrity", back_edge=True))
         builder.add_conditional_edges("preverify", self._fixed_edge("preverify", "panel_gate"))
-        builder.add_conditional_edges("panel_gate", self._fixed_edge("panel_gate", "decide"))
+        builder.add_conditional_edges("panel_gate", self._panel_edge)
         builder.add_conditional_edges("decide", self._fixed_edge("decide", "action"))
         builder.add_conditional_edges("action", self._fixed_edge("action", "memory"))
         builder.add_conditional_edges("memory", self._fixed_edge("memory", "record"))
@@ -214,6 +227,16 @@ class LangGraphRuntime:
     def _reconcile_edge(self, state: GraphState) -> str:
         target = "reroute" if state.get("root_cause_changed") else "preverify"
         self._emit_edge(state, "reconcile", target, "root_cause_changed", bool(state.get("root_cause_changed")), False)
+        return target
+
+    def _panel_edge(self, state: GraphState) -> str:
+        target = "request_artifact" if state.get("outreach_needed") else "decide"
+        self._emit_edge(state, "panel_gate", target, "outreach_needed", bool(state.get("outreach_needed")), False)
+        return target
+
+    def _ingest_edge(self, state: GraphState) -> str:
+        target = state.get("resume_target") or "integrity"
+        self._emit_edge(state, "ingest_artifact", target, "resume_target", target, True)
         return target
 
     def _emit_edge(

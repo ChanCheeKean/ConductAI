@@ -3,6 +3,21 @@ defaults:
   classifier_threshold: 0.80
   fallback_route: mixed_ambiguous_l4
 routes:
+  - id: callback_sale_exception
+    priority: 5
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: outbound_call, op: eq, value: true}
+        - {fact: callback_candidate_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L2
+      path: integrity_direct
+      budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 1}
+      roles: [lead_conduct_reviewer]
+      skills: []
+      rationale: "An outbound sale on a call that fulfills a customer-created callback requires checking the same-product, timing, and consent exception before the outbound-sale rule applies."
   - id: cli_soft_pull_clean
     priority: 10
     match:
@@ -18,6 +33,20 @@ routes:
       roles: [lead_conduct_reviewer]
       skills: [credit-line-increase]
       rationale: "Actual SOFT inquiry and request facts make the scanner assurance a deterministic L1 check."
+  - id: post_call_addon_review
+    priority: 18
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: addon_enrollment_product, op: eq, value: CREDITWATCH_PLUS}
+    output:
+      track: sales
+      depth: L3
+      path: integrity_direct
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 1}
+      roles: [lead_conduct_reviewer, desktop_records_reconciler]
+      skills: [add-on-consent]
+      rationale: "A monitoring-service enrollment with no in-call consent turn requires reconciling submission timing against the call's own end time."
   - id: addon_consent_integrity
     priority: 20
     match:
@@ -48,6 +77,21 @@ routes:
       roles: [lead_conduct_reviewer, desktop_records_reconciler]
       skills: []
       rationale: "A fee waiver near an add-on offer requires event-time reconciliation across desktop and transcript clocks."
+  - id: preference_suppression_incident
+    priority: 35
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: preference_do_not_solicit_present, op: eq, value: true}
+        - {fact: balance_transfer_offer_present, op: eq, value: true}
+    output:
+      track: servicing
+      depth: L3
+      path: integrity_direct
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 2}
+      roles: [lead_conduct_reviewer, desktop_records_reconciler, remediation_planner]
+      skills: []
+      rationale: "A sale to a customer with a recorded do-not-solicit preference requires checking whether the desktop actually carried that flag before attributing the call to the colleague."
   - id: balance_transfer_disclosure
     priority: 40
     match:
@@ -76,6 +120,21 @@ routes:
       roles: [lead_conduct_reviewer, policy_analyst]
       skills: [memory-hygiene]
       rationale: "A pre-approved assurance on a firm offer requires checking consolidated memory against the glossary in force."
+  - id: hardship_active_sale
+    priority: 55
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: hardship_active_present, op: eq, value: true}
+        - {fact: credit_product_offered_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L3
+      path: integrity_direct
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 1}
+      roles: [lead_conduct_reviewer, policy_analyst]
+      skills: [hardship-and-vulnerability]
+      rationale: "A credit product offered on a call where the account carries an active hardship flag requires checking whether the colleague saw the protected-situation banner and whether order-system controls should have blocked the sale."
   - id: cli_script_root_cause
     priority: 60
     match:

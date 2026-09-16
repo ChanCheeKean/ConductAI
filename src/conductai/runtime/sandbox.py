@@ -16,3 +16,8 @@ def desktop_true_utc(ts_local: str, tz: str, offset_seconds: int) -> datetime:
 def pct_fee(amount: str, rate_pct: str) -> Decimal:
     """Fee = amount x rate% rounded half-up to the cent."""
     return (Decimal(amount) * Decimal(rate_pct) / Decimal(100)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+
+def local_to_utc(ts_local: str, tz: str) -> datetime:
+    """A system-of-record local timestamp with no clock skew -> true UTC."""
+    return desktop_true_utc(ts_local, tz, 0)

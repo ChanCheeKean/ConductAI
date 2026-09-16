@@ -58,7 +58,8 @@ class OperationalRepository:
     def route_facts(self, interaction_id: str, **context: Any) -> dict[str, Any]:
         interaction = self._query(
             query_id="interaction_route_projection",
-            sql=("SELECT interaction_id,channel,colleague_id,detected_language,started_at_utc,ended_at_utc "
+            sql=("SELECT interaction_id,channel,colleague_id,customer_id,account_id,direction,callback_request_id,"
+                 "detected_language,started_at_utc,ended_at_utc "
                  "FROM interactions WHERE interaction_id=? AND available_at<=?"),
             parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
             filters={"interaction_id": interaction_id, "available_at_lte": context["virtual_now"].isoformat()},
@@ -114,11 +115,41 @@ class OperationalRepository:
             parameters=(interaction_id,), filters={"interaction_id": interaction_id},
             id_column="turn_id", **context,
         )
+        account_id = interaction[0].get("account_id")
+        hardship_flags: list[dict[str, Any]] = []
+        installment_plans: list[dict[str, Any]] = []
+        if account_id:
+            hardship_flags = self._query(
+                query_id="hardship_flag_route_projection",
+                sql=("SELECT flag_id,flag FROM account_flags WHERE account_id=? AND flag='HARDSHIP_ACTIVE' "
+                     "AND set_at<=? AND (cleared_at IS NULL OR cleared_at='' OR cleared_at>?) AND available_at<=?"),
+                parameters=(account_id, context["virtual_now"].isoformat().replace("+00:00", "Z"),
+                            context["virtual_now"].isoformat().replace("+00:00", "Z"),
+                            context["virtual_now"].isoformat().replace("+00:00", "Z")),
+                filters={"account_id": account_id}, id_column="flag_id", **context,
+            )
+            installment_plans = self._query(
+                query_id="installment_plan_route_projection",
+                sql="SELECT plan_id FROM installment_plans WHERE interaction_id=? AND available_at<=?",
+                parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+                filters={"interaction_id": interaction_id}, id_column="plan_id", **context,
+            )
+        preferences: list[dict[str, Any]] = []
+        customer_id = interaction[0].get("customer_id")
+        if customer_id:
+            preferences = self._query(
+                query_id="do_not_solicit_preference_route_projection",
+                sql=("SELECT pref_id,sync_status FROM preferences WHERE customer_id=? AND preference='DO_NOT_SOLICIT' "
+                     "AND value='true' AND set_at<=? AND available_at<=?"),
+                parameters=(customer_id, context["virtual_now"].isoformat().replace("+00:00", "Z"),
+                            context["virtual_now"].isoformat().replace("+00:00", "Z")),
+                filters={"customer_id": customer_id}, id_column="pref_id", **context,
+            )
         return {
             "interaction": interaction[0],
             "credit_line_request_present": bool(credit),
             "inquiry_type": inquiry[0]["inquiry_type"] if inquiry else None,
-            "addon_enrollment_present": any(row["product"] in {"CARDSHIELD", "CREDITWATCH"} for row in enrollments),
+            "addon_enrollment_present": any(row["product"] in {"CARDSHIELD", "CREDITWATCH", "CREDITWATCH_PLUS"} for row in enrollments),
             "transcript_integrity_review_needed": any(
                 row["rule_id"] == "SCN-CONSENT-NEG-ENROLL" for row in scanner_flags
             ),
@@ -128,6 +159,15 @@ class OperationalRepository:
             ),
             "fee_reversal_event_present": any(row["type"] == "fee_reversal_submitted" for row in desktop),
             "script_credit_score_assurance_present": bool(script_hit),
+            "outbound_call": interaction[0].get("direction") == "outbound",
+            "callback_candidate_present": bool(interaction[0].get("callback_request_id")),
+            "hardship_active_present": bool(hardship_flags),
+            "installment_plan_present": bool(installment_plans),
+            "credit_product_offered_present": any(row["product"] in {"CARDSHIELD", "CREDITWATCH", "CREDITWATCH_PLUS"} for row in enrollments) or bool(installment_plans),
+            "addon_enrollment_product": next(
+                (row["product"] for row in enrollments if row["product"] in {"CARDSHIELD", "CREDITWATCH", "CREDITWATCH_PLUS"}), None,
+            ),
+            "preference_do_not_solicit_present": bool(preferences),
             "scanner_flags": scanner_flags,
         }
 
@@ -251,6 +291,65 @@ class OperationalRepository:
             raise LookupError(rule_id)
         return rows[0]
 
+    def callback_request(self, callback_request_id: str, **context: Any) -> dict[str, Any]:
+        rows = self._query(
+            query_id="callback_request_by_id",
+            sql="SELECT * FROM callback_requests WHERE callback_request_id=? AND available_at<=?",
+            parameters=(callback_request_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"callback_request_id": callback_request_id}, id_column="callback_request_id", **context,
+        )
+        if len(rows) != 1:
+            raise LookupError(callback_request_id)
+        return rows[0]
+
+    def preference(self, customer_id: str, preference: str | None, **context: Any) -> list[dict[str, Any]]:
+        clauses = ["customer_id=?", "available_at<=?"]
+        parameters: list[Any] = [customer_id, context["virtual_now"].isoformat().replace("+00:00", "Z")]
+        if preference is not None:
+            clauses.append("preference=?")
+            parameters.append(preference)
+        return self._query(
+            query_id="preferences_for_customer",
+            sql=f"SELECT * FROM preferences WHERE {' AND '.join(clauses)} ORDER BY set_at",
+            parameters=tuple(parameters), filters={"customer_id": customer_id, "preference": preference},
+            id_column="pref_id", **context,
+        )
+
+    def incident(self, incident_id: str, **context: Any) -> dict[str, Any]:
+        rows = self._query(
+            query_id="incident_by_id",
+            sql="SELECT * FROM incidents WHERE incident_id=? AND available_at<=?",
+            parameters=(incident_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"incident_id": incident_id}, id_column="incident_id", **context,
+        )
+        if len(rows) != 1:
+            raise LookupError(incident_id)
+        return rows[0]
+
+    def account_flag(self, account_id: str, flag: str | None, **context: Any) -> list[dict[str, Any]]:
+        clauses = ["account_id=?", "available_at<=?"]
+        parameters: list[Any] = [account_id, context["virtual_now"].isoformat().replace("+00:00", "Z")]
+        if flag is not None:
+            clauses.append("flag=?")
+            parameters.append(flag)
+        return self._query(
+            query_id="account_flags_for_account",
+            sql=f"SELECT * FROM account_flags WHERE {' AND '.join(clauses)} ORDER BY set_at",
+            parameters=tuple(parameters), filters={"account_id": account_id, "flag": flag},
+            id_column="flag_id", **context,
+        )
+
+    def installment_plan(self, plan_id: str, **context: Any) -> dict[str, Any]:
+        rows = self._query(
+            query_id="installment_plan_by_id",
+            sql="SELECT * FROM installment_plans WHERE plan_id=? AND available_at<=?",
+            parameters=(plan_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"plan_id": plan_id}, id_column="plan_id", **context,
+        )
+        if len(rows) != 1:
+            raise LookupError(plan_id)
+        return rows[0]
+
     def precedent(self, precedent_id: str, **context: Any) -> dict[str, Any]:
         rows = self._query(
             query_id="precedent_by_id",
@@ -330,7 +429,7 @@ class OperationalRepository:
         )
         return rows
 
-    _REGISTERED_QUERIES: dict[str, str] = {
+    _REGISTERED_QUERIES: dict[str, tuple[str, tuple[str, ...], str]] = {
         "cli_hard_inquiry_population": (
             "SELECT i.interaction_id,i.colleague_id,cr.credit_request_id,bi.inquiry_id,bi.inquiry_type,t.turn_id,t.text "
             "FROM interactions i "
@@ -340,7 +439,7 @@ class OperationalRepository:
             "WHERE bi.inquiry_type='HARD' "
             "AND i.started_at_utc>=? AND i.started_at_utc<=? "
             "AND t.text LIKE '%credit score%' "
-            "ORDER BY i.interaction_id"
+            "ORDER BY i.interaction_id", ("from_at", "to_at"), "interaction_id",
         ),
         "cli_hard_inquiry_excluded_warnings": (
             "SELECT i.interaction_id,i.colleague_id,t.turn_id,t.text "
@@ -351,21 +450,42 @@ class OperationalRepository:
             "WHERE bi.inquiry_type='HARD' "
             "AND i.started_at_utc>=? AND i.started_at_utc<=? "
             "AND t.text NOT LIKE '%credit score%' "
-            "ORDER BY i.interaction_id"
+            "ORDER BY i.interaction_id", ("from_at", "to_at"), "interaction_id",
+        ),
+        "preference_sync_incident_population": (
+            "SELECT DISTINCT i.interaction_id,i.customer_id "
+            "FROM interactions i "
+            "JOIN preferences p ON p.customer_id=i.customer_id AND p.preference='DO_NOT_SOLICIT' "
+            "AND p.value='true' AND p.sync_status='delayed' "
+            "JOIN offers o ON o.interaction_id=i.interaction_id "
+            "WHERE i.channel='phone' AND i.started_at_utc>=? AND i.started_at_utc<=? "
+            "AND p.set_at<=i.started_at_utc AND p.synced_to_desktop_at>i.started_at_utc "
+            "ORDER BY i.interaction_id", ("from_at", "to_at"), "interaction_id",
+        ),
+        "creditwatch_post_call_lookback": (
+            "SELECT e.enrollment_id,e.source_interaction_id,e.enrolled_at_local,e.enrolled_tz,i.ended_at_utc "
+            "FROM enrollments e JOIN interactions i ON i.interaction_id=e.source_interaction_id "
+            "WHERE e.source_colleague_id=? AND e.product='CREDITWATCH_PLUS' "
+            "AND e.source_interaction_id!=? AND e.enrolled_at_local>=? "
+            "ORDER BY e.enrollment_id", ("colleague_id", "exclude_interaction_id", "from_at"), "enrollment_id",
         ),
     }
 
     def run_registered_query(
         self, query_id: str, parameters: dict[str, Any], as_of: str, row_limit: int, **context: Any,
     ) -> list[dict[str, Any]]:
-        template = self._REGISTERED_QUERIES.get(query_id)
-        if template is None:
+        entry = self._REGISTERED_QUERIES.get(query_id)
+        if entry is None:
             raise KeyError(query_id)
-        bound = (parameters.get("from_at", "2026-10-01T00:00:00Z"), parameters.get("to_at", as_of))
+        template, param_names, id_column = entry
+        defaults = {"from_at": "2026-10-01T00:00:00Z", "to_at": as_of}
+        bound = tuple(parameters.get(name, defaults.get(name)) for name in param_names)
+        if any(value is None for value in bound):
+            raise KeyError(f"missing required parameter for {query_id}")
         with sqlite3.connect(f"file:{self._database}?mode=ro", uri=True) as conn:
             conn.row_factory = sqlite3.Row
             rows = [dict(row) for row in conn.execute(template, bound).fetchmany(row_limit)]
-        row_ids = [row["interaction_id"] for row in rows]
+        row_ids = [row[id_column] for row in rows]
         self._ledger.emit(
             run_id=context["run_id"], review_id=context["review_id"], virtual_now=context["virtual_now"],
             actor=Actor(kind="data", name="operational_sql"), type=EventType.SQL_QUERY,
