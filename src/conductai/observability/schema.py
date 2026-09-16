@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from conductai.domain.models import AssessmentRecord
+from conductai.domain.models import AssessmentRecord, SelectionRecord
 from conductai.observability.events import EventType, RunEvent
 
 
@@ -17,4 +17,7 @@ def export_schemas(directory: Path) -> None:
     (directory / "run-event-v1.schema.json").write_text(json.dumps(event_schema, indent=2) + "\n", encoding="utf-8")
     (directory / "assessment-record-v1.schema.json").write_text(
         json.dumps(AssessmentRecord.model_json_schema(), indent=2) + "\n", encoding="utf-8"
+    )
+    (directory / "selection-record-v1.schema.json").write_text(
+        json.dumps(SelectionRecord.model_json_schema(), indent=2) + "\n", encoding="utf-8"
     )

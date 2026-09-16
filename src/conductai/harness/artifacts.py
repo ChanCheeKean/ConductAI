@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 from conductai.domain.models import Actor
 from conductai.observability.events import EventType
 from conductai.observability.ledger import EventLedger, canonical_json
+from conductai.runtime.deadlines import add_business_days
 
 
 _DIRECTORIES = {
@@ -72,6 +73,9 @@ class ArtifactHarness:
             expected = virtual_now + timedelta(hours=int(schedule["delay_hours"]))
         elif schedule["release"] == "fixed_available_at":
             expected = _parse(schedule["available_at"])
+        elif schedule["release"] == "request_time_plus_business_days":
+            expected_date = add_business_days(_iso(virtual_now), int(schedule["delay_business_days"]))
+            expected = datetime.combine(date.fromisoformat(expected_date), virtual_now.timetz())
         else:
             raise ValueError(f"unsupported release rule: {schedule['release']}")
         latest = _parse(respond_by)

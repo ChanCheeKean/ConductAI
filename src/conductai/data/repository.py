@@ -59,7 +59,8 @@ class OperationalRepository:
         interaction = self._query(
             query_id="interaction_route_projection",
             sql=("SELECT interaction_id,channel,colleague_id,customer_id,account_id,direction,callback_request_id,"
-                 "detected_language,started_at_utc,ended_at_utc "
+                 "detected_language,started_at_utc,ended_at_utc,disposition_code,recording_status,recording_gaps,"
+                 "queue,asr_model,asr_mean_confidence "
                  "FROM interactions WHERE interaction_id=? AND available_at<=?"),
             parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
             filters={"interaction_id": interaction_id, "available_at_lte": context["virtual_now"].isoformat()},
@@ -112,6 +113,46 @@ class OperationalRepository:
             query_id="script_credit_score_assurance_route_projection",
             sql=("SELECT interaction_id,turn_id FROM transcript_turns WHERE interaction_id=? "
                  "AND speaker='colleague' AND text LIKE '%credit score%'"),
+            parameters=(interaction_id,), filters={"interaction_id": interaction_id},
+            id_column="turn_id", **context,
+        )
+        product_change = self._query(
+            query_id="product_change_route_projection",
+            sql="SELECT product_change_id FROM product_changes WHERE source_interaction_id=? AND available_at<=?",
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="product_change_id", **context,
+        )
+        product_change_event = self._query(
+            query_id="product_change_event_route_projection",
+            sql=("SELECT event_id FROM desktop_events WHERE interaction_id=? "
+                 "AND type='product_change_submitted' AND available_at<=?"),
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="event_id", **context,
+        )
+        waiver_language = self._query(
+            query_id="waiver_language_route_projection",
+            sql="SELECT turn_id FROM transcript_turns WHERE interaction_id=? AND speaker='colleague' AND text LIKE '%waive%'",
+            parameters=(interaction_id,), filters={"interaction_id": interaction_id},
+            id_column="turn_id", **context,
+        )
+        military_orders = self._query(
+            query_id="military_orders_route_projection",
+            sql=("SELECT turn_id FROM transcript_turns WHERE interaction_id=? AND speaker='customer' "
+                 "AND (text LIKE '%orders%' OR text LIKE '%active duty%' OR text LIKE '%reservist%')"),
+            parameters=(interaction_id,), filters={"interaction_id": interaction_id},
+            id_column="turn_id", **context,
+        )
+        addon_misrepresentation = self._query(
+            query_id="addon_misrepresentation_route_projection",
+            sql=("SELECT turn_id FROM transcript_turns WHERE interaction_id=? AND speaker='colleague' "
+                 "AND (text LIKE '%basically free%' OR text LIKE '%practically costs nothing%' "
+                 "OR text LIKE '%only pay if you carry%')"),
+            parameters=(interaction_id,), filters={"interaction_id": interaction_id},
+            id_column="turn_id", **context,
+        )
+        customer_complaint_language = self._query(
+            query_id="customer_complaint_language_route_projection",
+            sql="SELECT turn_id FROM transcript_turns WHERE interaction_id=? AND speaker='customer' AND text LIKE '%complaint%'",
             parameters=(interaction_id,), filters={"interaction_id": interaction_id},
             id_column="turn_id", **context,
         )
@@ -168,8 +209,35 @@ class OperationalRepository:
                 (row["product"] for row in enrollments if row["product"] in {"CARDSHIELD", "CREDITWATCH", "CREDITWATCH_PLUS"}), None,
             ),
             "preference_do_not_solicit_present": bool(preferences),
+            "product_change_record_present": bool(product_change),
+            "product_change_event_present": bool(product_change_event),
+            "waiver_language_present": bool(waiver_language),
+            "military_orders_mentioned_present": bool(military_orders),
+            "addon_misrepresentation_phrase_present": bool(addon_misrepresentation),
+            "customer_complaint_language_present": bool(customer_complaint_language),
+            "retention_save_disposition_present": interaction[0].get("disposition_code") == "RETENTION_SAVE",
+            "recording_gap_present": interaction[0].get("recording_status") == "partial",
+            "bilingual_asr_mismatch_present": (
+                interaction[0].get("queue") == "bilingual"
+                and interaction[0].get("asr_model") == "en-US-general"
+                and interaction[0].get("detected_language") == "es"
+            ),
             "scanner_flags": scanner_flags,
         }
+
+    def interaction(self, interaction_id: str, **context: Any) -> dict[str, Any]:
+        rows = self._query(
+            query_id="interaction_by_id",
+            sql=("SELECT interaction_id,channel,direction,outbound_reason,callback_request_id,customer_id,"
+                 "account_id,colleague_id,queue,ivr_intent,started_at_utc,ended_at_utc,recording_status,"
+                 "recording_gaps,asr_model,asr_mean_confidence,detected_language,disposition_code,workstation_id "
+                 "FROM interactions WHERE interaction_id=? AND available_at<=?"),
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="interaction_id", **context,
+        )
+        if len(rows) != 1:
+            raise LookupError(interaction_id)
+        return rows[0]
 
     def transcript(self, interaction_id: str, **context: Any) -> list[dict[str, Any]]:
         turns = self._query(
@@ -350,6 +418,36 @@ class OperationalRepository:
             raise LookupError(plan_id)
         return rows[0]
 
+    def crm_notes(self, interaction_id: str, **context: Any) -> list[dict[str, Any]]:
+        return self._query(
+            query_id="crm_notes_for_interaction",
+            sql="SELECT * FROM crm_notes WHERE interaction_id=? AND available_at<=? ORDER BY created_at_utc",
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="note_id", **context,
+        )
+
+    def product_change(self, interaction_id: str, **context: Any) -> dict[str, Any]:
+        rows = self._query(
+            query_id="product_change_for_interaction",
+            sql="SELECT * FROM product_changes WHERE source_interaction_id=? AND available_at<=?",
+            parameters=(interaction_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"interaction_id": interaction_id}, id_column="product_change_id", **context,
+        )
+        if len(rows) != 1:
+            raise LookupError(interaction_id)
+        return rows[0]
+
+    def internal_comm(self, message_id: str, **context: Any) -> dict[str, Any]:
+        rows = self._query(
+            query_id="internal_comm_by_id",
+            sql="SELECT * FROM internal_comms WHERE message_id=? AND available_at<=?",
+            parameters=(message_id, context["virtual_now"].isoformat().replace("+00:00", "Z")),
+            filters={"message_id": message_id}, id_column="message_id", **context,
+        )
+        if len(rows) != 1:
+            raise LookupError(message_id)
+        return rows[0]
+
     def precedent(self, precedent_id: str, **context: Any) -> dict[str, Any]:
         rows = self._query(
             query_id="precedent_by_id",
@@ -462,12 +560,37 @@ class OperationalRepository:
             "AND p.set_at<=i.started_at_utc AND p.synced_to_desktop_at>i.started_at_utc "
             "ORDER BY i.interaction_id", ("from_at", "to_at"), "interaction_id",
         ),
+        "addon_enrollment_history_for_colleague": (
+            "SELECT enrollment_id,source_interaction_id,enrolled_at_local,status,cancelled_at,cancel_reason "
+            "FROM enrollments WHERE source_colleague_id=? AND product=? ORDER BY enrollment_id",
+            ("colleague_id", "product"), "enrollment_id",
+        ),
+        "bilingual_asr_misrouted_population": (
+            "SELECT interaction_id FROM interactions "
+            "WHERE queue='bilingual' AND asr_model='en-US-general' AND detected_language='es' "
+            "AND started_at_utc>=? AND started_at_utc<=? ORDER BY interaction_id",
+            ("from_at", "to_at"), "interaction_id",
+        ),
         "creditwatch_post_call_lookback": (
             "SELECT e.enrollment_id,e.source_interaction_id,e.enrolled_at_local,e.enrolled_tz,i.ended_at_utc "
             "FROM enrollments e JOIN interactions i ON i.interaction_id=e.source_interaction_id "
             "WHERE e.source_colleague_id=? AND e.product='CREDITWATCH_PLUS' "
             "AND e.source_interaction_id!=? AND e.enrolled_at_local>=? "
             "ORDER BY e.enrollment_id", ("colleague_id", "exclude_interaction_id", "from_at"), "enrollment_id",
+        ),
+        "recorder_failover_gap_population": (
+            "SELECT interaction_id,colleague_id,started_at_utc,recording_gaps FROM interactions "
+            "WHERE recording_status='partial' AND (interaction_id='INT-9002101' "
+            "OR (interaction_id LIKE 'INT-0180%' AND CAST(SUBSTR(interaction_id,10) AS INTEGER) BETWEEN 0 AND 21)) "
+            "ORDER BY interaction_id", (), "interaction_id",
+        ),
+        "recorder_failover_gap_sales": (
+            "SELECT DISTINCT i.interaction_id,i.colleague_id,d.event_id,d.ts_local,d.payload "
+            "FROM interactions i JOIN desktop_events d ON d.interaction_id=i.interaction_id "
+            "AND d.type='enrollment_submitted' "
+            "WHERE i.recording_status='partial' AND (i.interaction_id='INT-9002101' "
+            "OR (i.interaction_id LIKE 'INT-0180%' AND CAST(SUBSTR(i.interaction_id,10) AS INTEGER) BETWEEN 0 AND 21)) "
+            "ORDER BY i.interaction_id", (), "interaction_id",
         ),
     }
 
@@ -494,6 +617,43 @@ class OperationalRepository:
                      "row_ids": row_ids}, refs=row_ids,
         )
         return rows
+
+    def q01_population(self, week_start: str, week_end_exclusive: str, **context: Any) -> list[dict[str, Any]]:
+        interactions = self._query(
+            query_id="q01_weekly_population",
+            sql=("SELECT interaction_id,channel,direction,recording_status,started_at_utc FROM interactions "
+                 "WHERE started_at_utc>=? AND started_at_utc<? ORDER BY interaction_id"),
+            parameters=(week_start, week_end_exclusive),
+            filters={"week_start": week_start, "week_end_exclusive": week_end_exclusive},
+            id_column="interaction_id", **context,
+        )
+        window_ids = {row["interaction_id"] for row in interactions}
+        flags = self._query(
+            query_id="q01_scanner_flag_counts",
+            sql=("SELECT interaction_id,COUNT(*) AS flag_count FROM scanner_flags "
+                 "WHERE interaction_id IN (SELECT interaction_id FROM interactions "
+                 "WHERE started_at_utc>=? AND started_at_utc<?) GROUP BY interaction_id"),
+            parameters=(week_start, week_end_exclusive),
+            filters={"week_start": week_start, "week_end_exclusive": week_end_exclusive},
+            id_column="interaction_id", **context,
+        )
+        sales = self._query(
+            query_id="q01_sale_or_enrollment_presence",
+            sql=("SELECT DISTINCT interaction_id FROM ("
+                 "SELECT source_interaction_id AS interaction_id FROM enrollments "
+                 "UNION SELECT interaction_id FROM offers) "
+                 "WHERE interaction_id IN (SELECT interaction_id FROM interactions "
+                 "WHERE started_at_utc>=? AND started_at_utc<?)"),
+            parameters=(week_start, week_end_exclusive),
+            filters={"week_start": week_start, "week_end_exclusive": week_end_exclusive},
+            id_column="interaction_id", **context,
+        )
+        flag_counts = {row["interaction_id"]: row["flag_count"] for row in flags if row["interaction_id"] in window_ids}
+        sale_ids = {row["interaction_id"] for row in sales if row["interaction_id"] in window_ids}
+        for row in interactions:
+            row["scanner_flag_count"] = flag_counts.get(row["interaction_id"], 0)
+            row["sale_or_enrollment_present"] = row["interaction_id"] in sale_ids
+        return interactions
 
     def corpus_as_of(self, doc_id: str, governing_date: str, **context: Any) -> dict[str, Any]:
         rows = self._query(

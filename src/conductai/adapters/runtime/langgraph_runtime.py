@@ -94,12 +94,60 @@ class GraphState(TypedDict, total=False):
     desktop_showed_flag: bool
     population_customers: list[str]
     keep_transfer: bool
+    af_refund_window: str
+    confirmed_close: bool
     enrolled_at_utc: str
     gap_seconds: float
+    disclosure_wpm: float
+    price_question_answered: bool
+    gather_event_seq: int
+    computed_fee: str
+    fee_disclosed_same_turn: bool
+    recovered_transcript_words: int
+    already_entitled: bool
+    conditioned_on_addon: bool
+    enrollment: dict[str, Any]
+    fee_row: dict[str, Any]
+    disposition_code: str
+    disposition_contradicts_transcript: bool
+    obstruction_present: bool
+    referral_opened: bool
+    cancellation_rate: float
+    enrollment_count: int
+    decisive_evidence_coverage: float
+    decisive_transcript_quality: float
+    tombstone_id: str
+    indicators: dict[str, bool]
+    indicator_count: int
+    trigger_status: str
+    substantiated_ids: list[str]
+    insufficient_ids: list[str]
+    no_error_ids: list[str]
+    observed_cancellations: int
+    binomial_pvalue: float
+    graph_write_event_seq: int
     assessment: dict[str, Any]
     assessment_event_seq: int
     termination: str | None
     status: str
+    fanout_seqs: list[int]
+    deadline_event_seqs: list[int]
+    gap_overlaps_enrollment: bool
+    gap_bounds: list[int]
+    decisive_turns_count: int
+    sales_during_gap_count: int
+    waits_history: list[dict[str, Any]]
+    conservative_default_event_seq: int
+    transcript_silent_on_product_change: bool
+    colleague_statement_adds_new_fact: bool
+    colleague_statement_request: dict[str, Any]
+    colleague_statement_latest_safe_decision: str
+    colleague_statement_arrived_at: str
+    outreach_request: dict[str, Any]
+    outreach_latest_safe_decision: str
+    outreach_arrived_at: str
+    reverse_requested: bool
+    fee_still_waived: bool
 
 
 class LangGraphRuntime:

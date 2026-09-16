@@ -113,7 +113,8 @@
         "error",
         "fallback",
         "cancelled",
-        "evaluation_check"
+        "evaluation_check",
+        "selection_recorded"
       ],
       "title": "EventType",
       "type": "string"
@@ -357,6 +358,7 @@
     "error",
     "fallback",
     "cancelled",
-    "evaluation_check"
+    "evaluation_check",
+    "selection_recorded"
   ]
 }

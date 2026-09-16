@@ -33,98 +33,6 @@
       "title": "Budget",
       "type": "object"
     },
-    "Finding": {
-      "additionalProperties": false,
-      "properties": {
-        "finding_id": {
-          "title": "Finding Id",
-          "type": "string"
-        },
-        "category": {
-          "title": "Category",
-          "type": "string"
-        },
-        "status": {
-          "enum": [
-            "substantiated",
-            "unsubstantiated",
-            "control_gap",
-            "no_error",
-            "insufficient_evidence"
-          ],
-          "title": "Status",
-          "type": "string"
-        },
-        "attributable_to": {
-          "enum": [
-            "colleague",
-            "script",
-            "system",
-            "supervisor_material",
-            "none"
-          ],
-          "title": "Attributable To",
-          "type": "string"
-        },
-        "severity": {
-          "enum": [
-            "low",
-            "medium",
-            "high"
-          ],
-          "title": "Severity",
-          "type": "string"
-        },
-        "interaction_id": {
-          "title": "Interaction Id",
-          "type": "string"
-        },
-        "evidence_spans": {
-          "items": {
-            "additionalProperties": true,
-            "type": "object"
-          },
-          "title": "Evidence Spans",
-          "type": "array"
-        },
-        "structured_evidence": {
-          "items": {
-            "additionalProperties": true,
-            "type": "object"
-          },
-          "title": "Structured Evidence",
-          "type": "array"
-        },
-        "policy_refs": {
-          "items": {
-            "additionalProperties": true,
-            "type": "object"
-          },
-          "title": "Policy Refs",
-          "type": "array"
-        },
-        "confidence": {
-          "maximum": 1,
-          "minimum": 0,
-          "title": "Confidence",
-          "type": "number"
-        }
-      },
-      "required": [
-        "finding_id",
-        "category",
-        "status",
-        "attributable_to",
-        "severity",
-        "interaction_id",
-        "evidence_spans",
-        "structured_evidence",
-        "policy_refs",
-        "confidence"
-      ],
-      "title": "Finding",
-      "type": "object"
-    },
     "Provenance": {
       "additionalProperties": false,
       "properties": {
@@ -255,6 +163,74 @@
       ],
       "title": "RouteDecision",
       "type": "object"
+    },
+    "SelectionCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "interaction_id": {
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "channel": {
+          "enum": [
+            "phone",
+            "chat",
+            "secure_message"
+          ],
+          "title": "Channel",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "features": {
+          "additionalProperties": true,
+          "title": "Features",
+          "type": "object"
+        },
+        "stratum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stratum"
+        },
+        "rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rank"
+        },
+        "selection_reason": {
+          "enum": [
+            "risk_ranked",
+            "random_stratified"
+          ],
+          "title": "Selection Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "channel",
+        "score",
+        "features",
+        "selection_reason"
+      ],
+      "title": "SelectionCandidate",
+      "type": "object"
     }
   },
   "additionalProperties": false,
@@ -272,98 +248,71 @@
       "title": "Review Id",
       "type": "string"
     },
-    "interaction_ids": {
-      "items": {
-        "type": "string"
-      },
-      "title": "Interaction Ids",
-      "type": "array"
-    },
     "route": {
       "$ref": "#/$defs/RouteDecision"
     },
-    "findings": {
-      "items": {
-        "$ref": "#/$defs/Finding"
-      },
-      "title": "Findings",
-      "type": "array"
-    },
-    "customer_outcome": {
-      "additionalProperties": true,
-      "title": "Customer Outcome",
-      "type": "object"
-    },
-    "colleague_outcome": {
-      "additionalProperties": true,
-      "title": "Colleague Outcome",
-      "type": "object"
-    },
-    "control_outcome": {
-      "additionalProperties": true,
-      "title": "Control Outcome",
-      "type": "object"
-    },
-    "adjudication": {
-      "additionalProperties": true,
-      "title": "Adjudication",
-      "type": "object"
-    },
-    "waits": {
-      "items": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "title": "Waits",
-      "type": "array"
-    },
-    "memory_ops": {
-      "items": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "title": "Memory Ops",
-      "type": "array"
-    },
-    "graph_writes": {
-      "items": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "title": "Graph Writes",
-      "type": "array"
-    },
-    "hypotheses": {
-      "items": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "title": "Hypotheses",
-      "type": "array"
-    },
-    "citations": {
-      "items": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "title": "Citations",
-      "type": "array"
-    },
-    "summary_for_record": {
-      "title": "Summary For Record",
+    "week_start": {
+      "title": "Week Start",
       "type": "string"
     },
-    "customer_letter": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Customer Letter"
+    "week_end": {
+      "title": "Week End",
+      "type": "string"
+    },
+    "capacity": {
+      "title": "Capacity",
+      "type": "integer"
+    },
+    "risk_capacity": {
+      "title": "Risk Capacity",
+      "type": "integer"
+    },
+    "random_capacity": {
+      "title": "Random Capacity",
+      "type": "integer"
+    },
+    "seed": {
+      "title": "Seed",
+      "type": "integer"
+    },
+    "population_count": {
+      "title": "Population Count",
+      "type": "integer"
+    },
+    "risk_ranked_picks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Risk Ranked Picks",
+      "type": "array"
+    },
+    "random_stratified_picks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Random Stratified Picks",
+      "type": "array"
+    },
+    "selected_reviews": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Selected Reviews",
+      "type": "array"
+    },
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/SelectionCandidate"
+      },
+      "title": "Candidates",
+      "type": "array"
+    },
+    "prohibited_features_checked": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Prohibited Features Checked",
+      "type": "array"
     },
     "field_provenance": {
       "additionalProperties": {
@@ -376,16 +325,21 @@
   "required": [
     "run_id",
     "review_id",
-    "interaction_ids",
     "route",
-    "findings",
-    "customer_outcome",
-    "colleague_outcome",
-    "control_outcome",
-    "adjudication",
-    "summary_for_record",
+    "week_start",
+    "week_end",
+    "capacity",
+    "risk_capacity",
+    "random_capacity",
+    "seed",
+    "population_count",
+    "risk_ranked_picks",
+    "random_stratified_picks",
+    "selected_reviews",
+    "candidates",
+    "prohibited_features_checked",
     "field_provenance"
   ],
-  "title": "AssessmentRecord",
+  "title": "SelectionRecord",
   "type": "object"
 }

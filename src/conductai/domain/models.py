@@ -51,7 +51,7 @@ class Provenance(StrictModel):
 class Finding(StrictModel):
     finding_id: str
     category: str
-    status: Literal["substantiated", "unsubstantiated", "control_gap", "no_error"]
+    status: Literal["substantiated", "unsubstantiated", "control_gap", "no_error", "insufficient_evidence"]
     attributable_to: Literal["colleague", "script", "system", "supervisor_material", "none"]
     severity: Literal["low", "medium", "high"]
     interaction_id: str
@@ -79,6 +79,36 @@ class AssessmentRecord(StrictModel):
     citations: list[dict[str, Any]] = Field(default_factory=list)
     summary_for_record: str
     customer_letter: str | None = None
+    field_provenance: dict[str, Provenance]
+
+
+class SelectionCandidate(StrictModel):
+    interaction_id: str
+    channel: Literal["phone", "chat", "secure_message"]
+    score: float
+    features: dict[str, Any]
+    stratum: str | None = None
+    rank: int | None = None
+    selection_reason: Literal["risk_ranked", "random_stratified"]
+
+
+class SelectionRecord(StrictModel):
+    schema_version: int = 1
+    run_id: str
+    review_id: str
+    route: RouteDecision
+    week_start: str
+    week_end: str
+    capacity: int
+    risk_capacity: int
+    random_capacity: int
+    seed: int
+    population_count: int
+    risk_ranked_picks: list[str]
+    random_stratified_picks: list[str]
+    selected_reviews: list[str]
+    candidates: list[SelectionCandidate]
+    prohibited_features_checked: list[str]
     field_provenance: dict[str, Provenance]
 
 

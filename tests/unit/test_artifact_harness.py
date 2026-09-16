@@ -35,6 +35,23 @@ def test_artifact_request_and_release_are_idempotent(project_root, tmp_path):
         harness.release_next("RUN-IDEMPOTENT")
 
 
+def test_colleague_statement_release_advances_one_business_day(project_root, tmp_path):
+    path = tmp_path / "run.sqlite"
+    ledger = EventLedger(path, {"mode": "test"})
+    harness = ArtifactHarness(project_root / "data/generated", path, ledger)
+    request = harness.request_artifact(
+        artifact_id="CST-9000701", interaction_id="INT-9000701", kind="colleague_statement",
+        respond_by="2026-11-17T23:59:59Z", idempotency_key="REV-2026-90007:CST-9000701",
+        run_id="RUN-CST", review_id="REV-2026-90007", virtual_now=datetime(2026, 11, 16, 15, tzinfo=UTC),
+    )
+    assert request["expected_at"] == "2026-11-17T15:00:00Z"
+    release = harness.release_next("RUN-CST")
+    assert release["virtual_now"] == "2026-11-17T15:00:00Z"
+    assert release["arrived"] is True
+    assert release["artifact"]["statement_id"] == "CST-9000701"
+    assert release["artifact"]["text"] == "Customer said whatever you need to do. I explained it on the call."
+
+
 def test_artifact_request_rejects_mismatched_idempotency_reuse(project_root, tmp_path):
     path = tmp_path / "run.sqlite"
     ledger = EventLedger(path, {"mode": "test"})

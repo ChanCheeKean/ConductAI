@@ -8,7 +8,9 @@ from pathlib import Path
 
 import yaml
 
-from conductai.app import build_runtime
+from datetime import UTC, datetime
+
+from conductai.app import build_runtime, build_selector
 from conductai.observability.replay import read_events, replay_assessment
 from conductai.observability.schema import export_schemas
 from conductai.runtime.contracts import RunRequest
@@ -21,6 +23,11 @@ def main() -> None:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("scenario")
     run_parser.add_argument("--ledger", type=Path, default=Path("data/generated/runs.sqlite"))
+    select_parser = subparsers.add_parser("select")
+    select_parser.add_argument("--ledger", type=Path, default=Path("data/generated/runs.sqlite"))
+    select_parser.add_argument("--run-id", default=f"RUN-Q01-{datetime.now(UTC).strftime('%Y%m%dT%H%M%S')}")
+    select_parser.add_argument("--review-id", default="REV-2026-Q01")
+    select_parser.add_argument("--virtual-now", default="2026-11-16T15:00:00Z")
     replay_parser = subparsers.add_parser("replay")
     replay_parser.add_argument("run_id")
     replay_parser.add_argument("--ledger", type=Path, default=Path("data/generated/runs.sqlite"))
@@ -47,6 +54,12 @@ def main() -> None:
         while runtime.result(handle.run_id).status == "suspended":
             list(runtime.resume(handle.run_id))
         print(runtime.result(handle.run_id).model_dump_json(indent=2))
+        return
+    if args.command == "select":
+        selector, _ = build_selector(root, ledger_path)
+        virtual_now = datetime.fromisoformat(args.virtual_now.replace("Z", "+00:00")).astimezone(UTC)
+        selection = selector.run(run_id=args.run_id, review_id=args.review_id, virtual_now=virtual_now)
+        print(selection.model_dump_json(indent=2))
         return
     if args.assessment:
         print(json.dumps(replay_assessment(ledger_path, args.run_id, args.through_seq), indent=2))

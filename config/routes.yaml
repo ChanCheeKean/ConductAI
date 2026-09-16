@@ -3,6 +3,19 @@ defaults:
   classifier_threshold: 0.80
   fallback_route: mixed_ambiguous_l4
 routes:
+  - id: weekly_selection
+    priority: 3
+    match:
+      all:
+        - {field: trigger.type, op: eq, value: weekly_sweep}
+    output:
+      track: portfolio
+      depth: Q01
+      path: weekly_selection
+      budget: {tool_calls: 2000, model_input_tokens: 300000, wall_seconds: 1200, replans: 0}
+      roles: [population_pattern_analyst]
+      skills: []
+      rationale: "The weekly portfolio sweep selects a bounded set of interactions for deep review using only permitted risk signals, plus a protected random slice."
   - id: callback_sale_exception
     priority: 5
     match:
@@ -47,6 +60,21 @@ routes:
       roles: [lead_conduct_reviewer, desktop_records_reconciler]
       skills: [add-on-consent]
       rationale: "A monitoring-service enrollment with no in-call consent turn requires reconciling submission timing against the call's own end time."
+  - id: conditioned_waiver_addon_leverage
+    priority: 19
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: waiver_language_present, op: eq, value: true}
+        - {fact: addon_enrollment_present, op: eq, value: true}
+    output:
+      track: servicing
+      depth: L2
+      path: integrity_direct
+      budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 1}
+      roles: [lead_conduct_reviewer]
+      skills: []
+      rationale: "A colleague-stated fee waiver conditioned on an add-on enrollment in the same conversation requires checking what the customer was already entitled to before the enrollment."
   - id: addon_consent_integrity
     priority: 20
     match:
@@ -62,6 +90,77 @@ routes:
       roles: [lead_conduct_reviewer, transcript_integrity_analyst]
       skills: [add-on-consent]
       rationale: "An add-on enrollment and consent-negative scanner span require an L2 integrity review."
+  - id: recording_gap_addon_review
+    priority: 21
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: recording_gap_present, op: eq, value: true}
+        - {fact: addon_enrollment_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L3
+      path: integrity_wait
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 1}
+      roles: [lead_conduct_reviewer, transcript_integrity_analyst]
+      skills: [add-on-consent]
+      rationale: "An add-on enrollment submitted during a recording gap requires an audio-recovery attempt before any consent finding can be substantiated."
+  - id: addon_misrepresentation_phrase_review
+    priority: 23
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: addon_misrepresentation_phrase_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L4
+      path: integrity_direct
+      budget: {tool_calls: 100, model_input_tokens: 450000, wall_seconds: 900, replans: 2}
+      roles: [lead_conduct_reviewer, population_pattern_analyst, customer_advocate, colleague_advocate, adjudicator, verifier]
+      skills: [add-on-consent, memory-hygiene]
+      rationale: "A stock misrepresentation phrase about an add-on's cost requires checking whether it traces to unapproved shared material across a team, not just this one colleague."
+  - id: uncoded_complaint_handling
+    priority: 25
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: customer_complaint_language_present, op: eq, value: true}
+    output:
+      track: servicing
+      depth: L2
+      path: integrity_direct
+      budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 0}
+      roles: [lead_conduct_reviewer]
+      skills: [complaints]
+      rationale: "A customer's own words expressing dissatisfaction trigger the complaint-handling duty regardless of how the call was disposition-coded or whether the underlying fee was valid."
+  - id: scra_rights_referral
+    priority: 27
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: military_orders_mentioned_present, op: eq, value: true}
+    output:
+      track: servicing
+      depth: L3
+      path: integrity_direct
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 1}
+      roles: [lead_conduct_reviewer, policy_analyst, customer_advocate, colleague_advocate, adjudicator, verifier]
+      skills: [scra]
+      rationale: "A customer mentioning military orders or active duty triggers the SCRA referral duty; misinformation about it requires the rights-misinformation panel path."
+  - id: retention_cancellation_review
+    priority: 29
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: retention_save_disposition_present, op: eq, value: true}
+    output:
+      track: servicing
+      depth: L3
+      path: integrity_direct
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 1}
+      roles: [lead_conduct_reviewer, policy_analyst]
+      skills: [retention]
+      rationale: "A call disposition-coded as a retention save requires checking whether an explicit cancellation request was actually honored."
   - id: conditioned_servicing_event_time
     priority: 30
     match:
@@ -106,6 +205,34 @@ routes:
       roles: [lead_conduct_reviewer, policy_analyst, verifier]
       skills: [balance-transfer-disclosure]
       rationale: "A balance-transfer submission requires reconciling what was said, offered, and billed against the disclosure rule and a candidate precedent."
+  - id: product_change_fee_request
+    priority: 45
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: product_change_event_present, op: eq, value: true}
+    output:
+      track: servicing
+      depth: L4
+      path: integrity_direct
+      budget: {tool_calls: 100, model_input_tokens: 450000, wall_seconds: 900, replans: 3}
+      roles: [lead_conduct_reviewer, desktop_records_reconciler, customer_advocate, colleague_advocate, adjudicator, verifier]
+      skills: [product-change]
+      rationale: "A fee-relief request that the desktop shows was actually resolved by a product change requires checking whether the switch and its consequences were disclosed, not just whether the fee complaint was handled."
+  - id: product_change_vulnerability_review
+    priority: 46
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: product_change_record_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L4
+      path: integrity_direct
+      budget: {tool_calls: 100, model_input_tokens: 450000, wall_seconds: 900, replans: 2}
+      roles: [lead_conduct_reviewer, customer_advocate, colleague_advocate, adjudicator, verifier]
+      skills: [hardship-and-vulnerability]
+      rationale: "A recorded product change with no corresponding real-time desktop event requires checking the call itself for behavioral vulnerability indicators around the upgrade decision."
   - id: cli_prescreened_assurance
     priority: 50
     match:
@@ -150,6 +277,48 @@ routes:
       roles: [lead_conduct_reviewer, policy_analyst, population_pattern_analyst, customer_advocate, colleague_advocate, adjudicator, verifier]
       skills: [credit-line-increase, memory-hygiene]
       rationale: "A credit-score complaint against a script sentence that contradicts the current CLI policy requires root-cause attribution and a systemic population check."
+  - id: addon_colleague_pattern_complaint
+    priority: 61
+    match:
+      all:
+        - {field: trigger.type, op: eq, value: complaint}
+        - {fact: addon_enrollment_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L4
+      path: integrity_direct
+      budget: {tool_calls: 100, model_input_tokens: 450000, wall_seconds: 900, replans: 1}
+      roles: [lead_conduct_reviewer, population_pattern_analyst, customer_advocate, colleague_advocate, adjudicator, verifier]
+      skills: [add-on-consent, memory-hygiene]
+      rationale: "An unauthorized-enrollment complaint against an add-on sale requires checking this colleague's full enrollment history for a pattern, not just the trigger interaction."
+  - id: addon_consent_clean_control
+    priority: 70
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: addon_enrollment_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L2
+      path: integrity_direct
+      budget: {tool_calls: 20, model_input_tokens: 80000, wall_seconds: 180, replans: 0}
+      roles: [lead_conduct_reviewer]
+      skills: [add-on-consent]
+      rationale: "An add-on enrollment with none of the more specific integrity, waiver, gap, or misrepresentation signals is reviewed on its own transcript and any same-colleague pattern already on record, without importing a teammate's pattern."
+  - id: bilingual_asr_quality
+    priority: 75
+    match:
+      all:
+        - {field: trigger.type, op: in, value: [scanner_flag, random_slice]}
+        - {fact: bilingual_asr_mismatch_present, op: eq, value: true}
+    output:
+      track: sales
+      depth: L3
+      path: integrity_wait
+      budget: {tool_calls: 45, model_input_tokens: 180000, wall_seconds: 420, replans: 1}
+      roles: [lead_conduct_reviewer, transcript_integrity_analyst]
+      skills: [multilingual-review]
+      rationale: "A bilingual-queue call transcribed with the wrong ASR model requires re-transcription with the correct language model before any disclosure or glossary finding can be trusted."
   - id: mixed_ambiguous_l4
     priority: 10000
     match: {fallback: true}

@@ -91,6 +91,7 @@ class EventType(StrEnum):
     FALLBACK = "fallback"
     CANCELLED = "cancelled"
     EVALUATION_CHECK = "evaluation_check"
+    SELECTION_RECORDED = "selection_recorded"
 
 
 class RunEvent(StrictModel):

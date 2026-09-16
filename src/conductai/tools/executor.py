@@ -48,6 +48,10 @@ class ScannerRuleArgs(ToolArgs):
     rule_id: str
 
 
+class MessageIdArgs(ToolArgs):
+    message_id: str
+
+
 class WorkstationClockOffsetArgs(ToolArgs):
     workstation_id: str
 
@@ -143,6 +147,7 @@ class ToolExecutor:
         self._ledger = ledger
         self._tools: dict[str, tuple[type[ToolArgs], Callable[..., Any]]] = {
             "get_route_facts": (InteractionArgs, repository.route_facts),
+            "get_interaction": (InteractionArgs, repository.interaction),
             "get_transcript": (InteractionArgs, repository.transcript),
             "get_enrollments": (InteractionArgs, repository.enrollments),
             "get_desktop_events": (InteractionArgs, repository.desktop_events),
@@ -164,6 +169,9 @@ class ToolExecutor:
             "get_incident": (IncidentArgs, repository.incident),
             "get_account_flag": (AccountFlagArgs, repository.account_flag),
             "get_installment_plan": (InstallmentPlanArgs, repository.installment_plan),
+            "get_crm_notes": (InteractionArgs, repository.crm_notes),
+            "get_product_change": (InteractionArgs, repository.product_change),
+            "get_internal_comm": (MessageIdArgs, repository.internal_comm),
         }
         if request_artifact is not None:
             self._tools["request_artifact"] = (RequestArtifactArgs, request_artifact)

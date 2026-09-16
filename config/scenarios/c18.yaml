@@ -1,0 +1,9 @@
+schema_version: 1
+scenario_id: C18
+review_id: REV-2026-90021
+interaction_ids: [INT-9002101]
+trigger:
+  type: random_slice
+  id: QSEL-2026-90021
+virtual_now: "2026-11-16T15:00:00Z"
+dataset: data/generated/conduct.sqlite

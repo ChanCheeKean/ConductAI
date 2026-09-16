@@ -22,6 +22,17 @@ def latest_safe_decision(interaction_date: str, trigger_date: str, business_days
     return current.isoformat()
 
 
+def add_business_days(start: str, business_days: int) -> str:
+    """Walk forward N business days (skipping weekends and bank holidays) from a UTC timestamp or date."""
+    current = date.fromisoformat(start[:10])
+    remaining = business_days
+    while remaining:
+        current += timedelta(days=1)
+        if current.weekday() < 5 and current not in _HOLIDAYS:
+            remaining -= 1
+    return current.isoformat()
+
+
 def business_days_between(start_date: str, end_date: str) -> int:
     """Count business days strictly after start_date up to and including end_date."""
     current = date.fromisoformat(start_date[:10])

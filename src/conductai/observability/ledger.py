@@ -19,8 +19,11 @@ from conductai.observability.events import EventType, RunEvent
 
 
 _SECRET = re.compile(r"(?i)(sk-[a-z0-9_-]{12,}|bearer\s+[a-z0-9._-]{12,})")
-_PAN = re.compile(r"\b(?:\d[ -]*?){13,19}\b")
-_SSN = re.compile(r"\b\d{3}-\d{2}-\d{4}\b")
+# Bounded by "not adjacent to a word character or hyphen" (not just \b) so a PAN-length digit run
+# embedded inside a longer hyphenated token (a UUID such as a run_id/event_id) is never matched;
+# a real PAN is always a standalone token bounded by quotes, spaces, or other punctuation.
+_PAN = re.compile(r"(?<![\w-])(?:\d[ -]*?){13,19}(?<=\d)(?![\w-])")
+_SSN = re.compile(r"(?<![\w-])\d{3}-\d{2}-\d{4}(?![\w-])")
 
 
 def canonical_json(value: Any) -> str:
@@ -56,6 +59,10 @@ class EventLedger:
             );
             CREATE TABLE IF NOT EXISTS run_assessments (
                 run_id TEXT PRIMARY KEY, review_id TEXT NOT NULL, assessment_json TEXT NOT NULL,
+                recorded_seq INTEGER NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS run_selections (
+                run_id TEXT PRIMARY KEY, review_id TEXT NOT NULL, selection_json TEXT NOT NULL,
                 recorded_seq INTEGER NOT NULL
             );
             CREATE INDEX IF NOT EXISTS idx_run_events_type ON run_events(run_id, type);
@@ -113,7 +120,7 @@ class EventLedger:
     def emit(
         self, *, run_id: str, review_id: str, virtual_now: datetime, actor: Actor,
         type: EventType | str, summary: str, payload: dict[str, Any], refs: list[str] | None = None,
-        span_id: str | None = None, parent_span_id: str | None = None,
+        span_id: str | None = None, parent_span_id: str | None = None, branch_id: str | None = None,
         checkpoint_id: str | None = None, usage: dict[str, Any] | None = None,
     ) -> RunEvent:
         cleaned, redactions = self._redact(payload)
@@ -128,7 +135,7 @@ class EventLedger:
             base = {
                 "schema_version": 1, "event_id": f"EVT-{uuid.uuid4()}", "run_id": run_id,
                 "review_id": review_id, "seq": seq, "span_id": span_id or f"SPN-{uuid.uuid4()}",
-                "parent_span_id": parent_span_id, "branch_id": None, "checkpoint_id": checkpoint_id,
+                "parent_span_id": parent_span_id, "branch_id": branch_id, "checkpoint_id": checkpoint_id,
                 "ts_wall": wall_now.isoformat().replace("+00:00", "Z"),
                 "ts_virtual": virtual_now.isoformat().replace("+00:00", "Z"),
                 "actor": actor.model_dump(mode="json"),
@@ -162,6 +169,17 @@ class EventLedger:
 
     def assessment(self, run_id: str) -> dict[str, Any] | None:
         row = self._conn.execute("SELECT assessment_json FROM run_assessments WHERE run_id=?", (run_id,)).fetchone()
+        return None if row is None else json.loads(row[0])
+
+    def record_selection(self, run_id: str, review_id: str, selection: dict[str, Any], seq: int) -> None:
+        with self._lock, self._conn:
+            self._conn.execute(
+                "INSERT OR REPLACE INTO run_selections VALUES(?,?,?,?)",
+                (run_id, review_id, canonical_json(selection), seq),
+            )
+
+    def selection(self, run_id: str) -> dict[str, Any] | None:
+        row = self._conn.execute("SELECT selection_json FROM run_selections WHERE run_id=?", (run_id,)).fetchone()
         return None if row is None else json.loads(row[0])
 
     def verify_chain(self, run_id: str) -> bool:
